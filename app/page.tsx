@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
+import HomepagePricing from '@/components/pricing/HomepagePricing'
 import { CheckCircle2, BarChart3, Share2, Bell, Zap, Shield, Globe, ChevronDown, TrendingUp } from 'lucide-react'
 
 const features = [
@@ -298,85 +299,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }} id="pricing">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-14">
-            <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>Simple Pricing</p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Start free. Scale when you&apos;re ready.</h2>
-            <p className="text-slate-500 max-w-md mx-auto">Plans scale with your analysis needs. No hidden fees.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
-            {/* Free */}
-            <div className="flex flex-col p-8 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <h3 className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Starter</h3>
-              <div className="text-3xl font-bold text-white font-display mb-2">$0</div>
-              <p className="text-slate-500 text-xs mb-6">Forever free</p>
-              <ul className="space-y-3 mb-8 flex-grow">
-                {['3 analyses / month', 'Up to 500 entries', 'Public reports', 'Basic opportunities'].map(f => (
-                  <li key={f} className="flex items-start gap-3 text-sm text-slate-400">
-                    <CheckCircle2 className="w-4 h-4 text-slate-600 flex-shrink-0 mt-0.5" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/sign-up"
-                className="w-full text-center py-3 rounded-sm border font-bold text-[9px] uppercase tracking-widest transition-all text-slate-300 hover:bg-white/5"
-                style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-                Get Started Free
-              </Link>
-            </div>
-
-            {/* Growth */}
-            <div className="flex flex-col p-8 rounded-xl relative overflow-hidden ring-2 ring-indigo-500/30"
-              style={{ background: '#0f1020', border: '2px solid #6366f1' }}>
-              <div className="absolute top-0 right-0 text-white px-3 py-1 text-[8px] font-bold uppercase tracking-widest rounded-bl-lg"
-                style={{ background: '#6366f1' }}>Most Popular</div>
-              <h3 className="text-[9px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: '#818cf8' }}>Growth</h3>
-              <div className="flex flex-col items-baseline mb-1">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-bold text-white font-display">₹2,999</span>
-                  <span className="text-slate-500 text-xs">/month</span>
-                </div>
-                <p className="text-indigo-400 text-xs mt-1">Or ₹29,999 billed annually</p>
-              </div>
-              <p className="text-slate-500 text-xs mb-6">Billed monthly, cancel anytime</p>
-              <ul className="space-y-3 mb-8 flex-grow">
-                {['50 analyses / month', 'Up to 5,000 entries', 'Public reports', 'Insight alerts', 'Email notifications', 'Priority processing'].map(f => (
-                  <li key={f} className="flex items-start gap-3 text-sm text-white">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/sign-up"
-                className="w-full text-center py-3 rounded-sm text-white font-bold text-[9px] uppercase tracking-widest transition-all hover:opacity-90"
-                style={{ background: '#6366f1', boxShadow: '0 0 20px rgba(99,102,241,0.3)' }}>
-                Get Growth Plan
-              </Link>
-            </div>
-
-            {/* Enterprise */}
-            <div className="flex flex-col p-8 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <h3 className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Enterprise</h3>
-              <div className="text-3xl font-bold text-white font-display mb-2">Custom</div>
-              <p className="text-slate-500 text-xs mb-6">For large teams</p>
-              <ul className="space-y-3 mb-8 flex-grow">
-                {['Unlimited analyses', 'Unlimited entries', 'White-label reports', 'Dedicated support', 'SSO & Enhanced Security', 'Custom API access'].map(f => (
-                  <li key={f} className="flex items-start gap-3 text-sm text-slate-400">
-                    <CheckCircle2 className="w-4 h-4 text-slate-600 flex-shrink-0 mt-0.5" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <a href="mailto:hello@zointly.io"
-                className="w-full text-center py-3 rounded-sm border font-bold text-[9px] uppercase tracking-widest transition-all text-slate-300 hover:bg-white/5"
-                style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-                Contact Sales
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomepagePricing />
 
       {/* Retention Positioning */}
       <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
