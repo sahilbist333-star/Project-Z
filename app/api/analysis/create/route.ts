@@ -20,12 +20,20 @@ export async function POST(request: NextRequest) {
 
         if (!profile) return NextResponse.json({ error: 'Profile not found' }, { status: 404 })
 
-        // ── Free plan reset check (on every create) ──────────────────
-        if (profile.plan === 'free') {
+        // ── Rolling usage reset check (Free & Annual Growth) ──────────
+        if (profile.plan === 'free' || (profile.plan === 'growth' && profile.billing_interval === 'annual')) {
             const daysSinceReset = daysSince(profile.last_usage_reset_at)
-            if (daysSinceReset >= 30) {
+            const cycles = Math.floor(daysSinceReset / 30)
+
+            if (cycles > 0) {
+                const newResetDate = new Date(profile.last_usage_reset_at)
+                newResetDate.setDate(newResetDate.getDate() + (cycles * 30))
+
                 await admin.from('users')
-                    .update({ analyses_used_this_month: 0, last_usage_reset_at: new Date().toISOString() })
+                    .update({
+                        analyses_used_this_month: 0,
+                        last_usage_reset_at: newResetDate.toISOString()
+                    })
                     .eq('id', user.id)
                 profile.analyses_used_this_month = 0
             }

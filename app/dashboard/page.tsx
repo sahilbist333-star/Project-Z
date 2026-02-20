@@ -27,13 +27,31 @@ export default async function DashboardPage() {
             .order('created_at', { ascending: false })
             .limit(5),
         admin.from('users')
-            .select('analyses_used_this_month, plan')
+            .select('analyses_used_this_month, plan, billing_interval, last_usage_reset_at')
             .eq('id', user.id)
             .single(),
     ])
 
     const unreadAlerts = alerts || []
     const analysesList = analyses || []
+
+    // ── Rolling usage reset check (Free & Annual Growth) ──────────
+    if (profile && (profile.plan === 'free' || (profile.plan === 'growth' && profile.billing_interval === 'annual'))) {
+        const resetAt = new Date(profile.last_usage_reset_at)
+        const daysSinceReset = Math.floor((Date.now() - resetAt.getTime()) / (1000 * 60 * 60 * 24))
+        const cycles = Math.floor(daysSinceReset / 30)
+
+        if (cycles > 0) {
+            resetAt.setDate(resetAt.getDate() + (cycles * 30))
+            await admin.from('users')
+                .update({
+                    analyses_used_this_month: 0,
+                    last_usage_reset_at: resetAt.toISOString()
+                })
+                .eq('id', user.id)
+            profile.analyses_used_this_month = 0
+        }
+    }
 
     const statusIcon = (status: string) => {
         if (status === 'completed') return <CheckCircle2 className="w-4 h-4 text-green-400" />

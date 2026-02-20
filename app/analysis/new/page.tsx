@@ -1,7 +1,7 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Upload, ChevronRight, FileText, AlertTriangle, Zap } from 'lucide-react'
+import { Upload, ChevronRight, FileText, AlertTriangle, Zap, Info } from 'lucide-react'
 import Papa from 'papaparse'
 import Link from 'next/link'
 
@@ -12,9 +12,21 @@ export default function NewAnalysisPage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [limitError, setLimitError] = useState<LimitError>(null)
+    const [usageInfo, setUsageInfo] = useState<{ used: number, limit: number, plan: string } | null>(null)
     const [tab, setTab] = useState<'paste' | 'sample'>('paste')
     const fileRef = useRef<HTMLInputElement>(null)
     const router = useRouter()
+
+    useEffect(() => {
+        fetch('/api/user/usage')
+            .then(res => res.json())
+            .then(data => {
+                if (data.used !== undefined) {
+                    setUsageInfo(data)
+                }
+            })
+            .catch(() => { })
+    }, [])
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
@@ -113,12 +125,36 @@ export default function NewAnalysisPage() {
         )
     }
 
+    const usagePercent = usageInfo ? (usageInfo.used / usageInfo.limit) * 100 : 0
+    const isDanger = usagePercent >= 90
+    const isWarning = usagePercent >= 70 && !isDanger
+
     return (
         <div className="p-8 max-w-3xl anim-fade-in">
-            <div className="mb-8 anim-slide-down">
-                <h1 className="font-display text-2xl font-bold text-white">New Analysis</h1>
-                <p className="text-slate-500 text-sm mt-1">Paste feedback or upload a CSV file. Min 30 entries.</p>
+            <div className="mb-6 anim-slide-down">
+                <h1 className="font-display text-2xl font-bold text-white mb-1">New Analysis</h1>
+                <p className="text-slate-500 text-sm">Paste feedback or upload a CSV file. Min 30 entries.</p>
             </div>
+
+            {/* Usage Banners */}
+            {usageInfo && (isWarning || isDanger) && (
+                <div className={`mb-6 p-4 rounded-lg flex items-start gap-3 border anim-slide-down ${isDanger ? 'bg-red-500/10 border-red-500/20' : 'bg-yellow-500/10 border-yellow-500/20'}`}>
+                    <AlertTriangle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isDanger ? 'text-red-400' : 'text-yellow-400'}`} />
+                    <div className="flex-1">
+                        <p className={`text-sm font-semibold mb-1 ${isDanger ? 'text-red-400' : 'text-yellow-400'}`}>
+                            {isDanger ? 'Approaching Limit' : 'Usage Warning'}
+                        </p>
+                        <p className={`text-sm ${isDanger ? 'text-red-300/80' : 'text-yellow-300/80'}`}>
+                            You have used {usageInfo.used} out of {usageInfo.limit} analyses this month.
+                        </p>
+                        {usageInfo.plan === 'free' && (
+                            <Link href="/pricing" className={`inline-flex items-center gap-1 mt-3 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-md transition-colors ${isDanger ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30' : 'bg-yellow-500/20 text-yellow-500 hover:bg-yellow-500/30'}`}>
+                                Upgrade to Growth plan →
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            )}
 
             {/* Tabs */}
             <div className="flex gap-2 mb-6">

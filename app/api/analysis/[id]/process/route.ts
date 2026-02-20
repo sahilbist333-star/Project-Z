@@ -63,10 +63,20 @@ export async function POST(
             const alerts = generateAlerts(newSnapshots as any, prevSnapshots as any)
 
             // Build change summary for analyses table
-            const summaryItems = alerts.map((a) => ({
-                type: a.type,
-                message: a.message,
-            }))
+            const summaryItems = alerts.map((a) => {
+                let mappedType = 'other'
+                if (a.type === 'new_opportunity') mappedType = 'new'
+                else if (a.type === 'demand_surge' || a.type === 'mentions_spike') mappedType = 'surge'
+                else if (a.type === 'priority_escalation') mappedType = 'escalation'
+
+                const title = a.type.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+
+                return {
+                    type: mappedType,
+                    title,
+                    detail: a.message,
+                }
+            })
             if (summaryItems.length > 0) {
                 changeSummary = { items: summaryItems }
             }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { razorpay, GROWTH_PLAN_AMOUNT, GROWTH_PLAN_CURRENCY } from '@/lib/razorpay'
+import { razorpay } from '@/lib/razorpay'
 
 export async function POST(request: NextRequest) {
     const supabase = await createClient()
@@ -10,27 +10,38 @@ export async function POST(request: NextRequest) {
 
     const admin = createAdminClient()
 
-    // Get or create Razorpay plan
-    // NOTE: In production, create the plan once in Razorpay dashboard and store the plan ID in env
-    const planId = process.env.RAZORPAY_PLAN_ID
-
-    if (!planId) {
-        return NextResponse.json({
-            error: 'RAZORPAY_PLAN_ID not configured. Create a plan in Razorpay dashboard first.'
-        }, { status: 500 })
-    }
-
     try {
-        // Create subscription
+        const body = await request.json()
+        const { interval = 'monthly' } = body
+
+        if (!['monthly', 'annual'].includes(interval)) {
+            return NextResponse.json({ error: 'Invalid interval specified' }, { status: 400 })
+        }
+
+        const planId = interval === 'annual'
+            ? process.env.RAZORPAY_PLAN_ANNUAL
+            : process.env.RAZORPAY_PLAN_MONTHLY
+
+        if (!planId) {
+            return NextResponse.json({
+                error: 'Razorpay plan ID not configured for the selected interval.'
+            }, { status: 500 })
+        }
+
+        // Create subscription - Intentionally setting total_count to 0 so Razorpay dictates cycles perfectly
         const subscription = await razorpay.subscriptions.create({
             plan_id: planId,
-            total_count: 12, // 12 months
+            customer_notify: 1,
             quantity: 1,
+            total_count: 0,
         }) as any
 
-        // Save subscription_id to user
+        // Save subscription_id and billing_interval to user
         await admin.from('users')
-            .update({ subscription_id: subscription.id })
+            .update({
+                subscription_id: subscription.id,
+                billing_interval: interval
+            })
             .eq('id', user.id)
 
         return NextResponse.json({

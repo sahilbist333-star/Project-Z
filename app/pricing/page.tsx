@@ -1,48 +1,55 @@
+'use client'
+import { useState } from 'react'
 import Link from 'next/link'
 import { CheckCircle2 } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
-
-const plans = [
-    {
-        name: 'Starter',
-        price: '$0',
-        period: 'Forever free',
-        description: 'Perfect for solo PMs and indie founders exploring demand-driven roadmapping.',
-        features: ['3 analyses per month', '500 feedback entries per analysis', 'AI demand scoring', 'Verbatim customer quotes', 'Public shareable reports', 'Basic opportunity cards'],
-        cta: 'Get Started Free',
-        href: '/sign-up',
-        highlight: false,
-    },
-    {
-        name: 'Growth',
-        price: '₹49',
-        period: '/month',
-        description: 'For product teams running regular analyses with higher volume and insight needs.',
-        features: ['50 analyses per month', '5,000 feedback entries per analysis', 'Everything in Starter', 'Insight alerts — demand changes', 'Email notifications for new signals', 'Priority processing queue', 'Analysis history & comparison'],
-        cta: 'Get Growth Plan',
-        href: '/sign-up',
-        highlight: true,
-    },
-    {
-        name: 'Enterprise',
-        price: 'Custom',
-        period: '',
-        description: 'For large organizations with compliance, SSO, and unlimited usage requirements.',
-        features: ['Unlimited analyses', 'Unlimited entries per analysis', 'Everything in Growth', 'White-label public reports', 'SSO / SAML integration', 'Custom API access', 'Dedicated Slack support', 'Custom data retention policy'],
-        cta: 'Talk to Sales',
-        href: 'mailto:sales@zointly.io',
-        highlight: false,
-    },
-]
 
 const faqs = [
     { q: 'Can I switch plans at any time?', a: 'Yes. Upgrade or cancel anytime from your account page. When you upgrade, you are immediately moved to the Growth plan. Downgrading takes effect at the end of your current billing cycle.' },
     { q: 'What happens to my data if I downgrade?', a: 'All your analyses and public reports remain accessible regardless of plan. Only new analysis creation is limited by your plan.' },
     { q: 'Is there a free trial of Growth?', a: 'The Starter plan is essentially a perpetual free tier. You can run 3 full analyses per month for free, indefinitely, to evaluate the product before upgrading.' },
-    { q: 'How does billing work?', a: 'Growth is billed monthly via Razorpay. You will be charged ₹49 on the same date each month. Enterprise plans are invoiced annually or quarterly.' },
+    { q: 'How does billing work?', a: 'Growth is billed monthly via Razorpay. You will be charged ₹2,999 on the same date each month (or ₹29,999 once a year for annual billing). Enterprise plans are invoiced annually or quarterly.' },
 ]
 
 export default function PricingPage() {
+    const [interval, setInterval] = useState<'monthly' | 'annual'>('monthly')
+
+    const plans = [
+        {
+            name: 'Starter',
+            price: '$0',
+            period: 'Forever free',
+            description: 'Perfect for solo PMs and indie founders exploring demand-driven roadmapping.',
+            features: ['3 analyses per month', '500 feedback entries per analysis', 'AI demand scoring', 'Verbatim customer quotes', 'Public shareable reports', 'Basic opportunity cards'],
+            cta: 'Get Started Free',
+            href: '/sign-up',
+            highlight: false,
+            anchorText: null,
+        },
+        {
+            name: 'Growth',
+            price: interval === 'monthly' ? '₹2,999' : '₹29,999',
+            period: interval === 'monthly' ? '/month' : '/year',
+            description: 'For product teams running regular analyses with higher volume and insight needs.',
+            features: ['50 analyses per month', '5,000 feedback entries per analysis', 'Everything in Starter', 'Insight alerts — demand changes', 'Email notifications for new signals', 'Priority processing queue', 'Analysis history & comparison'],
+            cta: interval === 'monthly' ? 'Get Growth Monthly' : 'Get Growth Annually',
+            href: `/sign-up`, // Typically passing ?plan=growth via state, but sticking to standard flow
+            highlight: true,
+            anchorText: interval === 'annual' ? '₹2,499/month billed annually. Save ₹6,000.' : null,
+        },
+        {
+            name: 'Enterprise',
+            price: 'Custom',
+            period: '',
+            description: 'For large organizations with compliance, SSO, and unlimited usage requirements.',
+            features: ['Unlimited analyses', 'Unlimited entries per analysis', 'Everything in Growth', 'White-label public reports', 'SSO / SAML integration', 'Custom API access', 'Dedicated Slack support', 'Custom data retention policy'],
+            cta: 'Talk to Sales',
+            href: 'mailto:sales@zointly.io',
+            highlight: false,
+            anchorText: null,
+        },
+    ]
+
     return (
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
@@ -52,7 +59,36 @@ export default function PricingPage() {
                 <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.07) 0%, transparent 60%)' }} />
                 <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Simple Pricing</p>
                 <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Start free. Scale when you&apos;re ready.</h1>
-                <p className="text-slate-400 text-lg max-w-xl mx-auto">Plans are scaled by analysis volume. No hidden fees, no seat licenses.</p>
+                <p className="text-slate-400 text-lg max-w-xl mx-auto mb-10">Plans are scaled by analysis volume. No hidden fees, no seat licenses.</p>
+
+                {/* Billing Toggle */}
+                <div className="flex items-center justify-center gap-4 text-sm">
+                    <button
+                        onClick={() => setInterval('monthly')}
+                        className={`font-semibold transition-colors ${interval === 'monthly' ? 'text-white' : 'text-slate-500 hover:text-slate-300'}`}
+                    >
+                        Monthly
+                    </button>
+                    <button
+                        className="w-12 h-6 rounded-full p-1 transition-colors outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-[#080808]"
+                        style={{ background: interval === 'annual' ? '#6366f1' : '#1e293b' }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setInterval(prev => prev === 'monthly' ? 'annual' : 'monthly')
+                        }}
+                    >
+                        <div className={`w-4 h-4 rounded-full bg-white transition-transform ${interval === 'annual' ? 'translate-x-6' : 'translate-x-0'}`} />
+                    </button>
+                    <button
+                        onClick={() => setInterval('annual')}
+                        className={`font-semibold flex items-center gap-2 transition-colors ${interval === 'annual' ? 'text-white' : 'text-slate-500 hover:text-slate-300'}`}
+                    >
+                        Yearly
+                        <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.1)', color: '#4ade80' }}>
+                            Save ₹6,000
+                        </span>
+                    </button>
+                </div>
             </section>
 
             {/* Plans */}
@@ -66,9 +102,14 @@ export default function PricingPage() {
                                     style={{ background: '#6366f1' }}>Most Popular</div>
                             )}
                             <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: plan.highlight ? '#818cf8' : '#6b7280' }}>{plan.name}</p>
-                            <div className="flex items-baseline gap-1 mb-1">
-                                <span className="font-display text-3xl font-bold text-white">{plan.price}</span>
-                                {plan.period && <span className="text-slate-500 text-sm">{plan.period}</span>}
+                            <div className="flex flex-col items-start mb-1 min-h-[4rem]">
+                                <div className="flex items-baseline gap-1">
+                                    <span className="font-display text-3xl font-bold text-white">{plan.price}</span>
+                                    {plan.period && <span className="text-slate-500 text-sm">{plan.period}</span>}
+                                </div>
+                                {plan.anchorText && (
+                                    <p className="text-indigo-400 text-xs mt-1 font-medium">{plan.anchorText}</p>
+                                )}
                             </div>
                             <p className="text-slate-500 text-sm mb-6 leading-relaxed">{plan.description}</p>
                             <ul className="space-y-3 flex-grow mb-8">
@@ -91,8 +132,8 @@ export default function PricingPage() {
                 </div>
 
                 {/* Comparison note */}
-                <p className="text-center text-slate-600 text-sm mt-10">
-                    All plans include permanent report URLs and verbatim customer quotes. Analyses reset on the 1st of each month.
+                <p className="text-center text-slate-500 font-medium text-sm mt-10">
+                    All plans include permanent report URLs and verbatim customer quotes. Free plan limited to 3 analyses per month.
                 </p>
             </section>
 

@@ -33,7 +33,11 @@ export async function POST(request: NextRequest) {
                 const subscriptionId = payload?.payment?.entity?.subscription_id
                 if (!subscriptionId) break
 
-                const newExpiry = addDays(new Date(), 30).toISOString()
+                // Use Razorpay timestamp from payload
+                const endAtTimestamp = payload?.payment?.entity?.end_at || payload?.subscription?.entity?.current_end;
+                const newExpiry = endAtTimestamp
+                    ? new Date(endAtTimestamp * 1000).toISOString()
+                    : addDays(new Date(), 30).toISOString();
 
                 await admin.from('users')
                     .update({
@@ -60,7 +64,12 @@ export async function POST(request: NextRequest) {
                 const subscriptionId = payload?.subscription?.entity?.id
                 if (!subscriptionId) break
                 await admin.from('users')
-                    .update({ subscription_status: 'cancelled', plan: 'free' })
+                    .update({
+                        subscription_status: 'cancelled',
+                        plan: 'free',
+                        billing_interval: 'monthly',
+                        plan_expiry: null
+                    })
                     .eq('subscription_id', subscriptionId)
                 break
             }

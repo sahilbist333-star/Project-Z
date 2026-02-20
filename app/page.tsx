@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
-import { CheckCircle2, BarChart3, Share2, Bell, Zap, Shield, Globe, ChevronDown } from 'lucide-react'
+import { CheckCircle2, BarChart3, Share2, Bell, Zap, Shield, Globe, ChevronDown, TrendingUp } from 'lucide-react'
 
 const features = [
   {
@@ -11,7 +11,7 @@ const features = [
   {
     icon: Zap,
     title: 'Instant Analysis',
-    description: 'Paste feedback or upload a CSV. Zointly processes hundreds of entries in under 60 seconds using Gemini AI.',
+    description: 'Paste feedback or upload a CSV. Most analyses complete in under 60 seconds using Gemini AI.',
   },
   {
     icon: Share2,
@@ -163,15 +163,13 @@ export default function LandingPage() {
 
       {/* Logos / social proof */}
       <section className="py-12 border-y" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <p className="text-center text-[9px] font-bold text-slate-600 uppercase tracking-[0.3em] mb-8">
-            Trusted by Product Teams at
+        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
+          <p className="font-display font-medium text-lg text-slate-300 tracking-wide mb-2">
+            Designed for SaaS teams managing large-scale customer feedback.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16">
-            {['DataScale', 'NovaTech', 'Amplio', 'Cortex', 'Helix', 'Veritas'].map(logo => (
-              <span key={logo} className="font-display font-bold text-xs text-slate-700 uppercase tracking-widest">{logo}</span>
-            ))}
-          </div>
+          <p className="text-sm text-slate-500 max-w-2xl mx-auto">
+            No synthetic data. No fake case studies. Results generated directly from your own customer conversations.
+          </p>
         </div>
       </section>
 
@@ -334,9 +332,12 @@ export default function LandingPage() {
               <div className="absolute top-0 right-0 text-white px-3 py-1 text-[8px] font-bold uppercase tracking-widest rounded-bl-lg"
                 style={{ background: '#6366f1' }}>Most Popular</div>
               <h3 className="text-[9px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: '#818cf8' }}>Growth</h3>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-3xl font-bold text-white font-display">₹49</span>
-                <span className="text-slate-500 text-xs">/month</span>
+              <div className="flex flex-col items-baseline mb-1">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-bold text-white font-display">₹2,999</span>
+                  <span className="text-slate-500 text-xs">/month</span>
+                </div>
+                <p className="text-indigo-400 text-xs mt-1">Or ₹29,999 billed annually</p>
               </div>
               <p className="text-slate-500 text-xs mb-6">Billed monthly, cancel anytime</p>
               <ul className="space-y-3 mb-8 flex-grow">
@@ -377,41 +378,36 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Retention Positioning */}
       <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-14">
-            <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>Customer Stories</p>
-            <h2 className="font-display text-3xl font-bold text-white">Trusted by builders who move fast.</h2>
+            <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>Weekly Alignment</p>
+            <h2 className="font-display text-3xl font-bold text-white mb-4">Your customer needs change every week.</h2>
+            <p className="text-slate-500 max-w-xl mx-auto">Zointly tracks emerging signals so your roadmap stays aligned with real demand.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-4 gap-6 mb-12">
             {[
-              {
-                quote: 'We cut prioritization meetings from 3 hours to 20 minutes. Zointly gives us the evidence to make confident bets.',
-                name: 'Maria Chen', role: 'VP of Product', company: 'NovaTech',
-              },
-              {
-                quote: 'The verbatim customer quotes in every opportunity card changed how we present to leadership. No more "we think users want this."',
-                name: 'Jordan Lee', role: 'Product Manager', company: 'Amplio',
-              },
-              {
-                quote: 'Finally a tool that turns our 500 monthly support tickets into an actual roadmap. The demand scores are surprisingly accurate.',
-                name: 'Sam Patel', role: 'Head of Product', company: 'DataScale',
-              },
-            ].map(({ quote, name, role, company }) => (
-              <div key={name} className="p-7 rounded-xl"
-                style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <p className="text-slate-300 text-sm leading-relaxed italic mb-6">&ldquo;{quote}&rdquo;</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                    style={{ background: '#6366f1' }}>{name[0]}</div>
-                  <div>
-                    <p className="text-white text-sm font-semibold">{name}</p>
-                    <p className="text-slate-500 text-xs">{role}, {company}</p>
-                  </div>
+              { icon: BarChart3, title: 'Demand surges', text: 'Catch quickly rising needs.' },
+              { icon: Zap, title: 'New requests', text: 'Identify net-new signals early.' },
+              { icon: TrendingUp, title: 'Priority shifts', text: 'Track ranking changes over time.' },
+              { icon: Bell, title: 'Insight alerts', text: 'Get email updates automatically.' }
+            ].map(item => (
+              <div key={item.title} className="p-6 rounded-xl text-center transition-all hover:-translate-y-1" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
+                <div className="w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-4" style={{ background: 'rgba(99,102,241,0.1)' }}>
+                  <item.icon className="w-5 h-5 text-indigo-400" />
                 </div>
+                <h3 className="font-bold text-white text-sm mb-2 font-display">{item.title}</h3>
+                <p className="text-xs text-slate-500">{item.text}</p>
               </div>
             ))}
+          </div>
+          <div className="text-center">
+            <Link href="/sign-up"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-sm font-bold text-[10px] uppercase tracking-widest text-white transition-all hover:opacity-90"
+              style={{ background: '#6366f1' }}>
+              Start tracking feedback signals →
+            </Link>
           </div>
         </div>
       </section>
@@ -453,7 +449,7 @@ export default function LandingPage() {
                 Ship what users actually want.
               </h2>
               <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-                Stop spending hours in spreadsheets. Get your first analysis in under 60 seconds — no credit card needed.
+                Stop spending hours in spreadsheets. Most analyses complete in under 60 seconds — no credit card needed.
               </p>
               <Link href="/sign-up"
                 style={{ background: '#6366f1', boxShadow: '0 0 30px rgba(99,102,241,0.4)' }}
