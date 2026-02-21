@@ -1,4 +1,8 @@
+'use client'
+
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import { X } from 'lucide-react'
 
 interface NavLink {
     label: string
@@ -27,15 +31,51 @@ const HOME_LINKS: NavLink[] = [
 export { HOME_LINKS, DEFAULT_LINKS }
 
 export default function MarketingNav({ links = DEFAULT_LINKS }: Props) {
+    const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+        const dismissedAt = localStorage.getItem('announcement_dismissed_at')
+
+        if (dismissedAt) {
+            const timePassed = Date.now() - parseInt(dismissedAt, 10)
+            const fiftySixMinutes = 56 * 60 * 1000
+
+            if (timePassed > fiftySixMinutes) {
+                setIsAnnouncementVisible(true)
+                localStorage.removeItem('announcement_dismissed_at')
+            }
+        } else {
+            // Also clean up the old boolean key if it exists
+            localStorage.removeItem('announcement_dismissed')
+            setIsAnnouncementVisible(true)
+        }
+    }, [])
+
+    const handleClose = () => {
+        setIsAnnouncementVisible(false)
+        localStorage.setItem('announcement_dismissed_at', Date.now().toString())
+    }
+
     return (
         <div className="fixed top-0 left-0 right-0 z-50 px-6 pt-6 pointer-events-none">
             {/* Announcement bar */}
-            <div className="max-w-7xl mx-auto mb-4 rounded-full pointer-events-auto shadow-lg" style={{ background: '#FACC15' }}>
-                <p className="text-center text-[10px] py-1.5 font-bold text-black tracking-widest uppercase">
-                    🆕 Generate shareable evidence reports for stakeholders in one click.{' '}
-                    <a href="/#public-reports" className="underline ml-2">See how →</a>
-                </p>
-            </div>
+            {isMounted && isAnnouncementVisible && (
+                <div className="max-w-7xl mx-auto mb-4 rounded-full pointer-events-auto shadow-lg relative flex items-center justify-center" style={{ background: '#FACC15' }}>
+                    <p className="text-center text-[10px] py-1.5 font-bold text-black tracking-widest uppercase px-8 flex-1">
+                        🆕 Generate shareable evidence reports for stakeholders in one click.{' '}
+                        <a href="/#public-reports" className="underline ml-2">See how →</a>
+                    </p>
+                    <button
+                        onClick={handleClose}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-black/60 hover:text-black rounded-full transition-colors"
+                        aria-label="Close announcement"
+                    >
+                        <X className="w-3.5 h-3.5" strokeWidth={3} />
+                    </button>
+                </div>
+            )}
 
             <nav className="max-w-7xl mx-auto rounded-full pointer-events-auto border"
                 style={{ background: 'rgba(8,8,8,0.7)', borderColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)' }}>
