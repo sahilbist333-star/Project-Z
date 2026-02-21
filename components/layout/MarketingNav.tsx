@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { X, Menu } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface NavLink {
     label: string
@@ -133,43 +134,51 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
             </nav>
 
             {/* Mobile Dropdown Menu */}
-            {isMobileMenuOpen && (
-                <div className="md:hidden max-w-7xl mx-auto mt-4 pointer-events-auto relative z-10">
-                    <div className="px-6 py-6 border border-white/10 bg-black/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl relative">
-                        {/* Optional glow for mobile menu */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 pointer-events-none rounded-[2rem]"></div>
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="md:hidden max-w-7xl mx-auto mt-4 pointer-events-auto relative z-10"
+                    >
+                        <div className="px-6 py-6 border border-white/10 bg-black/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl relative">
+                            {/* Optional glow for mobile menu */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 pointer-events-none rounded-[2rem]"></div>
 
-                        <div className="flex flex-col gap-6 relative z-10">
-                            {links.map(({ label, href }) => (
-                                <a
-                                    key={label}
-                                    href={href}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-sm font-bold text-slate-300 hover:text-white uppercase tracking-widest transition-colors block border-b border-white/5 pb-4"
-                                >
-                                    {label}
-                                </a>
-                            ))}
-                            <div className="pt-2 flex flex-col gap-4">
-                                <Link
-                                    href="/sign-in"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-center text-sm font-bold text-slate-300 hover:text-white uppercase tracking-widest transition-colors py-3 px-6 rounded-full border border-white/10 w-full"
-                                >
-                                    Log In
-                                </Link>
-                                <Link
-                                    href="/sign-up"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="w-full text-center text-white px-6 py-3.5 rounded-full font-bold text-[11px] uppercase tracking-widest hover:opacity-90 transition-all border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]"
-                                >
-                                    Get Started Free
-                                </Link>
+                            <div className="flex flex-col gap-6 relative z-10">
+                                {links.map(({ label, href }) => (
+                                    <a
+                                        key={label}
+                                        href={href}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="text-sm font-bold text-slate-300 hover:text-white uppercase tracking-widest transition-colors block border-b border-white/5 pb-4"
+                                    >
+                                        {label}
+                                    </a>
+                                ))}
+                                <div className="pt-2 flex flex-col gap-4">
+                                    <Link
+                                        href="/sign-in"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="text-center text-sm font-bold text-slate-300 hover:text-white uppercase tracking-widest transition-colors py-3 px-6 rounded-full border border-white/10 w-full"
+                                    >
+                                        Log In
+                                    </Link>
+                                    <Link
+                                        href="/sign-up"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="w-full text-center text-white px-6 py-3.5 rounded-full font-bold text-[11px] uppercase tracking-widest hover:opacity-90 transition-all border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]"
+                                    >
+                                        Get Started Free
+                                    </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }
