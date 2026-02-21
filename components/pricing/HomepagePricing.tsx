@@ -9,8 +9,11 @@ export default function HomepagePricing() {
     return (
         <section className="py-20 md:py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }} id="pricing">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-                <div className="text-center mb-14">
-                    <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>Simple Pricing</p>
+                <div className="text-center mb-14 hover:cursor-default">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/10 mb-6">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">Simple Pricing</span>
+                    </div>
                     <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Start free. Scale when you&apos;re ready.</h2>
                     <p className="text-slate-500 max-w-md mx-auto mb-10">Plans scale with your analysis needs. No hidden fees.</p>
 

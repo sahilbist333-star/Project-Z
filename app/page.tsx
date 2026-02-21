@@ -2,7 +2,7 @@ import Link from 'next/link'
 import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import HomepagePricing from '@/components/pricing/HomepagePricing'
-import { ArrowRight, BarChart3, Bell, CheckCircle2, ChevronRight, Globe, TrendingUp, Zap, Share2, Shield, PlayCircle, Sparkles, HelpCircle, Activity } from 'lucide-react'
+import { ArrowRight, BarChart3, Bell, CheckCircle2, ChevronRight, Globe, TrendingUp, Zap, Share2, Shield, PlayCircle, Sparkles, HelpCircle, Activity, GitPullRequest } from 'lucide-react'
 import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, FloatElement, GlowingPerspectiveCard, InfiniteMarquee, MousePerspectiveCard, HeroBackground3D } from '@/components/ui/motion'
 import { FaqAccordion } from '@/components/ui/FaqAccordion'
 
@@ -321,6 +321,10 @@ export default function LandingPage() {
       <section className="py-32 border-t border-white/5 bg-gradient-to-b from-transparent to-indigo-900/10">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <FadeIn className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-pink-500/20 bg-pink-500/10 mb-6">
+              <GitPullRequest className="w-3.5 h-3.5 text-pink-400" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-pink-300">How it Works</span>
+            </div>
             <h2 className="font-display text-3xl md:text-5xl font-black text-white tracking-tight mb-6">From feedback to decision in 3 steps.</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">It's designed to be completely frictionless. You can deploy it today without engineering help.</p>
           </FadeIn>
