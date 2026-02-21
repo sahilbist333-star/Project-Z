@@ -2,7 +2,7 @@ import Link from 'next/link'
 import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
 import HomepagePricing from '@/components/pricing/HomepagePricing'
 import { CheckCircle2, BarChart3, Share2, Bell, Zap, Shield, Globe, ChevronDown, TrendingUp, ArrowRight, PlayCircle, Sparkles } from 'lucide-react'
-import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, FloatElement, GlowingPerspectiveCard } from '@/components/ui/motion'
+import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, FloatElement, GlowingPerspectiveCard, InfiniteMarquee, MousePerspectiveCard, HeroBackground3D } from '@/components/ui/motion'
 
 const features = [
   {
@@ -78,13 +78,7 @@ export default function LandingPage() {
         }}>
 
         {/* Organic Mesh Background */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="mesh-blob mesh-blob-1"></div>
-          <div className="mesh-blob mesh-blob-2"></div>
-          <div className="mesh-blob mesh-blob-3"></div>
-          {/* Vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-transparent to-[#080808] z-[1]"></div>
-        </div>
+        <HeroBackground3D />
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
@@ -201,14 +195,14 @@ export default function LandingPage() {
       {/* Social Proof Marquee */}
       <FadeIn>
         <section className="py-10 border-y border-white/5 bg-black/20">
-          <div className="max-w-7xl mx-auto px-6 overflow-hidden">
+          <div className="max-w-7xl mx-auto overflow-hidden">
             <p className="text-center text-[9px] font-bold uppercase tracking-[0.3em] text-slate-500 mb-6">Trusted by innovative product teams</p>
-            <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+            <InfiniteMarquee className="opacity-50 grayscale hover:grayscale-0 transition-all duration-500 py-2">
               {/* Dummy Logos acting as placeholders since we can't use real SVGs easily */}
-              {['Acme Corp', 'GlobalNet', 'NovaTech', 'Stark Ind.', 'Omega'].map(logo => (
+              {['Acme Corp', 'GlobalNet', 'NovaTech', 'Stark Ind.', 'Omega', 'Vertex', 'Nexus', 'Horizon'].map(logo => (
                 <span key={logo} className="font-display font-bold text-lg text-slate-300 tracking-tight cursor-default">{logo}</span>
               ))}
-            </div>
+            </InfiniteMarquee>
           </div>
         </section>
       </FadeIn>
@@ -385,34 +379,36 @@ export default function LandingPage() {
               </Link>
             </FadeIn>
             {/* Mock report card */}
-            <FadeIn delay={0.2} className="rounded-[2rem] overflow-hidden bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl skew-y-3 md:skew-y-6 lg:ml-auto w-full max-w-lg transition-transform hover:skew-y-0 duration-500">
-              <div className="px-6 py-4 border-b flex items-center gap-3 border-white/5 bg-black/60">
-                <Globe className="w-4 h-4 text-green-400" />
-                <span className="text-[10px] text-slate-500 font-mono tracking-wider">zointly.com/reports/abc-xyz</span>
-                <div className="ml-auto px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-wider bg-green-500/20 text-green-400 border border-green-500/30">
-                  Public Link
-                </div>
-              </div>
-              <div className="p-6 space-y-4">
-                {[
-                  { title: 'Bulk CSV Export', score: 9.2, priority: 'P0', color: '#ef4444' },
-                  { title: 'Slack Integration', score: 8.7, priority: 'P1', color: '#f97316' },
-                  { title: 'Advanced Search', score: 7.5, priority: 'P1', color: '#f97316' },
-                  { title: 'Mobile App Support', score: 6.8, priority: 'P2', color: '#eab308' },
-                ].map(opp => (
-                  <div key={opp.title} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                    <div>
-                      <p className="text-sm font-semibold text-white">{opp.title}</p>
-                      <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-2 inline-block"
-                        style={{ background: `${opp.color}18`, color: opp.color }}>{opp.priority}</span>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-display text-2xl font-bold text-indigo-400">{opp.score}</p>
-                      <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest">Score</p>
-                    </div>
+            <FadeIn delay={0.2} className="lg:ml-auto w-full max-w-lg perspective-[1200px]">
+              <MousePerspectiveCard className="rounded-[2rem] overflow-hidden bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl">
+                <div className="px-6 py-4 border-b flex items-center gap-3 border-white/5 bg-black/60">
+                  <Globe className="w-4 h-4 text-green-400" />
+                  <span className="text-[10px] text-slate-500 font-mono tracking-wider">zointly.com/reports/abc-xyz</span>
+                  <div className="ml-auto px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-wider bg-green-500/20 text-green-400 border border-green-500/30">
+                    Public Link
                   </div>
-                ))}
-              </div>
+                </div>
+                <div className="p-6 space-y-4">
+                  {[
+                    { title: 'Bulk CSV Export', score: 9.2, priority: 'P0', color: '#ef4444' },
+                    { title: 'Slack Integration', score: 8.7, priority: 'P1', color: '#f97316' },
+                    { title: 'Advanced Search', score: 7.5, priority: 'P1', color: '#f97316' },
+                    { title: 'Mobile App Support', score: 6.8, priority: 'P2', color: '#eab308' },
+                  ].map(opp => (
+                    <div key={opp.title} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                      <div>
+                        <p className="text-sm font-semibold text-white">{opp.title}</p>
+                        <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-2 inline-block"
+                          style={{ background: `${opp.color}18`, color: opp.color }}>{opp.priority}</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-display text-2xl font-bold text-indigo-400">{opp.score}</p>
+                        <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest">Score</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </MousePerspectiveCard>
             </FadeIn>
           </div>
         </div>
