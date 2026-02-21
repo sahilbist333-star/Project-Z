@@ -458,7 +458,7 @@ export default function LandingPage() {
 
       {/* FAQ */}
       <section className="py-32 border-t border-white/5 relative" id="faqs">
-        <div className="max-w-3xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto px-6">
           <FadeIn className="text-center mb-16">
             <h2 className="font-display text-3xl md:text-5xl font-black text-white tracking-tight">Frequently asked questions.</h2>
           </FadeIn>
@@ -470,7 +470,7 @@ export default function LandingPage() {
 
       {/* CTA */}
       <section className="py-32 border-t border-white/5">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+        <div className="max-w-5xl mx-auto px-6 text-center">
           <ScaleIn className="relative rounded-[3rem] overflow-hidden p-16 md:p-24 bg-black/40 border border-indigo-500/20 shadow-2xl">
             {/* Glowing background inside CTA */}
             <div className="absolute inset-0 pointer-events-none">
