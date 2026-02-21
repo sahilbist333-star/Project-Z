@@ -72,16 +72,16 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
 
             {/* Announcement bar - Full width, 0 margins, no rounded corners */}
             {isMounted && isAnnouncementVisible && (
-                <div className="bg-indigo-500/10 border-b border-indigo-500/20 pointer-events-auto relative z-20">
-                    <div className="flex items-center justify-center gap-2 px-4 py-2">
-                        <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse hidden sm:flex"></span>
-                        <p className="text-xs font-medium text-indigo-200">
-                            <span className="font-bold text-white hidden sm:inline">New: </span>
+                <div className="bg-[#FACC15] pointer-events-auto relative z-20">
+                    <div className="flex items-center justify-center gap-2 px-4 py-2 sm:py-2.5">
+                        <span className="flex h-2 w-2 rounded-full bg-black/60 animate-pulse hidden sm:flex"></span>
+                        <p className="text-[10px] sm:text-xs font-bold text-black tracking-wide">
+                            <span className="hidden sm:inline">New: </span>
                             Automate your opportunity analysis with our new Zapier integration
                         </p>
                         <button
                             onClick={handleClose}
-                            className="ml-4 p-1 text-indigo-400 hover:text-white transition-colors"
+                            className="ml-4 p-1 text-black/60 hover:text-black transition-colors"
                             aria-label="Dismiss announcement"
                         >
                             <X className="w-4 h-4" />

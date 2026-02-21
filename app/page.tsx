@@ -254,6 +254,7 @@ export default function LandingPage() {
                       loop
                       muted
                       playsInline
+                      poster="https://img.youtube.com/vi/F_S61x8_HjY/maxresdefault.jpg"
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 scale-[1.02]"
                     >
                       <source src="/waitlist-demo.mp4" type="video/mp4" />
