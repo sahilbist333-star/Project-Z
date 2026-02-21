@@ -96,8 +96,7 @@ export default function HomepagePricing() {
                             ))}
                         </ul>
                         <Link href="/sign-up"
-                            className="w-full text-center py-3 rounded-sm text-white font-bold text-[9px] uppercase tracking-widest transition-all hover:opacity-90"
-                            style={{ background: '#6366f1', boxShadow: '0 0 20px rgba(99,102,241,0.3)' }}>
+                            className="w-full text-center py-3 rounded-sm text-white font-bold text-[9px] uppercase tracking-widest transition-all hover:-translate-y-1 border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_20px_rgba(192,132,252,0.4)]">
                             {interval === 'monthly' ? 'Get Growth Monthly' : 'Get Growth Annually'}
                         </Link>
                     </div>

@@ -114,8 +114,7 @@ export default function AboutPage() {
                     <p className="text-slate-400 mb-8">Start free. No credit card needed.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link href="/sign-up"
-                            className="inline-flex text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-[1.05] transition-all border border-indigo-400/30"
-                            style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 0 24px rgba(99,102,241,0.6)' }}>
+                            className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-[1.05] transition-all border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]">
                             Get Started Free
                             <span className="w-4 h-4 transition-transform group-hover:translate-x-1">→</span>
                         </Link>

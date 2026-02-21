@@ -96,8 +96,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <h3 className="font-display text-2xl font-bold text-white mb-3">Ready to transform your feedback?</h3>
                     <p className="text-slate-400 text-sm mb-6">Start using Zointly today and turn raw data into a prioritized roadmap.</p>
                     <Link href="/sign-up"
-                        className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-[1.05] transition-all border border-indigo-400/30"
-                        style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 0 24px rgba(99,102,241,0.6)' }}>
+                        className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-[1.05] transition-all border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]">
                         Get Started Free
                     </Link>
                 </div>

@@ -85,8 +85,7 @@ export default async function AccountPage() {
 
                     {!isGrowth && (
                         <a href="?upgrade=true"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-white font-bold text-[11px] uppercase tracking-widest transition-all hover:scale-[1.02] cursor-pointer border border-indigo-400/30"
-                            style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 0 24px rgba(99,102,241,0.6)' }}>
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-white font-bold text-[11px] uppercase tracking-widest transition-all hover:scale-[1.02] cursor-pointer border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]">
                             Upgrade to Growth →
                         </a>
                     )}

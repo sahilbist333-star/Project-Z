@@ -96,8 +96,7 @@ export default function OnboardingPage() {
                                     Quickly explore Zointly&apos;s powerful dashboards with a pre-loaded dataset from a real SaaS product.
                                 </p>
                                 <button disabled={loading}
-                                    className="w-full py-3.5 px-6 text-white text-sm font-bold rounded-2xl transition-all flex items-center justify-center gap-2"
-                                    style={{ background: '#6366f1' }}>
+                                    className="w-full py-3.5 px-6 text-white text-sm font-bold rounded-2xl transition-all hover:scale-[1.02] flex items-center justify-center gap-2 border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]">
                                     {loading ? 'Loading...' : 'Get Started'}
                                     {!loading && <ChevronRight className="w-4 h-4" />}
                                 </button>

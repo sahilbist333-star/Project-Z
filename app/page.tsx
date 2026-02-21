@@ -113,8 +113,7 @@ export default function LandingPage() {
               <StaggerItem>
                 <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-6">
                   <Link href="/sign-up"
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 group text-white px-6 py-3.5 md:px-8 md:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)]"
-                    style={{ background: '#6366f1' }}>
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 group text-white px-6 py-3.5 md:px-8 md:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest bg-gradient-to-r from-indigo-400 to-purple-400 hover:scale-105 transition-all shadow-[0_0_30px_rgba(192,132,252,0.4)] hover:shadow-[0_0_40px_rgba(192,132,252,0.6)]">
                     Analyze Feedback Free
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>

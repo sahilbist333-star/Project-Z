@@ -102,8 +102,7 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                             Log In
                         </Link>
                         <Link href="/sign-up"
-                            className="text-white px-5 py-2 md:px-6 md:py-2.5 rounded-full font-bold text-[9px] md:text-[10px] uppercase tracking-widest hover:opacity-90 hover:scale-[1.05] transition-all whitespace-nowrap border border-indigo-400/30"
-                            style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 0 24px rgba(99,102,241,0.6)' }}>
+                            className="text-white px-5 py-2 md:px-6 md:py-2.5 rounded-full font-bold text-[9px] md:text-[10px] uppercase tracking-widest hover:opacity-90 hover:scale-[1.05] transition-all whitespace-nowrap border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]">
                             Get Started
                         </Link>
                     </div>
