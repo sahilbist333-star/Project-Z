@@ -2,7 +2,7 @@ import Link from 'next/link'
 import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import HomepagePricing from '@/components/pricing/HomepagePricing'
-import { ArrowRight, BarChart3, Bell, CheckCircle2, ChevronRight, Globe, TrendingUp, Zap, Share2, Shield, PlayCircle, Sparkles } from 'lucide-react'
+import { ArrowRight, BarChart3, Bell, CheckCircle2, ChevronRight, Globe, TrendingUp, Zap, Share2, Shield, PlayCircle, Sparkles, HelpCircle, Activity } from 'lucide-react'
 import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, FloatElement, GlowingPerspectiveCard, InfiniteMarquee, MousePerspectiveCard, HeroBackground3D } from '@/components/ui/motion'
 import { FaqAccordion } from '@/components/ui/FaqAccordion'
 
@@ -425,6 +425,10 @@ export default function LandingPage() {
       <section className="py-32 border-t border-white/5 bg-black/20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <FadeIn className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/20 bg-purple-500/10 mb-6">
+              <Activity className="w-3.5 h-3.5 text-purple-400" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-300">Continuous Tracking</span>
+            </div>
             <h2 className="font-display text-3xl md:text-5xl font-black text-white mb-6">Your customer needs change every week.</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">Zointly tracks emerging signals so your roadmap stays aligned with real demand.</p>
           </FadeIn>
@@ -460,6 +464,10 @@ export default function LandingPage() {
       <section className="py-32 border-t border-white/5 relative" id="faqs">
         <div className="max-w-4xl mx-auto px-6">
           <FadeIn className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-500/20 bg-teal-500/10 mb-6">
+              <HelpCircle className="w-3.5 h-3.5 text-teal-400" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-300">Support & FAQ</span>
+            </div>
             <h2 className="font-display text-3xl md:text-5xl font-black text-white tracking-tight">Frequently asked questions.</h2>
           </FadeIn>
           <StaggerContainer className="mt-16 w-full">
