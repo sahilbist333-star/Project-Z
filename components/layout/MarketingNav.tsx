@@ -171,7 +171,7 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className="w-full text-center text-white px-6 py-3.5 rounded-full font-bold text-[11px] uppercase tracking-widest hover:opacity-90 transition-all border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]"
                                     >
-                                        Get Started Free
+                                        Create account
                                     </Link>
                                 </div>
                             </div>
