@@ -56,6 +56,14 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
 
     return (
         <div className="fixed top-0 left-0 right-0 z-50 px-6 pt-6 pointer-events-none">
+            {/* Mobile Menu Overlay */}
+            {isMobileMenuOpen && (
+                <div
+                    className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            )}
+
             {/* Announcement bar */}
             {isMounted && isAnnouncementVisible && (
                 <div className="max-w-7xl mx-auto mb-2 rounded-full pointer-events-auto shadow-lg relative flex items-center justify-center" style={{ background: '#FACC15' }}>
@@ -74,7 +82,7 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                 </div>
             )}
 
-            <nav className="max-w-7xl mx-auto rounded-full pointer-events-auto border"
+            <nav className="max-w-7xl mx-auto rounded-full pointer-events-auto border relative z-10"
                 style={{ background: 'rgba(8,8,8,0.7)', borderColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)' }}>
                 <div className="px-5 md:px-6 h-14 md:h-16 flex items-center justify-between">
                     {/* Logo */}
@@ -122,10 +130,12 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                         </button>
                     </div>
                 </div>
+            </nav>
 
-                {/* Mobile Dropdown Menu */}
-                {isMobileMenuOpen && (
-                    <div className="md:hidden px-6 py-6 border-t border-white/10 bg-black/95 backdrop-blur-3xl m-2 rounded-[2rem] shadow-2xl relative">
+            {/* Mobile Dropdown Menu */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden max-w-7xl mx-auto mt-4 pointer-events-auto relative z-10">
+                    <div className="px-6 py-6 border border-white/10 bg-black/90 backdrop-blur-3xl rounded-[2rem] shadow-2xl relative">
                         {/* Optional glow for mobile menu */}
                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 pointer-events-none rounded-[2rem]"></div>
 
@@ -158,8 +168,8 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                             </div>
                         </div>
                     </div>
-                )}
-            </nav>
+                </div>
+            )}
         </div>
     )
 }
