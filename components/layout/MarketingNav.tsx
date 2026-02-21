@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { X } from 'lucide-react'
+import { X, Menu } from 'lucide-react'
 
 interface NavLink {
     label: string
@@ -28,6 +28,7 @@ export { SHARED_LINKS as HOME_LINKS, SHARED_LINKS as DEFAULT_LINKS }
 export default function MarketingNav({ links = SHARED_LINKS }: Props) {
     const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
     useEffect(() => {
         setIsMounted(true)
@@ -95,7 +96,7 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                         ))}
                     </div>
 
-                    {/* Auth CTA */}
+                    {/* Auth CTA & Mobile Toggle */}
                     <div className="flex items-center gap-3 md:gap-4 shrink-0">
                         <Link href="/sign-in"
                             className="hidden md:block text-[10px] font-bold text-slate-400 hover:text-white uppercase tracking-widest transition-colors">
@@ -105,8 +106,58 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                             className="text-white px-5 py-2 md:px-6 md:py-2.5 rounded-full font-bold text-[9px] md:text-[10px] uppercase tracking-widest hover:opacity-90 hover:scale-[1.05] transition-all whitespace-nowrap border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]">
                             Get Started
                         </Link>
+
+                        {/* Mobile Menu Toggle button */}
+                        <button
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="md:hidden p-2 -mr-2 text-slate-400 hover:text-white transition-colors flex items-center justify-center"
+                            aria-label="Toggle mobile menu"
+                        >
+                            {isMobileMenuOpen ? (
+                                <X className="w-5 h-5" />
+                            ) : (
+                                <Menu className="w-5 h-5" />
+                            )}
+                        </button>
                     </div>
                 </div>
+
+                {/* Mobile Dropdown Menu */}
+                {isMobileMenuOpen && (
+                    <div className="md:hidden px-6 py-6 border-t border-white/10 bg-black/95 backdrop-blur-3xl m-2 rounded-[2rem] shadow-2xl relative">
+                        {/* Optional glow for mobile menu */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 pointer-events-none rounded-[2rem]"></div>
+
+                        <div className="flex flex-col gap-6 relative z-10">
+                            {links.map(({ label, href }) => (
+                                <a
+                                    key={label}
+                                    href={href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-sm font-bold text-slate-300 hover:text-white uppercase tracking-widest transition-colors block border-b border-white/5 pb-4"
+                                >
+                                    {label}
+                                </a>
+                            ))}
+                            <div className="pt-2 flex flex-col gap-4">
+                                <Link
+                                    href="/sign-in"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-center text-sm font-bold text-slate-300 hover:text-white uppercase tracking-widest transition-colors py-3 px-6 rounded-full border border-white/10 w-full"
+                                >
+                                    Log In
+                                </Link>
+                                <Link
+                                    href="/sign-up"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="w-full text-center text-white px-6 py-3.5 rounded-full font-bold text-[11px] uppercase tracking-widest hover:opacity-90 transition-all border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]"
+                                >
+                                    Get Started Free
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </nav>
         </div>
     )
