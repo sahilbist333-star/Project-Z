@@ -13,6 +13,11 @@ export async function POST(request: NextRequest) {
 
         if (!file) return NextResponse.json({ error: 'No file provided' }, { status: 400 })
 
+        // 2MB size limit
+        if (file.size > 2 * 1024 * 1024) {
+            return NextResponse.json({ error: 'File is too large. Maximum size is 2MB.' }, { status: 413 })
+        }
+
         const admin = createAdminClient()
         const filePath = `${user.id}.png`
 

@@ -35,6 +35,12 @@ export default function AccountClient({ profile, showSignOut, defaultAvatarUrl }
         const file = e.target.files?.[0]
         if (!file) return
 
+        // 2MB size limit
+        if (file.size > 2 * 1024 * 1024) {
+            alert('File is too large. Maximum size is 2MB.')
+            return
+        }
+
         setUploadingAvatar(true)
 
         const formData = new FormData()
