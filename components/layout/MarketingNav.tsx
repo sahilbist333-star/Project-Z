@@ -14,23 +14,18 @@ interface Props {
     links?: NavLink[]
 }
 
-const DEFAULT_LINKS: NavLink[] = [
+const SHARED_LINKS: NavLink[] = [
+    { label: 'Features', href: '/#features' },
+    { label: 'Public Reports', href: '/#public-reports' },
     { label: 'Pricing', href: '/pricing' },
     { label: 'FAQ', href: '/faq' },
     { label: 'About', href: '/about' },
     { label: 'Blog', href: '/blog' },
 ]
 
-const HOME_LINKS: NavLink[] = [
-    { label: 'Features', href: '#features' },
-    { label: 'Public Reports', href: '#public-reports' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'FAQ', href: '/faq' },
-]
+export { SHARED_LINKS as HOME_LINKS, SHARED_LINKS as DEFAULT_LINKS }
 
-export { HOME_LINKS, DEFAULT_LINKS }
-
-export default function MarketingNav({ links = DEFAULT_LINKS }: Props) {
+export default function MarketingNav({ links = SHARED_LINKS }: Props) {
     const [isAnnouncementVisible, setIsAnnouncementVisible] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
 
@@ -62,10 +57,11 @@ export default function MarketingNav({ links = DEFAULT_LINKS }: Props) {
         <div className="fixed top-0 left-0 right-0 z-50 px-6 pt-6 pointer-events-none">
             {/* Announcement bar */}
             {isMounted && isAnnouncementVisible && (
-                <div className="max-w-7xl mx-auto mb-4 rounded-full pointer-events-auto shadow-lg relative flex items-center justify-center" style={{ background: '#FACC15' }}>
-                    <p className="text-center text-[10px] py-1.5 font-bold text-black tracking-widest uppercase px-8 flex-1">
-                        🆕 Generate shareable evidence reports for stakeholders in one click.{' '}
-                        <a href="/#public-reports" className="underline ml-2">See how →</a>
+                <div className="max-w-7xl mx-auto mb-2 rounded-full pointer-events-auto shadow-lg relative flex items-center justify-center" style={{ background: '#FACC15' }}>
+                    <p className="text-center text-[9px] sm:text-[10px] py-2 sm:py-2.5 font-bold text-black tracking-widest uppercase px-8 flex-1 leading-snug">
+                        🆕 <span className="hidden sm:inline">Generate shareable evidence reports for stakeholders in one click.</span>
+                        <span className="sm:hidden">Share evidence reports in one click.</span>{' '}
+                        <a href="/#public-reports" className="underline ml-1 whitespace-nowrap">See how →</a>
                     </p>
                     <button
                         onClick={handleClose}
@@ -79,9 +75,9 @@ export default function MarketingNav({ links = DEFAULT_LINKS }: Props) {
 
             <nav className="max-w-7xl mx-auto rounded-full pointer-events-auto border"
                 style={{ background: 'rgba(8,8,8,0.7)', borderColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)' }}>
-                <div className="px-6 h-14 flex items-center justify-between">
+                <div className="px-5 md:px-6 h-14 md:h-16 flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2.5 group">
+                    <Link href="/" className="flex items-center gap-2 md:gap-2.5 group shrink-0">
                         <div className="w-6 h-6 rounded flex items-center justify-center transition-transform group-hover:scale-110"
                             style={{ background: '#6366f1' }}>
                             <span className="text-white text-[10px] font-bold">Z</span>
@@ -100,13 +96,13 @@ export default function MarketingNav({ links = DEFAULT_LINKS }: Props) {
                     </div>
 
                     {/* Auth CTA */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 md:gap-4 shrink-0">
                         <Link href="/sign-in"
                             className="hidden md:block text-[10px] font-bold text-slate-400 hover:text-white uppercase tracking-widest transition-colors">
                             Log In
                         </Link>
                         <Link href="/sign-up"
-                            className="text-white px-5 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest hover:opacity-90 hover:scale-[1.02] shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all"
+                            className="text-white px-5 py-2 md:px-6 md:py-2.5 rounded-full font-bold text-[9px] md:text-[10px] uppercase tracking-widest hover:opacity-90 hover:scale-[1.02] shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all whitespace-nowrap"
                             style={{ background: '#6366f1' }}>
                             Get Started
                         </Link>

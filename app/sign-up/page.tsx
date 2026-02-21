@@ -50,7 +50,7 @@ export default function SignUpPage() {
             {/* Left panel — form */}
             <div className="flex-1 flex flex-col min-h-screen">
                 {/* Header */}
-                <header className="flex items-center justify-between px-10 py-7">
+                <header className="flex items-center justify-between px-6 sm:px-10 py-6 sm:py-7">
                     <Link href="/" className="flex items-center gap-2.5">
                         <div className="w-7 h-7 rounded flex items-center justify-center" style={{ background: '#6366f1' }}>
                             <span className="text-white text-xs font-bold">Z</span>
@@ -61,7 +61,7 @@ export default function SignUpPage() {
                 </header>
 
                 {/* Form */}
-                <main className="flex-1 flex items-center justify-center px-10 py-12 relative overflow-hidden z-10">
+                <main className="flex-1 flex items-center justify-center px-6 sm:px-10 py-8 sm:py-12 relative overflow-hidden z-10">
                     <FadeIn delay={0.1} className="w-full max-w-[400px]">
                         <div className="mb-10">
                             <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-3">Get Started Free</p>

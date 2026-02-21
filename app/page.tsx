@@ -94,8 +94,9 @@ export default function LandingPage() {
               </StaggerItem>
 
               <StaggerItem>
-                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6 leading-[1.05] drop-shadow-2xl">
+                <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-4 sm:mb-6 leading-tight sm:leading-[1.05] drop-shadow-2xl">
                   Stop guessing what to{' '}
+                  <br className="block sm:hidden" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 drop-shadow-lg">
                     build next.
                   </span>
@@ -109,15 +110,15 @@ export default function LandingPage() {
               </StaggerItem>
 
               <StaggerItem>
-                <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-6">
                   <Link href="/sign-up"
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 group text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)]"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 group text-white px-6 py-3.5 md:px-8 md:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)]"
                     style={{ background: '#6366f1' }}>
                     Analyze Feedback Free
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                   <Link href="#features"
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest bg-black/40 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all">
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 text-white px-6 py-3.5 md:px-8 md:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest bg-black/40 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all">
                     <PlayCircle className="w-4 h-4 text-slate-400" />
                     See How It Works
                   </Link>
@@ -138,25 +139,27 @@ export default function LandingPage() {
 
                 <GlowingPerspectiveCard className="relative rounded-[2rem] overflow-hidden shadow-2xl bg-black/40 backdrop-blur-2xl border border-white/10">
                   {/* Window bar */}
-                  <div className="flex items-center gap-2 px-6 py-4 border-b border-white/5 bg-black/50">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
-                    <span className="ml-4 text-[9px] text-slate-500 tracking-widest font-mono">zointly.com/reports/prj-delta</span>
-                    <div className="ml-auto px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  <div className="flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 border-b border-white/5 bg-black/50">
+                    <div className="flex gap-1.5 shrink-0">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                    </div>
+                    <span className="ml-2 sm:ml-4 text-[8px] sm:text-[9px] text-slate-500 tracking-widest font-mono truncate">zointly.com/reports/prj-delta</span>
+                    <div className="ml-auto px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 hidden sm:block">
                       Verified
                     </div>
                   </div>
 
                   {/* Stats grid */}
                   <div className="grid grid-cols-2 border-b border-white/5">
-                    <div className="p-6 border-r border-white/5">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Demand Score</p>
-                      <p className="font-display text-3xl font-bold text-indigo-400">9.2</p>
+                    <div className="p-4 sm:p-6 border-r border-white/5">
+                      <p className="text-[8px] sm:text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1 sm:mb-2">Demand Score</p>
+                      <p className="font-display text-2xl sm:text-3xl font-bold text-indigo-400">9.2</p>
                     </div>
-                    <div className="p-6">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Priority</p>
-                      <p className="font-display text-xl font-bold text-red-400 mt-2">P0 — Critical</p>
+                    <div className="p-4 sm:p-6">
+                      <p className="text-[8px] sm:text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1 sm:mb-2">Priority</p>
+                      <p className="font-display text-lg sm:text-xl font-bold text-red-400 mt-1 sm:mt-2">P0 — Critical</p>
                     </div>
                   </div>
 
@@ -228,7 +231,7 @@ export default function LandingPage() {
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             {/* Card 1: AI Demand Scoring (Large Wide) */}
-            <StaggerItem className="lg:col-span-2 row-span-2 group relative overflow-hidden p-8 md:p-12 rounded-[2rem] bg-black/40 border border-white/5 hover:border-indigo-500/30 transition-all">
+            <StaggerItem className="lg:col-span-2 row-span-2 group relative overflow-hidden p-6 sm:p-8 md:p-12 rounded-[2rem] bg-black/40 border border-white/5 hover:border-indigo-500/30 transition-all">
               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 group-hover:bg-indigo-500/20 transition-colors"></div>
               <div className="relative z-10 h-full flex flex-col justify-between gap-12">
                 <div>
@@ -254,7 +257,7 @@ export default function LandingPage() {
             </StaggerItem>
 
             {/* Card 2: Instant Analysis */}
-            <StaggerItem className="group relative overflow-hidden p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-purple-500/30 transition-all">
+            <StaggerItem className="group relative overflow-hidden p-6 sm:p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-purple-500/30 transition-all">
               <div className="absolute -bottom-20 -right-20 w-[300px] h-[300px] bg-purple-500/10 blur-[80px] rounded-full group-hover:bg-purple-500/20 transition-colors"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-purple-500/10 border border-purple-500/20">
@@ -266,7 +269,7 @@ export default function LandingPage() {
             </StaggerItem>
 
             {/* Card 3: Insight Alerts */}
-            <StaggerItem className="group relative overflow-hidden p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-yellow-500/30 transition-all">
+            <StaggerItem className="group relative overflow-hidden p-6 sm:p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-yellow-500/30 transition-all">
               <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-yellow-500/5 blur-[80px] rounded-full group-hover:bg-yellow-500/10 transition-colors"></div>
               <div className="relative z-10 flex flex-col h-full">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-yellow-500/10 border border-yellow-500/20">
@@ -278,7 +281,7 @@ export default function LandingPage() {
             </StaggerItem>
 
             {/* Card 4: Shareable Reports */}
-            <StaggerItem className="group relative overflow-hidden p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-blue-500/30 transition-all">
+            <StaggerItem className="group relative overflow-hidden p-6 sm:p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-blue-500/30 transition-all">
               <div className="relative z-10 flex flex-col h-full">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-blue-500/10 border border-blue-500/20">
                   <Share2 className="w-6 h-6 text-blue-400" />
@@ -289,7 +292,7 @@ export default function LandingPage() {
             </StaggerItem>
 
             {/* Card 5: Verbatim Evidence (Wide) */}
-            <StaggerItem className="md:col-span-2 lg:col-span-2 group relative overflow-hidden p-8 md:p-10 rounded-[2rem] bg-black/40 border border-white/5 hover:border-teal-500/30 transition-all">
+            <StaggerItem className="md:col-span-2 lg:col-span-2 group relative overflow-hidden p-6 sm:p-8 md:p-10 rounded-[2rem] bg-black/40 border border-white/5 hover:border-teal-500/30 transition-all">
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[200px] bg-teal-500/5 blur-[100px] rounded-full group-hover:bg-teal-500/10 transition-colors"></div>
               <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center h-full">
                 <div className="flex-1">
@@ -374,7 +377,7 @@ export default function LandingPage() {
                 ))}
               </StaggerContainer>
               <Link href="/sign-up"
-                className="inline-flex items-center justify-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(99,102,241,0.3)] bg-primary group">
+                className="inline-flex items-center justify-center gap-2 text-white px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(99,102,241,0.3)] bg-primary group w-full sm:w-auto">
                 Generate Your First Report
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -382,29 +385,29 @@ export default function LandingPage() {
             {/* Mock report card */}
             <FadeIn delay={0.2} className="lg:ml-auto w-full max-w-lg perspective-[1200px]">
               <MousePerspectiveCard className="rounded-[2rem] overflow-hidden bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl">
-                <div className="px-6 py-4 border-b flex items-center gap-3 border-white/5 bg-black/60">
-                  <Globe className="w-4 h-4 text-green-400" />
-                  <span className="text-[10px] text-slate-500 font-mono tracking-wider">zointly.com/reports/abc-xyz</span>
-                  <div className="ml-auto px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-wider bg-green-500/20 text-green-400 border border-green-500/30">
+                <div className="px-4 sm:px-6 py-3 sm:py-4 border-b flex items-center gap-2 sm:gap-3 border-white/5 bg-black/60">
+                  <Globe className="w-4 h-4 text-green-400 shrink-0" />
+                  <span className="text-[8px] sm:text-[10px] text-slate-500 font-mono tracking-wider truncate">zointly.com/reports/abc-xyz</span>
+                  <div className="ml-auto px-2 sm:px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-wider bg-green-500/20 text-green-400 border border-green-500/30 shrink-0">
                     Public Link
                   </div>
                 </div>
-                <div className="p-6 space-y-4">
+                <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                   {[
                     { title: 'Bulk CSV Export', score: 9.2, priority: 'P0', color: '#ef4444' },
                     { title: 'Slack Integration', score: 8.7, priority: 'P1', color: '#f97316' },
                     { title: 'Advanced Search', score: 7.5, priority: 'P1', color: '#f97316' },
                     { title: 'Mobile App Support', score: 6.8, priority: 'P2', color: '#eab308' },
                   ].map(opp => (
-                    <div key={opp.title} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                    <div key={opp.title} className="flex items-center justify-between p-3 sm:p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
                       <div>
-                        <p className="text-sm font-semibold text-white">{opp.title}</p>
-                        <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-2 inline-block"
+                        <p className="text-xs sm:text-sm font-semibold text-white truncate max-w-[120px] sm:max-w-[200px]">{opp.title}</p>
+                        <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-1 sm:mt-2 inline-block"
                           style={{ background: `${opp.color}18`, color: opp.color }}>{opp.priority}</span>
                       </div>
-                      <div className="text-right">
-                        <p className="font-display text-2xl font-bold text-indigo-400">{opp.score}</p>
-                        <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest">Score</p>
+                      <div className="text-right shrink-0">
+                        <p className="font-display text-xl sm:text-2xl font-bold text-indigo-400">{opp.score}</p>
+                        <p className="text-[8px] sm:text-[9px] text-slate-600 font-bold uppercase tracking-widest">Score</p>
                       </div>
                     </div>
                   ))}
@@ -445,7 +448,7 @@ export default function LandingPage() {
           </StaggerContainer>
           <FadeIn className="text-center">
             <Link href="/sign-up"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest text-white transition-all hover:scale-105 shadow-[0_0_20px_rgba(99,102,241,0.2)] bg-primary group">
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest text-white transition-all hover:scale-105 shadow-[0_0_20px_rgba(99,102,241,0.2)] bg-primary group w-full sm:w-auto">
               Start tracking signals
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
@@ -492,7 +495,7 @@ export default function LandingPage() {
                 Stop spending hours in spreadsheets. Most analyses complete in under 60 seconds.
               </p>
               <Link href="/sign-up"
-                className="inline-flex items-center gap-2 text-white px-10 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_40px_rgba(99,102,241,0.5)] bg-primary group">
+                className="inline-flex items-center justify-center gap-2 text-white px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-[10px] sm:text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_40px_rgba(99,102,241,0.5)] bg-primary group w-full sm:w-auto">
                 Analyze Feedback Free
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>

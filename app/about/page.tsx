@@ -12,7 +12,7 @@ const values = [
 ]
 
 const team = [
-    { name: 'Sahil', role: 'Founder & CEO', bio: 'Former product manager obsessed with turning fuzzy user feedback into clear decision signals.' },
+    { name: 'Sahil Maykott', role: 'Founder & CEO', bio: 'Former product manager obsessed with turning fuzzy user feedback into clear decision signals.' },
     { name: 'Alex Rivera', role: 'Head of Engineering', bio: 'Built scalable data pipelines at DataScale. Believer in fast feedback loops between code and customers.' },
     { name: 'Priya Singh', role: 'Head of Product', bio: '10+ years shipping B2B SaaS. Passionate about tools that make product teams move faster and smarter.' },
 ]
@@ -98,9 +98,9 @@ export default function AboutPage() {
                             { value: '< 60s', label: 'Avg. Analysis Time' },
                             { value: '98%', label: 'Accuracy Rate' },
                         ].map(({ value, label }) => (
-                            <StaggerItem key={label} className="text-center p-6 rounded-[1.5rem] bg-black/40 border border-white/5">
-                                <p className="font-display text-3xl font-bold text-white mb-1">{value}</p>
-                                <p className="text-slate-500 text-sm">{label}</p>
+                            <StaggerItem key={label} className="text-center p-4 sm:p-6 rounded-[1.5rem] bg-black/40 border border-white/5">
+                                <p className="font-display text-2xl sm:text-3xl font-bold text-white mb-1">{value}</p>
+                                <p className="text-slate-500 text-[10px] sm:text-sm">{label}</p>
                             </StaggerItem>
                         ))}
                     </StaggerContainer>
@@ -114,12 +114,12 @@ export default function AboutPage() {
                     <p className="text-slate-400 mb-8">Start free. No credit card needed.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link href="/sign-up"
-                            className="text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_20px_rgba(99,102,241,0.2)] bg-primary group flex items-center justify-center gap-2">
+                            className="text-white px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_20px_rgba(99,102,241,0.2)] bg-primary group flex items-center justify-center gap-2">
                             Get Started Free
                             <span className="w-4 h-4 transition-transform group-hover:translate-x-1">→</span>
                         </Link>
                         <Link href="/contact"
-                            className="text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest bg-black/40 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all flex items-center justify-center">
+                            className="text-white px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest bg-black/40 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all flex items-center justify-center">
                             Contact the Team
                         </Link>
                     </div>

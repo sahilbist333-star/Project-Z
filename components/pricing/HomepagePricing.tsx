@@ -7,8 +7,8 @@ export default function HomepagePricing() {
     const [interval, setInterval] = useState<'monthly' | 'annual'>('monthly')
 
     return (
-        <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }} id="pricing">
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <section className="py-20 md:py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }} id="pricing">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
                 <div className="text-center mb-14">
                     <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>Simple Pricing</p>
                     <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Start free. Scale when you&apos;re ready.</h2>
@@ -46,7 +46,7 @@ export default function HomepagePricing() {
 
                 <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
                     {/* Free */}
-                    <div className="flex flex-col p-8 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.08)' }}>
+                    <div className="flex flex-col p-6 md:p-8 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.08)' }}>
                         <h3 className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Starter</h3>
                         <div className="text-3xl font-bold text-white font-display mb-2">$0</div>
                         <p className="text-slate-500 text-xs mb-6">Forever free</p>
@@ -66,7 +66,7 @@ export default function HomepagePricing() {
                     </div>
 
                     {/* Growth */}
-                    <div className="flex flex-col p-8 rounded-xl relative overflow-hidden ring-2 ring-indigo-500/30"
+                    <div className="flex flex-col p-6 md:p-8 rounded-xl relative overflow-hidden ring-2 ring-indigo-500/30"
                         style={{ background: '#0f1020', border: '2px solid #6366f1' }}>
                         <div className="absolute top-0 right-0 text-white px-3 py-1 text-[8px] font-bold uppercase tracking-widest rounded-bl-lg"
                             style={{ background: '#6366f1' }}>Most Popular</div>
@@ -103,7 +103,7 @@ export default function HomepagePricing() {
                     </div>
 
                     {/* Enterprise */}
-                    <div className="flex flex-col p-8 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.08)' }}>
+                    <div className="flex flex-col p-6 md:p-8 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.08)' }}>
                         <h3 className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-4">Enterprise</h3>
                         <div className="text-3xl font-bold text-white font-display mb-2">Custom</div>
                         <p className="text-slate-500 text-xs mb-6">For large teams</p>
