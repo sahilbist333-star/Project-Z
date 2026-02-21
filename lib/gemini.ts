@@ -23,7 +23,7 @@ export async function analyzeWithGemini(
     entries: string[]
 ): Promise<Omit<Opportunity, 'id' | 'analysis_id' | 'created_at'>[]> {
     const model = genAI.getGenerativeModel({
-        model: 'gemini-1.5-flash-latest',
+        model: 'gemini-2.5-flash',
         generationConfig: {
             responseMimeType: 'application/json',
             temperature: 0.3,
