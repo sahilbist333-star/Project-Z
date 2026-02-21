@@ -239,18 +239,30 @@ export default function LandingPage() {
                     <BarChart3 className="w-7 h-7 text-indigo-400" />
                   </div>
                   <h3 className="font-display text-3xl font-bold text-white mb-4">AI Demand Scoring</h3>
-                  <p className="text-slate-400 text-lg leading-relaxed max-w-md">Every feature request gets a 0–10 demand score based on frequency, urgency, and sentiment — not gut feel.</p>
+                  <p className="text-slate-400 text-lg leading-relaxed max-w-md">See how Zointly transforms raw feedback into prioritized features with this 60-second walkthrough video.</p>
                 </div>
-                {/* Visual Element */}
-                <div className="w-full flex items-end">
-                  <div className="w-full h-32 md:h-48 rounded-t-xl bg-gradient-to-t from-indigo-500/20 to-transparent border-t border-x border-indigo-500/20 relative overflow-hidden">
-                    <div className="absolute bottom-0 left-0 w-full h-[1px] bg-indigo-400 shadow-[0_0_20px_#818cf8]"></div>
-                    {/* Fake Chart bars */}
-                    <div className="absolute bottom-0 w-full flex items-end justify-between px-6 gap-2 opacity-60">
-                      {[40, 70, 45, 90, 60, 85, 55, 100].map((h, i) => (
-                        <div key={i} className="w-full bg-indigo-500/50 rounded-t-sm" style={{ height: `${h}% ` }}></div>
-                      ))}
-                    </div>
+                {/* Visual Element: Video Player */}
+                <div className="w-full h-48 md:h-64 mt-auto rounded-t-xl overflow-hidden relative border-t border-x border-indigo-500/20 bg-black/50">
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-indigo-400 shadow-[0_0_20px_#818cf8] z-20"></div>
+
+                  {/* Subtle vignette/gradient over video */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent z-10 pointer-events-none"></div>
+
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 scale-[1.02]"
+                  >
+                    <source src="/waitlist-demo.mp4" type="video/mp4" />
+                    {/* Fallback pattern if video fails */}
+                    <div className="w-full h-full bg-indigo-900/20"></div>
+                  </video>
+
+                  {/* Play indicator subtle overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                    <PlayCircle className="w-16 h-16 text-white" />
                   </div>
                 </div>
               </div>
