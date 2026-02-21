@@ -70,7 +70,7 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                 className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#080808] to-transparent pointer-events-none transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
             />
 
-            <div className="px-6 pt-6 relative z-10">
+            <div className="relative z-10">
                 {/* Mobile Menu Overlay */}
                 {isMobileMenuOpen && (
                     <div
@@ -97,9 +97,9 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                     </div>
                 )}
 
-                <nav className="max-w-7xl mx-auto rounded-full pointer-events-auto border relative z-10"
+                <nav className="w-full pointer-events-auto border-b relative z-10"
                     style={{ background: 'rgba(8,8,8,0.7)', borderColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)' }}>
-                    <div className="px-5 md:px-6 h-14 md:h-16 flex items-center justify-between">
+                    <div className="max-w-7xl mx-auto px-5 md:px-6 h-14 md:h-16 flex items-center justify-between">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-2 md:gap-2.5 group shrink-0">
                             <div className="w-6 h-6 rounded flex items-center justify-center transition-transform group-hover:scale-110"
