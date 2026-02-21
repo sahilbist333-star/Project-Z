@@ -26,7 +26,7 @@ export default function ContactPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <section className="pt-24 pb-14 text-center px-6 relative overflow-hidden">
+            <section className="pt-48 pb-14 text-center px-6 relative overflow-hidden">
                 <HeroBackground3D />
                 <FadeIn className="relative z-10">
                     <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Get in Touch</p>
