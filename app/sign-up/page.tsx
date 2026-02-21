@@ -41,7 +41,7 @@ export default function SignUpPage() {
         setGoogleLoading(true)
         await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { redirectTo: `${location.origin}/dashboard` },
+            options: { redirectTo: `${location.origin}/api/auth/callback?next=/dashboard` },
         })
     }
 

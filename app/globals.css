@@ -23,6 +23,21 @@ body {
   background-color: var(--bg);
   color: #e2e8f0;
   min-height: 100vh;
+  /* Use explicit SVG with fallback coordinates for top-left pointer */
+  cursor: url('/cursor.svg') 4 2, auto;
+}
+
+a,
+button,
+[role="button"],
+select,
+input[type="submit"],
+input[type="button"],
+.cursor-pointer,
+a *,
+button *,
+[role="button"] * {
+  cursor: url('/cursor-pointer.svg') 4 2, pointer !important;
 }
 
 .font-display {
