@@ -262,9 +262,11 @@ export default function LandingPage() {
                       <div className="w-full h-full bg-indigo-900/20"></div>
                     </video>
 
-                    {/* Play indicator subtle overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-500">
-                      <PlayCircle className="w-16 h-16 text-white" />
+                    {/* Play indicator: Centered and Always Visible but stylized */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+                      <div className="w-20 h-20 rounded-full bg-indigo-500/20 backdrop-blur-md border border-indigo-400/30 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:bg-indigo-500/30 group-hover:border-indigo-400/50">
+                        <PlayCircle className="w-10 h-10 text-white fill-white/10" strokeWidth={1.5} />
+                      </div>
                     </div>
                   </a>
                 </div>
