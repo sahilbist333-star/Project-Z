@@ -248,13 +248,13 @@ export default function LandingPage() {
                   {/* Subtle vignette/gradient over video */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent z-10 pointer-events-none"></div>
 
-                  <a href="https://www.youtube.com/watch?v=F_S61x8_HjY" target="_blank" rel="noopener noreferrer" className="block w-full h-full relative z-20 cursor-pointer">
+                  <a href="https://www.youtube.com/watch?v=T5LHXiTncp0" target="_blank" rel="noopener noreferrer" className="block w-full h-full relative z-20 cursor-pointer">
                     <video
                       autoPlay
                       loop
                       muted
                       playsInline
-                      poster="https://img.youtube.com/vi/F_S61x8_HjY/maxresdefault.jpg"
+                      poster="https://img.youtube.com/vi/T5LHXiTncp0/maxresdefault.jpg"
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 scale-[1.02]"
                     >
                       <source src="/waitlist-demo.mp4" type="video/mp4" />

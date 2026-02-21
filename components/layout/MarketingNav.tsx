@@ -72,21 +72,19 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
 
             {/* Announcement bar - Full width, 0 margins, no rounded corners */}
             {isMounted && isAnnouncementVisible && (
-                <div className="bg-[#FACC15] pointer-events-auto relative z-20">
-                    <div className="flex items-center justify-center gap-2 px-4 py-2 sm:py-2.5">
-                        <span className="flex h-2 w-2 rounded-full bg-black/60 animate-pulse hidden sm:flex"></span>
-                        <p className="text-[10px] sm:text-xs font-bold text-black tracking-wide">
-                            <span className="hidden sm:inline">New: </span>
-                            Automate your opportunity analysis with our new Zapier integration
-                        </p>
-                        <button
-                            onClick={handleClose}
-                            className="ml-4 p-1 text-black/60 hover:text-black transition-colors"
-                            aria-label="Dismiss announcement"
-                        >
-                            <X className="w-4 h-4" />
-                        </button>
-                    </div>
+                <div className="bg-[#FACC15] pointer-events-auto relative z-20 flex items-center justify-center">
+                    <p className="text-center text-[9px] sm:text-[10px] py-2 sm:py-2.5 font-bold text-black tracking-widest uppercase px-8 flex-1 leading-snug">
+                        🆕 <span className="hidden sm:inline">Generate shareable evidence reports for stakeholders in one click.</span>
+                        <span className="sm:hidden">Share evidence reports in one click.</span>{' '}
+                        <a href="/#public-reports" className="underline ml-1 whitespace-nowrap">See how →</a>
+                    </p>
+                    <button
+                        onClick={handleClose}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-black/60 hover:text-black transition-colors"
+                        aria-label="Dismiss announcement"
+                    >
+                        <X className="w-4 h-4" />
+                    </button>
                 </div>
             )}
 
