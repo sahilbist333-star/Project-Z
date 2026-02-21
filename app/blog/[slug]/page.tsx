@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Twitter, Linkedin, Link2, CalendarDays, Clock } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 
@@ -23,9 +23,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <div className="flex items-center gap-4 text-slate-500 text-sm mb-12 border-b pb-8" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
                     <span>By Zointly Team</span>
                     <span>·</span>
-                    <span>February 21, 2025</span>
+                    <span className="flex items-center gap-1.5"><CalendarDays className="w-4 h-4" /> February 21, 2025</span>
                     <span>·</span>
-                    <span>5 min read</span>
+                    <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> 5 min read</span>
+                </div>
+
+                {/* Hero Image */}
+                <div className="w-full aspect-[21/9] bg-black/40 border border-white/5 rounded-[2rem] mb-16 overflow-hidden relative group shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 group-hover:scale-105 transition-transform duration-700" />
+                    <div className="absolute inset-0 mix-blend-overlay opacity-30" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
                 </div>
 
                 {/* Content */}
@@ -45,6 +51,45 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         As we continue building out the Zointly platform, we'll be sharing detailed case studies, technical deep-dives into our AI processing engine, and practical guides on how to align your product roadmap with actual user demand.
                     </p>
                 </article>
+
+                {/* Share Options */}
+                <div className="mt-16 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-6" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+                    <span className="text-slate-400 font-semibold text-sm">Share this article:</span>
+                    <div className="flex items-center gap-3">
+                        <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-indigo-500/20 hover:border-indigo-500/50 transition-all hover:-translate-y-1">
+                            <Twitter className="w-4 h-4" />
+                        </button>
+                        <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-indigo-500/20 hover:border-indigo-500/50 transition-all hover:-translate-y-1">
+                            <Linkedin className="w-4 h-4" />
+                        </button>
+                        <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-indigo-500/20 hover:border-indigo-500/50 transition-all hover:-translate-y-1">
+                            <Link2 className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Related Articles */}
+                <div className="mt-24">
+                    <div className="flex items-center justify-between mb-8">
+                        <h3 className="font-display text-2xl font-bold text-white">Recommended Articles</h3>
+                        <Link href="/blog" className="text-xs font-bold text-indigo-400 uppercase tracking-widest hover:text-indigo-300">View All →</Link>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                        {[
+                            { title: 'How to build a feedback loop that actually works', category: 'Best Practices', date: 'Feb 15, 2025', readTime: '4 min read', slug: 'feedback-loop-guide' },
+                            { title: 'The hidden cost of ignoring user complaints', category: 'Industry Insights', date: 'Feb 10, 2025', readTime: '6 min read', slug: 'cost-of-ignoring-users' }
+                        ].map((post) => (
+                            <Link href={`/blog/${post.slug}`} key={post.slug} className="flex flex-col rounded-[1.5rem] p-8 transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] cursor-pointer bg-black/40 border border-white/5 hover:border-indigo-500/20">
+                                <span className="text-[8px] font-bold text-indigo-400 uppercase tracking-widest mb-4">{post.category}</span>
+                                <h4 className="font-display text-xl font-bold text-white mb-4 leading-snug flex-grow">{post.title}</h4>
+                                <div className="mt-auto flex items-center gap-4 pt-4 border-t border-white/5">
+                                    <span className="flex items-center gap-1.5 text-[10px] text-slate-500"><CalendarDays className="w-3 h-3" /> {post.date}</span>
+                                    <span className="flex items-center gap-1.5 text-[10px] text-slate-500"><Clock className="w-3 h-3" /> {post.readTime}</span>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
 
                 {/* CTA */}
                 <div className="mt-20 p-8 rounded-2xl text-center" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.05)' }}>
