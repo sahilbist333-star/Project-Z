@@ -70,7 +70,27 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                 className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#080808] to-transparent pointer-events-none transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
             />
 
-            <div className="relative z-10">
+            {/* Announcement bar - Full width, 0 margins, no rounded corners */}
+            {isMounted && isAnnouncementVisible && (
+                <div className="bg-indigo-500/10 border-b border-indigo-500/20 pointer-events-auto relative z-20">
+                    <div className="flex items-center justify-center gap-2 px-4 py-2">
+                        <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse hidden sm:flex"></span>
+                        <p className="text-xs font-medium text-indigo-200">
+                            <span className="font-bold text-white hidden sm:inline">New: </span>
+                            Automate your opportunity analysis with our new Zapier integration
+                        </p>
+                        <button
+                            onClick={handleClose}
+                            className="ml-4 p-1 text-indigo-400 hover:text-white transition-colors"
+                            aria-label="Dismiss announcement"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            <div className="px-6 pt-6 relative z-10 transition-all">
                 {/* Mobile Menu Overlay */}
                 {isMobileMenuOpen && (
                     <div
@@ -79,27 +99,9 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                     />
                 )}
 
-                {/* Announcement bar */}
-                {isMounted && isAnnouncementVisible && (
-                    <div className="max-w-7xl mx-auto mb-2 rounded-full pointer-events-auto shadow-lg relative flex items-center justify-center" style={{ background: '#FACC15' }}>
-                        <p className="text-center text-[9px] sm:text-[10px] py-2 sm:py-2.5 font-bold text-black tracking-widest uppercase px-8 flex-1 leading-snug">
-                            🆕 <span className="hidden sm:inline">Generate shareable evidence reports for stakeholders in one click.</span>
-                            <span className="sm:hidden">Share evidence reports in one click.</span>{' '}
-                            <a href="/#public-reports" className="underline ml-1 whitespace-nowrap">See how →</a>
-                        </p>
-                        <button
-                            onClick={handleClose}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-black/60 hover:text-black rounded-full transition-colors"
-                            aria-label="Close announcement"
-                        >
-                            <X className="w-3.5 h-3.5" strokeWidth={3} />
-                        </button>
-                    </div>
-                )}
-
-                <nav className="w-full pointer-events-auto border-b relative z-10"
+                <nav className="max-w-7xl mx-auto rounded-full pointer-events-auto border relative z-10"
                     style={{ background: 'rgba(8,8,8,0.7)', borderColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)' }}>
-                    <div className="max-w-7xl mx-auto px-5 md:px-6 h-14 md:h-16 flex items-center justify-between">
+                    <div className="px-5 md:px-6 h-14 md:h-16 flex items-center justify-between">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-2 md:gap-2.5 group shrink-0">
                             <div className="w-6 h-6 rounded flex items-center justify-center transition-transform group-hover:scale-110"
