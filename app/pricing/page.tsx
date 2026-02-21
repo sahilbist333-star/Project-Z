@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, ChevronDown, CheckCircle } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
@@ -59,8 +59,11 @@ export default function PricingPage() {
             {/* Hero */}
             <section className="pt-48 pb-16 px-6 relative overflow-hidden">
                 <HeroBackground3D />
-                <FadeIn className="relative z-10 text-center">
-                    <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Simple Pricing</p>
+                <FadeIn className="relative z-10 text-center flex flex-col items-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/10 mb-6">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">Simple Pricing</span>
+                    </div>
                     <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Start free. Scale when you&apos;re ready.</h1>
                     <p className="text-slate-400 text-lg max-w-xl mx-auto mb-10">Plans are scaled by analysis volume. No hidden fees, no seat licenses.</p>
                 </FadeIn>

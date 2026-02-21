@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { Plus, Minus } from 'lucide-react'
+import { Plus, Minus, HelpCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MarketingNav from '@/components/layout/MarketingNav'
 
@@ -53,9 +53,12 @@ export default function FAQPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <section className="pt-48 pb-14 text-center px-6 relative">
+            <section className="pt-48 pb-14 text-center px-6 relative flex flex-col items-center">
                 <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.07) 0%, transparent 60%)' }} />
-                <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Help Center</p>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-500/20 bg-teal-500/10 mb-6 relative z-10">
+                    <HelpCircle className="w-3.5 h-3.5 text-teal-400" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-300">Help Center</span>
+                </div>
                 <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Frequently Asked Questions</h1>
                 <p className="text-slate-400 text-lg max-w-xl mx-auto">Everything you need to know about Zointly.</p>
             </section>

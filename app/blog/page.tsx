@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { BookOpen, ArrowRight, Zap } from 'lucide-react'
+import { BookOpen, ArrowRight, Zap, BookOpenCheck } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
@@ -70,14 +70,14 @@ export default function BlogPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <section className="pt-48 pb-14 text-center px-6 relative overflow-hidden">
+            <section className="pt-48 pb-14 text-center px-6 relative overflow-hidden flex flex-col items-center">
                 <HeroBackground3D />
-                <FadeIn className="relative z-10">
-                    <div className="inline-flex items-center gap-2 mb-4">
-                        <BookOpen className="w-4 h-4 text-indigo-400" />
-                        <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em]">Zointly Blog</p>
+                <FadeIn className="relative z-10 flex flex-col items-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/20 bg-purple-500/10 mb-6">
+                        <BookOpenCheck className="w-3.5 h-3.5 text-purple-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-300">The Notebook</span>
                     </div>
-                    <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Product Intelligence Insights</h1>
+                    <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">Thoughts on Building.</h1>
                     <p className="text-slate-400 text-lg max-w-xl mx-auto">Guides, case studies, and product updates for evidence-driven product teams.</p>
                 </FadeIn>
             </section>

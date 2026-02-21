@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Zap, Search, Share2, Bell, Shield, Globe } from 'lucide-react'
+import { Zap, Search, Share2, Bell, Shield, Globe, Target } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
@@ -40,7 +40,10 @@ export default function AboutPage() {
             {/* Mission */}
             <section className="pb-24 px-6 relative z-10">
                 <FadeIn className="max-w-4xl mx-auto rounded-[2rem] p-12 text-center bg-black/40 backdrop-blur-xl border border-white/5 shadow-2xl skew-y-1 hover:skew-y-0 transition-transform duration-500">
-                    <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Our Mission</p>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/20 bg-purple-500/10 mb-6">
+                        <Target className="w-3.5 h-3.5 text-purple-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-300">Our Mission</span>
+                    </div>
                     <blockquote className="font-display text-2xl md:text-3xl font-bold text-white leading-snug">
                         &ldquo;Give every product team access to the same quality of decision intelligence that only the largest companies could afford.&rdquo;
                     </blockquote>

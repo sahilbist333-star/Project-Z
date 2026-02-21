@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Mail, MessageSquare, Zap, ArrowRight } from 'lucide-react'
+import { Mail, MessageSquare, Zap, ArrowRight, Send } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
@@ -28,8 +28,11 @@ export default function ContactPage() {
 
             <section className="pt-48 pb-14 text-center px-6 relative overflow-hidden">
                 <HeroBackground3D />
-                <FadeIn className="relative z-10">
-                    <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Get in Touch</p>
+                <FadeIn className="relative z-10 flex flex-col items-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/10 mb-6">
+                        <Send className="w-3.5 h-3.5 text-blue-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">Get in Touch</span>
+                    </div>
                     <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Contact Us</h1>
                     <p className="text-slate-400 text-lg max-w-md mx-auto">We reply within 24 hours on business days.</p>
                 </FadeIn>
