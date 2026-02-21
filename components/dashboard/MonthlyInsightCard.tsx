@@ -19,8 +19,8 @@ export default function MonthlyInsightCard({ analysis, used, plan }: Props) {
     const pct = Math.min(100, Math.round((used / limit) * 100))
 
     return (
-        <div className="mb-6 rounded-xl overflow-hidden anim-slide-up"
-            style={{ background: '#0f0f12', border: '1px solid rgba(99,102,241,0.15)' }}>
+        <div className="mb-6 rounded-2xl overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(99,102,241,0.05)] hover:-translate-y-0.5"
+            style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)' }}>
             <div className="px-6 py-5 border-b flex items-center gap-3"
                 style={{ borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(99,102,241,0.04)' }}>
                 <BarChart3 className="w-4 h-4 text-indigo-400" />

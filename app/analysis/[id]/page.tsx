@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { Loader2, XCircle, RefreshCw, Download, Share2, ChevronDown, ChevronUp, Quote } from 'lucide-react'
 import { Analysis, Opportunity } from '@/lib/types'
 import { format, parseISO } from 'date-fns'
+import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion'
 
 interface Props { params: Promise<{ id: string }> }
 
@@ -123,10 +124,10 @@ export default function AnalysisPage({ params }: Props) {
     const opp = selected
 
     return (
-        <div className="h-full flex flex-col">
+        <FadeIn className="h-full flex flex-col relative z-10">
             {/* Toolbar */}
             <div className="flex items-center justify-between px-6 py-4 border-b flex-shrink-0"
-                style={{ background: '#0f0f11', borderColor: 'rgba(255,255,255,0.06)' }}>
+                style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', borderColor: 'rgba(255,255,255,0.06)' }}>
                 <div>
                     <h1 className="text-white font-bold">
                         {analysis.is_sample ? '📋 Sample Analysis' : 'Feedback Analysis'}
@@ -158,52 +159,54 @@ export default function AnalysisPage({ params }: Props) {
             <div className="flex flex-1 overflow-hidden">
                 {/* Left: Opportunities list */}
                 <div className="w-80 flex-shrink-0 border-r overflow-y-auto" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-                    <div className="px-4 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                    <div className="px-4 py-4 border-b hover:bg-white/5 transition-colors cursor-default" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
                         <h2 className="text-xs font-bold text-slate-500 uppercase tracking-widest">Opportunities ({opportunities.length})</h2>
                     </div>
-                    <div className="p-3 space-y-2">
+                    <StaggerContainer className="p-3 space-y-2">
                         {opportunities.map((opp, i) => {
                             const changeItem = analysis.change_summary?.items?.find(
                                 item => item.detail?.toLowerCase().includes(opp.title.toLowerCase()) ||
                                     item.title?.toLowerCase().includes(opp.title.toLowerCase())
                             )
                             return (
-                                <button key={opp.id} onClick={() => setSelected(opp)}
-                                    className="w-full text-left p-3.5 rounded-lg transition-all"
-                                    style={{
-                                        background: selected?.id === opp.id ? 'rgba(99,102,241,0.1)' : 'rgba(255,255,255,0.02)',
-                                        border: `1px solid ${selected?.id === opp.id ? 'rgba(99,102,241,0.3)' : 'rgba(255,255,255,0.06)'}`,
-                                    }}>
-                                    <div className="flex items-start justify-between gap-2 mb-1.5">
-                                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
-                                            style={{ background: `${PRIORITY_COLORS[opp.priority]}18`, color: PRIORITY_COLORS[opp.priority] }}>
-                                            {opp.priority}
-                                        </span>
-                                        {changeItem && (
-                                            <span className="text-[9px] font-bold text-indigo-400">
-                                                {changeItem.type === 'new_opportunity' ? '🆕 NEW' :
-                                                    changeItem.type === 'demand_surge' ? '🔺' : '⚠️'}
+                                <StaggerItem key={opp.id}>
+                                    <button onClick={() => setSelected(opp)}
+                                        className="w-full text-left p-3.5 rounded-lg transition-all hover:-translate-y-0.5"
+                                        style={{
+                                            background: selected?.id === opp.id ? 'rgba(99,102,241,0.1)' : 'rgba(255,255,255,0.02)',
+                                            border: `1px solid ${selected?.id === opp.id ? 'rgba(99,102,241,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                                        }}>
+                                        <div className="flex items-start justify-between gap-2 mb-1.5">
+                                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
+                                                style={{ background: `${PRIORITY_COLORS[opp.priority]}18`, color: PRIORITY_COLORS[opp.priority] }}>
+                                                {opp.priority}
                                             </span>
-                                        )}
-                                    </div>
-                                    <p className="text-xs font-semibold text-white leading-tight">{opp.title}</p>
-                                    <div className="flex items-center gap-3 mt-2">
-                                        <span className="text-[10px] text-slate-500 font-medium">
-                                            {opp.mentions_estimate.toLocaleString()} mentions
-                                        </span>
-                                        <span className="text-[10px] text-slate-500">·</span>
-                                        <span className="text-[10px] font-bold" style={{ color: '#6366f1' }}>{opp.demand_score}/10</span>
-                                    </div>
-                                </button>
+                                            {changeItem && (
+                                                <span className="text-[9px] font-bold text-indigo-400">
+                                                    {changeItem.type === 'new_opportunity' ? '🆕 NEW' :
+                                                        changeItem.type === 'demand_surge' ? '🔺' : '⚠️'}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-xs font-semibold text-white leading-tight">{opp.title}</p>
+                                        <div className="flex items-center gap-3 mt-2">
+                                            <span className="text-[10px] text-slate-500 font-medium">
+                                                {opp.mentions_estimate.toLocaleString()} mentions
+                                            </span>
+                                            <span className="text-[10px] text-slate-500">·</span>
+                                            <span className="text-[10px] font-bold" style={{ color: '#6366f1' }}>{opp.demand_score}/10</span>
+                                        </div>
+                                    </button>
+                                </StaggerItem>
                             )
                         })}
-                    </div>
+                    </StaggerContainer>
                 </div>
 
                 {/* Right: PRD Details */}
-                <div className="flex-1 overflow-y-auto">
+                <div className="flex-1 overflow-y-auto" style={{ background: 'rgba(0,0,0,0.2)' }}>
                     {opp ? (
-                        <div className="p-8 max-w-2xl">
+                        <FadeIn key={opp.id} className="p-8 max-w-2xl mx-auto">
                             {/* Header */}
                             <div className="mb-8">
                                 <div className="flex items-center gap-3 mb-3">
@@ -264,7 +267,7 @@ export default function AnalysisPage({ params }: Props) {
                                     </section>
                                 )}
                             </div>
-                        </div>
+                        </FadeIn>
                     ) : (
                         <div className="h-full flex items-center justify-center text-slate-500 text-sm">
                             Select an opportunity to view details
@@ -272,6 +275,6 @@ export default function AnalysisPage({ params }: Props) {
                     )}
                 </div>
             </div>
-        </div>
+        </FadeIn >
     )
 }

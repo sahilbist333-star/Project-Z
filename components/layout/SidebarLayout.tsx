@@ -39,9 +39,9 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, children 
     ]
 
     return (
-        <div className="flex h-screen overflow-hidden" style={{ background: '#0a0a0b' }}>
+        <div className="flex h-screen overflow-hidden relative" style={{ background: '#080808' }}>
             {/* Sidebar */}
-            <aside className="w-60 flex flex-col border-r flex-shrink-0" style={{ background: '#0f0f11', borderColor: 'rgba(255,255,255,0.05)' }}>
+            <aside className="w-60 flex flex-col border-r flex-shrink-0 relative z-20" style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', borderColor: 'rgba(255,255,255,0.05)' }}>
                 {/* Logo */}
                 <div className="flex items-center gap-2.5 h-16 px-5 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
                     <div className="w-6 h-6 rounded flex items-center justify-center flex-shrink-0" style={{ background: '#6366f1' }}>

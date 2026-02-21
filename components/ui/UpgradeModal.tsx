@@ -67,7 +67,7 @@ export default function UpgradeModal({ onClose, used, limit }: Props) {
                         ))}
                     </div>
                     <div className="flex items-baseline gap-1.5 mb-5">
-                        <span className="font-display text-3xl font-bold text-white">₹49</span>
+                        <span className="font-display text-3xl font-bold text-white">₹2,999</span>
                         <span className="text-slate-500 text-sm">/month · cancel anytime</span>
                     </div>
                     <Link href="/pricing" onClick={onClose}

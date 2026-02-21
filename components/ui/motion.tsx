@@ -7,9 +7,10 @@ interface WrapperProps {
     children: ReactNode
     delay?: number
     className?: string
+    style?: React.CSSProperties
 }
 
-export function FadeIn({ children, delay = 0, className = "" }: WrapperProps) {
+export function FadeIn({ children, delay = 0, className = "", style }: WrapperProps) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -17,6 +18,7 @@ export function FadeIn({ children, delay = 0, className = "" }: WrapperProps) {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.7, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
             className={className}
+            style={style}
         >
             {children}
         </motion.div>
@@ -59,7 +61,7 @@ export function StaggerContainer({ children, className = "", delayChildren = 0 }
     )
 }
 
-export function StaggerItem({ children, className = "" }: { children: ReactNode, className?: string }) {
+export function StaggerItem({ children, className = "", style }: { children: ReactNode, className?: string, style?: React.CSSProperties }) {
     return (
         <motion.div
             variants={{
@@ -67,6 +69,7 @@ export function StaggerItem({ children, className = "" }: { children: ReactNode,
                 visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] } },
             }}
             className={className}
+            style={style}
         >
             {children}
         </motion.div>

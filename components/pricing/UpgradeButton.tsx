@@ -30,7 +30,7 @@ export default function UpgradeButton() {
                     key: data.key,
                     subscription_id: data.subscription_id,
                     name: 'Zointly',
-                    description: 'Growth Plan — ₹49/month',
+                    description: 'Growth Plan — ₹2,999/month',
                     handler: () => {
                         router.push('/pricing?success=1')
                     },
