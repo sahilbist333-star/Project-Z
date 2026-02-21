@@ -60,7 +60,7 @@ export default function BlogPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <section className="pt-24 pb-14 text-center px-6 relative overflow-hidden">
+            <section className="pt-36 pb-14 text-center px-6 relative overflow-hidden">
                 <HeroBackground3D />
                 <FadeIn className="relative z-10">
                     <div className="inline-flex items-center gap-2 mb-4">
@@ -85,9 +85,9 @@ export default function BlogPage() {
                             <p className="text-slate-500 text-xs mb-3">{posts[0].date} · {posts[0].readTime}</p>
                             <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">{posts[0].title}</h2>
                             <p className="text-slate-400 leading-relaxed mb-6 max-w-2xl">{posts[0].excerpt}</p>
-                            <span className="inline-flex items-center gap-2 text-indigo-400 text-sm font-semibold cursor-default">
+                            <Link href={`/blog/${posts[0].slug}`} className="inline-flex items-center gap-2 text-indigo-400 text-sm font-semibold hover:text-indigo-300 transition-colors">
                                 Read article <ArrowRight className="w-4 h-4" />
-                            </span>
+                            </Link>
                         </div>
                     </div>
                 </FadeIn>
@@ -97,7 +97,7 @@ export default function BlogPage() {
             <section className="max-w-5xl mx-auto px-6 md:px-12 pb-28 relative z-10">
                 <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {posts.slice(1).map((post) => (
-                        <StaggerItem key={post.slug} className="flex flex-col rounded-[1.5rem] p-6 transition-all hover:-translate-y-1 cursor-default bg-black/40 border border-white/5 hover:border-white/10 shadow-sm">
+                        <Link href={`/blog/${post.slug}`} key={post.slug} className="flex flex-col rounded-[1.5rem] p-6 transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] cursor-pointer bg-black/40 border border-white/5 hover:border-indigo-500/20">
                             <span className="text-[8px] font-bold text-indigo-400 uppercase tracking-widest mb-3">{post.category}</span>
                             <h2 className="font-display text-sm font-bold text-white mb-3 leading-snug flex-grow">{post.title}</h2>
                             <p className="text-slate-500 text-xs leading-relaxed mb-4">{post.excerpt}</p>
@@ -105,14 +105,14 @@ export default function BlogPage() {
                                 <span className="text-[9px] text-slate-600">{post.date}</span>
                                 <span className="text-[9px] text-slate-600">{post.readTime}</span>
                             </div>
-                        </StaggerItem>
+                        </Link>
                     ))}
                 </StaggerContainer>
 
                 <FadeIn delay={0.4} className="mt-14 text-center">
                     <p className="text-slate-500 text-sm mb-2">More articles coming soon.</p>
                     <p className="text-slate-600 text-xs">Subscribe for updates →{' '}
-                        <a href="mailto:hello@zointly.io?subject=Blog Updates" className="text-indigo-400 hover:underline">hello@zointly.io</a>
+                        <a href="mailto:subscribe@zointly.com?subject=Blog Updates" className="text-indigo-400 hover:underline">subscribe@zointly.com</a>
                     </p>
                 </FadeIn>
             </section>

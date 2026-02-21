@@ -23,7 +23,7 @@ export default function AboutPage() {
             <MarketingNav />
 
             {/* Hero */}
-            <section className="pt-24 pb-20 text-center px-6 relative overflow-hidden">
+            <section className="pt-36 pb-20 text-center px-6 relative overflow-hidden">
                 <HeroBackground3D />
                 <FadeIn className="relative z-10 max-w-3xl mx-auto">
                     <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Our Story</p>
@@ -114,7 +114,8 @@ export default function AboutPage() {
                     <p className="text-slate-400 mb-8">Start free. No credit card needed.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link href="/sign-up"
-                            className="text-white px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_20px_rgba(99,102,241,0.2)] bg-primary group flex items-center justify-center gap-2">
+                            className="inline-flex text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-[1.05] transition-all border border-indigo-400/30"
+                            style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 0 24px rgba(99,102,241,0.6)' }}>
                             Get Started Free
                             <span className="w-4 h-4 transition-transform group-hover:translate-x-1">→</span>
                         </Link>

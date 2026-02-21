@@ -1,5 +1,8 @@
+'use client'
+import { useState } from 'react'
 import Link from 'next/link'
-import { ChevronDown } from 'lucide-react'
+import { Plus, Minus } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import MarketingNav from '@/components/layout/MarketingNav'
 
 const categories = [
@@ -44,11 +47,13 @@ const categories = [
 ]
 
 export default function FAQPage() {
+    const [openQ, setOpenQ] = useState<string | null>(null)
+
     return (
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <section className="pt-24 pb-14 text-center px-6 relative">
+            <section className="pt-36 pb-14 text-center px-6 relative">
                 <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.07) 0%, transparent 60%)' }} />
                 <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Help Center</p>
                 <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Frequently Asked Questions</h1>
@@ -61,13 +66,30 @@ export default function FAQPage() {
                         <h2 className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-5">{title}</h2>
                         <div className="space-y-2">
                             {items.map(({ q, a }) => (
-                                <details key={q} className="group rounded-lg" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
-                                    <summary className="flex justify-between items-center p-5 cursor-pointer list-none">
+                                <div key={q} className="rounded-lg overflow-hidden" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
+                                    <button
+                                        onClick={() => setOpenQ(openQ === q ? null : q)}
+                                        className="w-full flex justify-between items-center p-5 cursor-pointer text-left"
+                                    >
                                         <span className="text-sm font-semibold text-white pr-4">{q}</span>
-                                        <ChevronDown className="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform flex-shrink-0" />
-                                    </summary>
-                                    <div className="px-5 pb-5 text-sm text-slate-400 leading-relaxed">{a}</div>
-                                </details>
+                                        <div className="relative w-4 h-4 flex-shrink-0 flex items-center justify-center">
+                                            <Plus className={`absolute w-4 h-4 text-slate-500 transition-transform duration-300 ${openQ === q ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'}`} />
+                                            <Minus className={`absolute w-4 h-4 text-slate-500 transition-transform duration-300 ${openQ === q ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'}`} />
+                                        </div>
+                                    </button>
+                                    <AnimatePresence initial={false}>
+                                        {openQ === q && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                            >
+                                                <div className="px-5 pb-5 text-sm text-slate-400 leading-relaxed">{a}</div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             ))}
                         </div>
                     </div>

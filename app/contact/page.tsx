@@ -93,7 +93,7 @@ export default function ContactPage() {
                                         <label className="block text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Topic</label>
                                         <select value={subject} onChange={e => setSubject(e.target.value)}
                                             className="field" style={{ color: subject ? 'white' : '#525252' }}>
-                                            {['General', 'Technical Support', 'Billing & Plans', 'Enterprise Sales', 'Partnership', 'Feature Request', 'Bug Report'].map(s => (
+                                            {['General', 'Technical Support', 'Billing & Plans', 'Enterprise Sales', 'Partnership', 'Feature Request', 'Bug Report', 'Legal Inquiry'].map(s => (
                                                 <option key={s} value={s} style={{ background: '#141414' }}>{s}</option>
                                             ))}
                                         </select>

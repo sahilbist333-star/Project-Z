@@ -17,7 +17,7 @@ export default function TermsPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <StaggerContainer className="max-w-3xl mx-auto px-6 md:px-12 pt-20 pb-28 relative z-10">
+            <StaggerContainer className="max-w-3xl mx-auto px-6 md:px-12 pt-32 pb-28 relative z-10">
                 <StaggerItem className="mb-12">
                     <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-3">Legal</p>
                     <h1 className="font-display text-4xl font-bold text-white mb-3">Terms of Service</h1>

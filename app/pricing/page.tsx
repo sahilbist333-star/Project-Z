@@ -57,7 +57,7 @@ export default function PricingPage() {
             <MarketingNav />
 
             {/* Hero */}
-            <section className="pt-24 pb-16 px-6 relative overflow-hidden">
+            <section className="pt-36 pb-16 px-6 relative overflow-hidden">
                 <HeroBackground3D />
                 <FadeIn className="relative z-10 text-center">
                     <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Simple Pricing</p>
@@ -88,7 +88,7 @@ export default function PricingPage() {
                         className={`font-semibold flex items-center gap-2 transition-colors ${interval === 'annual' ? 'text-white' : 'text-slate-500 hover:text-slate-300'}`}
                     >
                         Yearly
-                        <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.25)', color: '#4ade80' }}>
+                        <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.1)', color: '#4ade80' }}>
                             Save ₹6,000
                         </span>
                     </button>
