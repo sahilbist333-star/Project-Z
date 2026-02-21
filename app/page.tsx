@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
 import HomepagePricing from '@/components/pricing/HomepagePricing'
-import { CheckCircle2, BarChart3, Share2, Bell, Zap, Shield, Globe, ChevronDown, TrendingUp } from 'lucide-react'
+import { CheckCircle2, BarChart3, Share2, Bell, Zap, Shield, Globe, ChevronDown, TrendingUp, ArrowRight, PlayCircle, Sparkles } from 'lucide-react'
+import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, FloatElement, GlowingPerspectiveCard } from '@/components/ui/motion'
 
 const features = [
   {
@@ -70,205 +71,326 @@ export default function LandingPage() {
       <MarketingNav links={HOME_LINKS} />
 
       {/* Hero */}
-      <header className="relative pt-36 pb-24 overflow-hidden anim-grid-pan"
+      <header className="relative pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden anim-grid-pan"
         style={{
           backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.025) 1px, transparent 0)',
           backgroundSize: '32px 32px'
         }}>
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[1000px] h-[700px] anim-hero-glow mix-blend-screen"
-            style={{ background: 'radial-gradient(ellipse at 50% 10%, rgba(99,102,241,0.15) 0%, transparent 60%)' }} />
-          <div className="absolute top-[10%] left-[40%] -translate-x-1/2 w-[800px] h-[600px] anim-hero-glow-alt mix-blend-screen"
-            style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(139,92,246,0.1) 0%, transparent 60%)' }} />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-8"
-            style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)' }}>
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#6366f1' }} />
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.3em]">AI-Powered Product Intelligence</span>
-          </div>
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6 leading-[1.08]">
-            Stop guessing what to{' '}
-            <span style={{ color: '#818cf8', textDecoration: 'underline', textDecorationColor: 'rgba(99,102,241,0.35)' }}>
-              build next.
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-            Turn raw customer feedback into prioritized product opportunities with AI-verified demand scores, verbatim evidence, and shareable reports.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-            <Link href="/sign-up"
-              style={{ background: '#6366f1', boxShadow: '0 0 30px rgba(99,102,241,0.35)' }}
-              className="w-full sm:w-auto text-white px-8 py-4 rounded-sm font-bold text-[10px] uppercase tracking-widest hover:opacity-90 transition-all">
-              Analyze Your Feedback Free →
-            </Link>
-            <Link href="#features"
-              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
-              className="w-full sm:w-auto text-white px-8 py-4 rounded-sm font-bold text-[10px] uppercase tracking-widest hover:bg-white/8 transition-all">
-              See How It Works
-            </Link>
-          </div>
-          <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em]">
-            Free plan · 3 analyses/month · No credit card required
-          </p>
+
+        {/* Organic Mesh Background */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+          <div className="mesh-blob mesh-blob-1"></div>
+          <div className="mesh-blob mesh-blob-2"></div>
+          <div className="mesh-blob mesh-blob-3"></div>
+          {/* Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-transparent to-[#080808] z-[1]"></div>
         </div>
 
-        {/* Hero visual — mock analysis card */}
-        <div className="max-w-4xl mx-auto px-6 md:px-12 mt-20 relative z-10">
-          <div className="rounded-xl overflow-hidden shadow-2xl"
-            style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.08)' }}>
-            {/* Window bar */}
-            <div className="flex items-center gap-2 px-5 py-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)', background: '#0a0a0b' }}>
-              <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#ef4444' }} />
-              <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#eab308' }} />
-              <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#22c55e' }} />
-              <span className="ml-4 text-[10px] text-slate-600 tracking-widest font-mono">zointly.com/reports/prj-delta-992</span>
-              <div className="ml-auto flex items-center gap-2">
-                <div className="px-2 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider"
-                  style={{ background: 'rgba(99,102,241,0.12)', color: '#818cf8', border: '1px solid rgba(99,102,241,0.2)' }}>
-                  Verified Analysis
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            {/* Left: Content */}
+            <StaggerContainer className="text-left max-w-2xl">
+              <StaggerItem>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-8 bg-black/30 backdrop-blur-md"
+                  style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#6366f1' }} />
+                  <span className="text-[9px] font-bold text-slate-300 uppercase tracking-[0.3em]">AI-Powered Product Intelligence</span>
                 </div>
-              </div>
-            </div>
-            {/* Stats row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-              {[
-                { label: 'Demand Score', value: '9.2/10' },
-                { label: 'Unique Mentions', value: '124' },
-                { label: 'Confidence', value: '88%' },
-                { label: 'Priority', value: 'P0 — Critical', highlight: true },
-              ].map((item, i) => (
-                <div key={i} className="p-6 text-left" style={{ borderRight: i < 3 ? '1px solid rgba(255,255,255,0.05)' : undefined }}>
-                  <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest mb-3">{item.label}</p>
-                  <p className={`font-display text-2xl font-bold ${item.highlight ? '' : 'text-white'}`}
-                    style={item.highlight ? { color: '#6366f1' } : {}}>
-                    {item.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-            {/* Quote */}
-            <div className="p-8" style={{ background: 'rgba(8,8,8,0.5)' }}>
-              <p className="text-base text-slate-300 italic leading-relaxed mb-4">
-                &ldquo;The lack of granular reporting is the only thing preventing us from moving our entire 400-person team to your platform. We currently export manually 3× a day.&rdquo;
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-full" style={{ background: '#6366f1' }} />
-                <p className="text-[10px] font-bold text-white uppercase tracking-widest">
-                  VP Product, Fortune 500
-                  <span className="text-slate-600 ml-2">· Verified Feedback</span>
+              </StaggerItem>
+
+              <StaggerItem>
+                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6 leading-[1.05] drop-shadow-2xl">
+                  Stop guessing what to{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 drop-shadow-lg">
+                    build next.
+                  </span>
+                </h1>
+              </StaggerItem>
+
+              <StaggerItem>
+                <p className="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed font-light max-w-xl">
+                  Turn raw customer feedback into prioritized product opportunities with AI-verified demand scores, verbatim evidence, and shareable reports.
                 </p>
-              </div>
-            </div>
+              </StaggerItem>
+
+              <StaggerItem>
+                <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+                  <Link href="/sign-up"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 group text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)]"
+                    style={{ background: '#6366f1' }}>
+                    Analyze Feedback Free
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                  <Link href="#features"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest bg-black/40 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all">
+                    <PlayCircle className="w-4 h-4 text-slate-400" />
+                    See How It Works
+                  </Link>
+                </div>
+              </StaggerItem>
+
+              <StaggerItem>
+                <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em] ml-2">
+                  Free plan · 3 analyses/month · No credit card required
+                </p>
+              </StaggerItem>
+            </StaggerContainer>
+
+            {/* Right: Mockup Graphic */}
+            <FadeIn delay={0.3} className="relative lg:ml-auto w-full max-w-lg">
+              <FloatElement>
+                <div className="absolute inset-0 bg-indigo-500/20 blur-[100px] rounded-full"></div>
+
+                <GlowingPerspectiveCard className="relative rounded-[2rem] overflow-hidden shadow-2xl bg-black/40 backdrop-blur-2xl border border-white/10">
+                  {/* Window bar */}
+                  <div className="flex items-center gap-2 px-6 py-4 border-b border-white/5 bg-black/50">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                    <span className="ml-4 text-[9px] text-slate-500 tracking-widest font-mono">zointly.com/reports/prj-delta</span>
+                    <div className="ml-auto px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                      Verified
+                    </div>
+                  </div>
+
+                  {/* Stats grid */}
+                  <div className="grid grid-cols-2 border-b border-white/5">
+                    <div className="p-6 border-r border-white/5">
+                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Demand Score</p>
+                      <p className="font-display text-3xl font-bold text-indigo-400">9.2</p>
+                    </div>
+                    <div className="p-6">
+                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Priority</p>
+                      <p className="font-display text-xl font-bold text-red-400 mt-2">P0 — Critical</p>
+                    </div>
+                  </div>
+
+                  {/* Quote */}
+                  <div className="p-8 bg-black/20">
+                    <p className="text-base text-slate-300 italic leading-relaxed mb-6">
+                      &ldquo;The lack of granular reporting is the only thing preventing us from moving our entire 400-person team to your platform. We currently export manually 3× a day.&rdquo;
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-xs">VP</div>
+                      <div>
+                        <p className="text-[10px] font-bold text-white uppercase tracking-wider">VP Product, Fortune 500</p>
+                        <p className="text-[9px] text-slate-500 uppercase tracking-widest mt-0.5">Verified Feedback</p>
+                      </div>
+                    </div>
+                  </div>
+                </GlowingPerspectiveCard>
+
+                {/* Floating decorative elements */}
+                <div className="absolute -right-6 -bottom-6 bg-black/60 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4 text-green-400" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Signal Trend</p>
+                      <p className="text-sm font-bold text-white">+24% this week</p>
+                    </div>
+                  </div>
+                </div>
+              </FloatElement>
+            </FadeIn>
           </div>
         </div>
       </header>
 
-      {/* Logos / social proof */}
-      <section className="py-12 border-y" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
-          <p className="font-display font-medium text-lg text-slate-300 tracking-wide mb-2">
-            Designed for SaaS teams managing large-scale customer feedback.
-          </p>
-          <p className="text-sm text-slate-500 max-w-2xl mx-auto">
-            No synthetic data. No fake case studies. Results generated directly from your own customer conversations.
-          </p>
-        </div>
-      </section>
+      {/* Social Proof Marquee */}
+      <FadeIn>
+        <section className="py-10 border-y border-white/5 bg-black/20">
+          <div className="max-w-7xl mx-auto px-6 overflow-hidden">
+            <p className="text-center text-[9px] font-bold uppercase tracking-[0.3em] text-slate-500 mb-6">Trusted by innovative product teams</p>
+            <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+              {/* Dummy Logos acting as placeholders since we can't use real SVGs easily */}
+              {['Acme Corp', 'GlobalNet', 'NovaTech', 'Stark Ind.', 'Omega'].map(logo => (
+                <span key={logo} className="font-display font-bold text-lg text-slate-300 tracking-tight cursor-default">{logo}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+      </FadeIn>
 
-      {/* Features */}
-      <section className="py-28" id="features">
+      {/* Features (Bento Grid) */}
+      <section className="py-32" id="features">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>Intelligence System</p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+          <FadeIn className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-300">Intelligence System</span>
+            </div>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-6">
               Everything you need to build<br />what actually matters.
             </h2>
-            <p className="text-slate-500 max-w-xl mx-auto text-base">
+            <p className="text-slate-400 max-w-xl mx-auto text-lg font-light leading-relaxed">
               Zointly replaces guesswork with structured evidence — from raw feedback to boardroom-ready insights.
             </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="p-7 rounded-xl transition-all hover:-translate-y-1 hover:border-indigo-500/20"
-                style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-5"
-                  style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.15)' }}>
-                  <Icon className="w-5 h-5 text-indigo-400" />
+          </FadeIn>
+
+          {/* Bento Box Grid */}
+          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {/* Card 1: AI Demand Scoring (Large Wide) */}
+            <StaggerItem className="lg:col-span-2 row-span-2 group relative overflow-hidden p-8 md:p-12 rounded-[2rem] bg-black/40 border border-white/5 hover:border-indigo-500/30 transition-all">
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 group-hover:bg-indigo-500/20 transition-colors"></div>
+              <div className="relative z-10 h-full flex flex-col justify-between gap-12">
+                <div>
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 bg-indigo-500/10 border border-indigo-500/20 shadow-[0_0_20px_rgba(99,102,241,0.2)]">
+                    <BarChart3 className="w-7 h-7 text-indigo-400" />
+                  </div>
+                  <h3 className="font-display text-3xl font-bold text-white mb-4">AI Demand Scoring</h3>
+                  <p className="text-slate-400 text-lg leading-relaxed max-w-md">Every feature request gets a 0–10 demand score based on frequency, urgency, and sentiment — not gut feel.</p>
                 </div>
-                <h3 className="font-display text-base font-bold text-white mb-2">{title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
+                {/* Visual Element */}
+                <div className="w-full flex items-end">
+                  <div className="w-full h-32 md:h-48 rounded-t-xl bg-gradient-to-t from-indigo-500/20 to-transparent border-t border-x border-indigo-500/20 relative overflow-hidden">
+                    <div className="absolute bottom-0 left-0 w-full h-[1px] bg-indigo-400 shadow-[0_0_20px_#818cf8]"></div>
+                    {/* Fake Chart bars */}
+                    <div className="absolute bottom-0 w-full flex items-end justify-between px-6 gap-2 opacity-60">
+                      {[40, 70, 45, 90, 60, 85, 55, 100].map((h, i) => (
+                        <div key={i} className="w-full bg-indigo-500/50 rounded-t-sm" style={{ height: `${h}%` }}></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
+            </StaggerItem>
+
+            {/* Card 2: Instant Analysis */}
+            <StaggerItem className="group relative overflow-hidden p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-purple-500/30 transition-all">
+              <div className="absolute -bottom-20 -right-20 w-[300px] h-[300px] bg-purple-500/10 blur-[80px] rounded-full group-hover:bg-purple-500/20 transition-colors"></div>
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-purple-500/10 border border-purple-500/20">
+                  <Zap className="w-6 h-6 text-purple-400" />
+                </div>
+                <h3 className="font-display text-xl font-bold text-white mb-3 mt-auto pt-12">Instant Analysis</h3>
+                <p className="text-slate-400 text-base leading-relaxed">Paste feedback or upload a CSV. Most analyses complete in under 60 seconds using Gemini AI.</p>
+              </div>
+            </StaggerItem>
+
+            {/* Card 3: Insight Alerts */}
+            <StaggerItem className="group relative overflow-hidden p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-yellow-500/30 transition-all">
+              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-yellow-500/5 blur-[80px] rounded-full group-hover:bg-yellow-500/10 transition-colors"></div>
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-yellow-500/10 border border-yellow-500/20">
+                  <Bell className="w-6 h-6 text-yellow-400" />
+                </div>
+                <h3 className="font-display text-xl font-bold text-white mb-3 mt-auto pt-12">Insight Alerts</h3>
+                <p className="text-slate-400 text-base leading-relaxed">Get notified when demand surges, new signals emerge, or priorities shift between analyses.</p>
+              </div>
+            </StaggerItem>
+
+            {/* Card 4: Shareable Reports */}
+            <StaggerItem className="group relative overflow-hidden p-8 rounded-[2rem] bg-black/40 border border-white/5 hover:border-blue-500/30 transition-all">
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-blue-500/10 border border-blue-500/20">
+                  <Share2 className="w-6 h-6 text-blue-400" />
+                </div>
+                <h3 className="font-display text-xl font-bold text-white mb-3 mt-auto pt-12">Shareable Evidence</h3>
+                <p className="text-slate-400 text-base leading-relaxed">Every analysis generates a public URL with top opportunities and verbatim quotes.</p>
+              </div>
+            </StaggerItem>
+
+            {/* Card 5: Verbatim Evidence (Wide) */}
+            <StaggerItem className="md:col-span-2 lg:col-span-2 group relative overflow-hidden p-8 md:p-10 rounded-[2rem] bg-black/40 border border-white/5 hover:border-teal-500/30 transition-all">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[200px] bg-teal-500/5 blur-[100px] rounded-full group-hover:bg-teal-500/10 transition-colors"></div>
+              <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center h-full">
+                <div className="flex-1">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-teal-500/10 border border-teal-500/20">
+                    <Shield className="w-6 h-6 text-teal-400" />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold text-white mb-3">Verbatim Evidence</h3>
+                  <p className="text-slate-400 text-base leading-relaxed">Opportunities are backed by raw, unparaphrased customer quotes — not AI summaries. Stakeholders trust what they can verify.</p>
+                </div>
+                {/* Mock Quote Box */}
+                <div className="flex-1 w-full bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm self-end">
+                  <p className="text-sm italic text-slate-300 mb-4">"We need a way to export these reports directly to PDF for our weekly syncs..."</p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-teal-500/20 flex justify-center items-center text-[10px] font-bold text-teal-300 border border-teal-500/30">JD</div>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Enterprise Customer</span>
+                  </div>
+                </div>
+              </div>
+            </StaggerItem>
+
+          </StaggerContainer>
         </div>
       </section>
 
       {/* How it works */}
-      <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+      <section className="py-32 border-t border-white/5 bg-gradient-to-b from-transparent to-indigo-900/10">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16">
-            <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>The Process</p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">From feedback to decision in 3 steps.</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <FadeIn className="text-center mb-20">
+            <h2 className="font-display text-3xl md:text-5xl font-black text-white tracking-tight mb-6">From feedback to decision in 3 steps.</h2>
+            <p className="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">It's designed to be completely frictionless. You can deploy it today without engineering help.</p>
+          </FadeIn>
+          <StaggerContainer className="grid md:grid-cols-3 gap-6">
             {[
-              { step: '01', title: 'Upload Your Feedback', desc: 'Paste text or upload a CSV. Zointly accepts up to 5,000 entries — survey responses, support tickets, app reviews, anything.' },
-              { step: '02', title: 'AI Analyzes & Scores', desc: 'Gemini AI processes every entry, clusters themes into opportunities, and assigns demand scores backed by verbatim quotes.' },
-              { step: '03', title: 'Share Your Evidence', desc: 'Get a prioritized list of opportunities with PRD-ready details and a permanent public report URL for stakeholders.' },
-            ].map(({ step, title, desc }) => (
-              <div key={step} className="relative">
-                <div className="text-[80px] font-black font-display leading-none mb-4"
-                  style={{ color: 'rgba(99,102,241,0.07)' }}>{step}</div>
-                <h3 className="font-display text-lg font-bold text-white mb-3 -mt-10 relative">{title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
-              </div>
+              { step: '01', title: 'Upload Data', desc: 'Paste text or upload a CSV. Zointly accepts up to 5,000 entries — survey responses, support tickets, app reviews, anything.', color: 'indigo' },
+              { step: '02', title: 'AI Analyzes', desc: 'Gemini AI processes every entry, clusters themes into opportunities, and assigns demand scores backed by verbatim quotes.', color: 'purple' },
+              { step: '03', title: 'Share Evidence', desc: 'Get a prioritized list of opportunities with PRD-ready details and a permanent public report URL for stakeholders.', color: 'teal' },
+            ].map(({ step, title, desc, color }) => (
+              <StaggerItem key={step}>
+                <div className="relative p-10 h-full rounded-[2rem] bg-black/40 border border-white/5 hover:border-white/10 transition-all hover:-translate-y-2 group overflow-hidden">
+                  {/* Decorative blob */}
+                  <div className={`absolute -right-10 -top-10 w-32 h-32 bg-${color}-500/10 blur-[50px] rounded-full group-hover:bg-${color}-500/20 transition-colors`}></div>
+
+                  <div className="text-[60px] font-black font-display leading-none mb-8 text-white/5 group-hover:text-white/10 transition-colors">
+                    {step}
+                  </div>
+                  <h3 className="font-display text-2xl font-bold text-white mb-4 relative z-10">{title}</h3>
+                  <p className="text-slate-400 text-base leading-relaxed relative z-10">{desc}</p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Public Reports */}
-      <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }} id="public-reports">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <section className="py-32 border-t border-white/5 relative overflow-hidden" id="public-reports">
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-green-500/5 blur-[120px] rounded-full point-events-none"></div>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>Public Reports</p>
-              <h2 className="font-display text-3xl font-bold text-white mb-5 leading-tight">
-                Share verified decision evidence<br />with anyone — instantly.
+            <FadeIn>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/20 bg-green-500/10 mb-6">
+                <Globe className="w-3.5 h-3.5 text-green-400" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-300">Public Reports</span>
+              </div>
+              <h2 className="font-display text-4xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
+                Share verified decision evidence with anyone.
               </h2>
-              <p className="text-slate-400 text-base leading-relaxed mb-8">
-                Every Zointly analysis generates a permanent public URL. Share with your team, board, or investors without requiring them to create an account. Reports include demand scores, opportunity rankings, and verbatim customer evidence.
+              <p className="text-slate-400 text-lg leading-relaxed mb-10 max-w-lg">
+                Every analysis generates a permanent public URL. Share with your team, board, or investors without requiring them to create an account.
               </p>
-              <div className="space-y-4 mb-10">
+              <StaggerContainer className="space-y-4 mb-10">
                 {[
                   'Permanent, unguessable report URL',
                   'No sign-in required to view',
                   'Includes all verbatim customer quotes',
                   'Branded with "Generated with Zointly"',
                 ].map(f => (
-                  <div key={f} className="flex items-center gap-3 text-sm text-slate-300">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0" />
+                  <StaggerItem key={f} className="flex items-center gap-3 text-base text-slate-300">
+                    <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
                     {f}
-                  </div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
               <Link href="/sign-up"
-                style={{ background: '#6366f1' }}
-                className="inline-flex items-center gap-2 text-white px-6 py-3 rounded-sm font-bold text-[10px] uppercase tracking-widest hover:opacity-90 transition-all">
-                Generate Your First Report →
+                className="inline-flex items-center justify-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(99,102,241,0.3)] bg-primary group">
+                Generate Your First Report
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
-            </div>
+            </FadeIn>
             {/* Mock report card */}
-            <div className="rounded-xl overflow-hidden"
-              style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div className="px-6 py-4 border-b flex items-center gap-3"
-                style={{ borderColor: 'rgba(255,255,255,0.05)', background: '#0a0a0b' }}>
-                <Globe className="w-4 h-4 text-indigo-400" />
-                <span className="text-[10px] text-slate-500 font-mono">zointly.com/reports/abc-xyz</span>
-                <div className="ml-auto px-2 py-0.5 rounded text-[8px] font-bold"
-                  style={{ background: 'rgba(34,197,94,0.1)', color: '#4ade80' }}>
-                  Public
+            <FadeIn delay={0.2} className="rounded-[2rem] overflow-hidden bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl skew-y-3 md:skew-y-6 lg:ml-auto w-full max-w-lg transition-transform hover:skew-y-0 duration-500">
+              <div className="px-6 py-4 border-b flex items-center gap-3 border-white/5 bg-black/60">
+                <Globe className="w-4 h-4 text-green-400" />
+                <span className="text-[10px] text-slate-500 font-mono tracking-wider">zointly.com/reports/abc-xyz</span>
+                <div className="ml-auto px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-wider bg-green-500/20 text-green-400 border border-green-500/30">
+                  Public Link
                 </div>
               </div>
               <div className="p-6 space-y-4">
@@ -278,24 +400,20 @@ export default function LandingPage() {
                   { title: 'Advanced Search', score: 7.5, priority: 'P1', color: '#f97316' },
                   { title: 'Mobile App Support', score: 6.8, priority: 'P2', color: '#eab308' },
                 ].map(opp => (
-                  <div key={opp.title} className="flex items-center justify-between p-4 rounded-lg"
-                    style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div key={opp.title} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
                     <div>
                       <p className="text-sm font-semibold text-white">{opp.title}</p>
-                      <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded mt-1 inline-block"
+                      <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-2 inline-block"
                         style={{ background: `${opp.color}18`, color: opp.color }}>{opp.priority}</span>
                     </div>
                     <div className="text-right">
-                      <p className="font-display text-lg font-bold" style={{ color: '#6366f1' }}>{opp.score}</p>
-                      <p className="text-[9px] text-slate-600">/ 10</p>
+                      <p className="font-display text-2xl font-bold text-indigo-400">{opp.score}</p>
+                      <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest">Score</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="px-6 py-4 border-t text-center" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Generated with Zointly · Powered by Gemini AI</p>
-              </div>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -304,91 +422,91 @@ export default function LandingPage() {
       <HomepagePricing />
 
       {/* Retention Positioning */}
-      <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+      <section className="py-32 border-t border-white/5 bg-black/20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-14">
-            <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>Weekly Alignment</p>
-            <h2 className="font-display text-3xl font-bold text-white mb-4">Your customer needs change every week.</h2>
-            <p className="text-slate-500 max-w-xl mx-auto">Zointly tracks emerging signals so your roadmap stays aligned with real demand.</p>
-          </div>
-          <div className="grid md:grid-cols-4 gap-6 mb-12">
+          <FadeIn className="text-center mb-16">
+            <h2 className="font-display text-3xl md:text-5xl font-black text-white mb-6">Your customer needs change every week.</h2>
+            <p className="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">Zointly tracks emerging signals so your roadmap stays aligned with real demand.</p>
+          </FadeIn>
+          <StaggerContainer className="grid md:grid-cols-4 gap-6 mb-16">
             {[
               { icon: BarChart3, title: 'Demand surges', text: 'Catch quickly rising needs.' },
               { icon: Zap, title: 'New requests', text: 'Identify net-new signals early.' },
               { icon: TrendingUp, title: 'Priority shifts', text: 'Track ranking changes over time.' },
               { icon: Bell, title: 'Insight alerts', text: 'Get email updates automatically.' }
             ].map(item => (
-              <div key={item.title} className="p-6 rounded-xl text-center transition-all hover:-translate-y-1" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <div className="w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-4" style={{ background: 'rgba(99,102,241,0.1)' }}>
-                  <item.icon className="w-5 h-5 text-indigo-400" />
+              <StaggerItem key={item.title}>
+                <div className="h-full p-8 rounded-[2rem] text-center bg-black/40 border border-white/5 hover:border-white/10 transition-all hover:-translate-y-2">
+                  <div className="w-12 h-12 mx-auto rounded-2xl flex items-center justify-center mb-6 bg-indigo-500/10 border border-indigo-500/20">
+                    <item.icon className="w-6 h-6 text-indigo-400" />
+                  </div>
+                  <h3 className="font-bold text-white text-lg mb-3 font-display tracking-tight">{item.title}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{item.text}</p>
                 </div>
-                <h3 className="font-bold text-white text-sm mb-2 font-display">{item.title}</h3>
-                <p className="text-xs text-slate-500">{item.text}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-          <div className="text-center">
+          </StaggerContainer>
+          <FadeIn className="text-center">
             <Link href="/sign-up"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-sm font-bold text-[10px] uppercase tracking-widest text-white transition-all hover:opacity-90"
-              style={{ background: '#6366f1' }}>
-              Start tracking feedback signals →
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest text-white transition-all hover:scale-105 shadow-[0_0_20px_rgba(99,102,241,0.2)] bg-primary group">
+              Start tracking signals
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }} id="faqs">
+      <section className="py-32 border-t border-white/5 relative" id="faqs">
         <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-14">
-            <p className="text-[9px] font-bold uppercase tracking-[0.3em] mb-4" style={{ color: '#6366f1' }}>FAQ</p>
-            <h2 className="font-display text-3xl font-bold text-white">Frequently asked questions.</h2>
-          </div>
-          <div className="space-y-3">
+          <FadeIn className="text-center mb-16">
+            <h2 className="font-display text-3xl md:text-5xl font-black text-white tracking-tight">Frequently asked questions.</h2>
+          </FadeIn>
+          <StaggerContainer className="space-y-4">
             {faqs.map(({ q, a }) => (
-              <details key={q} className="group rounded-lg"
-                style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <summary className="flex justify-between items-center p-6 cursor-pointer list-none">
-                  <span className="text-sm font-semibold text-white">{q}</span>
-                  <ChevronDown className="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" />
-                </summary>
-                <div className="px-6 pb-6 text-sm text-slate-400 leading-relaxed">{a}</div>
-              </details>
+              <StaggerItem key={q}>
+                <details className="group rounded-[1.5rem] bg-black/40 border border-white/5 transition-colors hover:border-white/10">
+                  <summary className="flex justify-between items-center p-6 md:p-8 cursor-pointer list-none">
+                    <span className="text-base font-semibold text-white">{q}</span>
+                    <ChevronDown className="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" />
+                  </summary>
+                  <div className="px-6 md:px-8 pb-8 text-base text-slate-400 leading-relaxed">{a}</div>
+                </details>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-28 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <div className="relative rounded-2xl overflow-hidden p-14"
-            style={{ background: '#0d0d0f', border: '1px solid rgba(99,102,241,0.2)' }}>
+      <section className="py-32 border-t border-white/5">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <ScaleIn className="relative rounded-[3rem] overflow-hidden p-16 md:p-24 bg-black/40 border border-indigo-500/20 shadow-2xl">
+            {/* Glowing background inside CTA */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] blur-[100px] opacity-20"
-                style={{ background: 'rgba(99,102,241,0.5)' }} />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/20 blur-[120px] rounded-full"></div>
             </div>
+
             <div className="relative z-10">
-              <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Start Today, Free</p>
-              <h2 className="font-display text-3xl font-bold text-white mb-4">
+              <h2 className="font-display text-4xl md:text-6xl font-black text-white mb-6 tracking-tight drop-shadow-xl">
                 Ship what users actually want.
               </h2>
-              <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-                Stop spending hours in spreadsheets. Most analyses complete in under 60 seconds — no credit card needed.
+              <p className="text-slate-400 text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed font-light">
+                Stop spending hours in spreadsheets. Most analyses complete in under 60 seconds.
               </p>
               <Link href="/sign-up"
-                style={{ background: '#6366f1', boxShadow: '0 0 30px rgba(99,102,241,0.4)' }}
-                className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-sm font-bold text-[10px] uppercase tracking-widest hover:opacity-90 transition-all">
-                Analyze Your Feedback Free →
+                className="inline-flex items-center gap-2 text-white px-10 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_40px_rgba(99,102,241,0.5)] bg-primary group">
+                Analyze Feedback Free
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
-          </div>
+          </ScaleIn>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="border-t py-14" style={{ background: '#080808', borderColor: 'rgba(255,255,255,0.05)' }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <FadeIn className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="grid md:grid-cols-4 gap-10 mb-12">
             <div>
               <div className="flex items-center gap-2.5 mb-4">
@@ -445,7 +563,7 @@ export default function LandingPage() {
               <a href="/terms" className="text-[9px] text-slate-700 hover:text-slate-400 font-bold uppercase tracking-widest">Terms</a>
             </div>
           </div>
-        </div>
+        </FadeIn>
       </footer>
     </div>
   )

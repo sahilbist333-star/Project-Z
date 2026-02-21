@@ -256,6 +256,7 @@ body {
   animation: grid-pan 10s linear infinite;
 }
 
+
 .anim-fade-in {
   animation: fadeIn 0.3s ease both;
 }
