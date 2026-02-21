@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Mail, MessageSquare, Zap, ArrowRight } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
+import MarketingFooter from '@/components/layout/MarketingFooter'
+import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
 
 export default function ContactPage() {
     const [name, setName] = useState('')
@@ -24,40 +26,42 @@ export default function ContactPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <section className="pt-24 pb-14 text-center px-6 relative">
-                <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.07) 0%, transparent 60%)' }} />
-                <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Get in Touch</p>
-                <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Contact Us</h1>
-                <p className="text-slate-400 text-lg max-w-md mx-auto">We reply within 24 hours on business days.</p>
+            <section className="pt-24 pb-14 text-center px-6 relative overflow-hidden">
+                <HeroBackground3D />
+                <FadeIn className="relative z-10">
+                    <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Get in Touch</p>
+                    <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Contact Us</h1>
+                    <p className="text-slate-400 text-lg max-w-md mx-auto">We reply within 24 hours on business days.</p>
+                </FadeIn>
             </section>
 
-            <section className="max-w-5xl mx-auto px-6 md:px-12 pb-28">
+            <section className="max-w-5xl mx-auto px-6 md:px-12 pb-28 relative z-10">
                 <div className="grid lg:grid-cols-3 gap-10">
                     {/* Info */}
-                    <div className="space-y-5">
+                    <StaggerContainer className="space-y-5">
                         {[
                             { icon: Mail, title: 'Email', value: 'hello@zointly.io', href: 'mailto:hello@zointly.io' },
                             { icon: MessageSquare, title: 'Support', value: 'support@zointly.io', href: 'mailto:support@zointly.io' },
                             { icon: Zap, title: 'Enterprise Sales', value: 'sales@zointly.io', href: 'mailto:sales@zointly.io' },
                         ].map(({ icon: Icon, title, value, href }) => (
-                            <div key={title} className="p-5 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
+                            <StaggerItem key={title} className="p-5 rounded-[1.5rem] bg-black/40 border border-white/5 hover:border-white/10 transition-colors">
                                 <div className="flex items-center gap-3 mb-2">
                                     <Icon className="w-4 h-4 text-indigo-400" />
                                     <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">{title}</p>
                                 </div>
                                 <a href={href} className="text-sm text-white hover:text-indigo-300 transition-colors">{value}</a>
-                            </div>
+                            </StaggerItem>
                         ))}
-                        <div className="p-5 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
+                        <StaggerItem className="p-5 rounded-[1.5rem] bg-black/40 border border-white/5">
                             <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-3">Response Time</p>
                             <p className="text-sm text-slate-300">Business support: <strong className="text-white">24 hours</strong></p>
                             <p className="text-sm text-slate-300 mt-1">Enterprise / Sales: <strong className="text-white">4 hours</strong></p>
-                        </div>
-                        <div className="p-5 rounded-xl" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.07)' }}>
+                        </StaggerItem>
+                        <StaggerItem className="p-5 rounded-[1.5rem] bg-black/40 border border-white/5">
                             <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-3">Before You Write</p>
                             <p className="text-sm text-slate-400 mb-2">Check our <Link href="/faq" className="text-indigo-400 hover:underline">FAQ</Link> — most questions are answered there.</p>
-                        </div>
-                    </div>
+                        </StaggerItem>
+                    </StaggerContainer>
 
                     {/* Form */}
                     <div className="lg:col-span-2">
@@ -100,8 +104,8 @@ export default function ContactPage() {
                                             className="field resize-none" placeholder="Tell us how we can help..." />
                                     </div>
                                     <button type="submit"
-                                        className="flex items-center gap-2 text-white font-bold py-3 px-6 rounded-md transition-all text-sm hover:opacity-90"
-                                        style={{ background: '#6366f1', boxShadow: '0 0 20px rgba(99,102,241,0.25)' }}>
+                                        className="w-full flex justify-center items-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest transition-all mt-4 hover:scale-[1.02] shadow-[0_0_20px_rgba(99,102,241,0.2)]"
+                                        style={{ background: '#6366f1' }}>
                                         Send Message <ArrowRight className="w-4 h-4" />
                                     </button>
                                 </form>
@@ -111,12 +115,7 @@ export default function ContactPage() {
                 </div>
             </section>
 
-            <footer className="border-t py-10 text-center" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                <p className="text-[9px] text-slate-700 font-bold uppercase tracking-widest">© {new Date().getFullYear()} Zointly Inc. ·{' '}
-                    <Link href="/privacy" className="hover:text-slate-400">Privacy</Link> ·{' '}
-                    <Link href="/terms" className="hover:text-slate-400">Terms</Link>
-                </p>
-            </footer>
+            <MarketingFooter />
         </div>
     )
 }

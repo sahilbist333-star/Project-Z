@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, ArrowRight } from 'lucide-react'
+import { FadeIn, HeroBackground3D } from '@/components/ui/motion'
 
 export default function SignUpPage() {
     const [email, setEmail] = useState('')
@@ -60,8 +61,8 @@ export default function SignUpPage() {
                 </header>
 
                 {/* Form */}
-                <main className="flex-1 flex items-center justify-center px-10 py-12">
-                    <div className="w-full max-w-[400px]">
+                <main className="flex-1 flex items-center justify-center px-10 py-12 relative overflow-hidden z-10">
+                    <FadeIn delay={0.1} className="w-full max-w-[400px]">
                         <div className="mb-10">
                             <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-3">Get Started Free</p>
                             <h1 className="font-display text-2xl font-bold text-white tracking-tight mb-2">Create Your Account</h1>
@@ -160,7 +161,7 @@ export default function SignUpPage() {
                             Already have an account?{' '}
                             <Link href="/sign-in" className="text-indigo-400 hover:text-indigo-300 font-medium">Sign in</Link>
                         </p>
-                    </div>
+                    </FadeIn>
                 </main>
             </div>
 
@@ -168,46 +169,49 @@ export default function SignUpPage() {
             <div className="hidden lg:flex w-[480px] flex-shrink-0 flex-col justify-between p-12 relative overflow-hidden"
                 style={{ background: '#0a0a0b', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
                 {/* Glow */}
+                <HeroBackground3D />
                 <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
                     <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full blur-[120px] opacity-20"
                         style={{ background: 'rgba(99,102,241,0.4)' }} />
                 </div>
 
-                <div className="relative z-10">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-16"
-                        style={{ borderColor: 'rgba(99,102,241,0.2)', background: 'rgba(99,102,241,0.08)' }}>
-                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
-                        <span className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em]">Trusted by Product Teams</span>
-                    </div>
+                <FadeIn delay={0.2} className="relative z-10 flex flex-col justify-between h-full">
+                    <div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-16"
+                            style={{ borderColor: 'rgba(99,102,241,0.2)', background: 'rgba(99,102,241,0.08)' }}>
+                            <div className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                            <span className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em]">Trusted by Product Teams</span>
+                        </div>
 
-                    <blockquote className="text-xl font-medium text-white leading-relaxed mb-8" style={{ lineHeight: 1.6 }}>
-                        &ldquo;The most efficient way we&apos;ve found to synthesize high-volume user feedback into actionable product decisions.&rdquo;
-                    </blockquote>
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
-                            style={{ background: '#6366f1' }}>A</div>
-                        <div>
-                            <p className="text-white font-semibold text-sm">Alex Rivera</p>
-                            <p className="text-slate-500 text-xs">Head of Product at DataScale</p>
+                        <blockquote className="text-xl font-medium text-white leading-relaxed mb-8" style={{ lineHeight: 1.6 }}>
+                            &ldquo;The most efficient way we&apos;ve found to synthesize high-volume user feedback into actionable product decisions.&rdquo;
+                        </blockquote>
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
+                                style={{ background: '#6366f1' }}>A</div>
+                            <div>
+                                <p className="text-white font-semibold text-sm">Alex Rivera</p>
+                                <p className="text-slate-500 text-xs">Head of Product at DataScale</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Stats */}
-                <div className="relative z-10 grid grid-cols-2 gap-4">
-                    {[
-                        { value: '10,000+', label: 'Analyses run' },
-                        { value: '98%', label: 'Accuracy rate' },
-                        { value: '< 60s', label: 'Average time' },
-                        { value: 'Free', label: 'To get started' },
-                    ].map(s => (
-                        <div key={s.label} className="rounded-lg p-4"
-                            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                            <p className="font-display text-lg font-bold text-white">{s.value}</p>
-                            <p className="text-slate-500 text-xs mt-0.5">{s.label}</p>
-                        </div>
-                    ))}
-                </div>
+                    {/* Stats */}
+                    <div className="grid grid-cols-2 gap-4">
+                        {[
+                            { value: '10,000+', label: 'Analyses run' },
+                            { value: '98%', label: 'Accuracy rate' },
+                            { value: '< 60s', label: 'Average time' },
+                            { value: 'Free', label: 'To get started' },
+                        ].map(s => (
+                            <div key={s.label} className="rounded-lg p-4"
+                                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                                <p className="font-display text-lg font-bold text-white">{s.value}</p>
+                                <p className="text-slate-500 text-xs mt-0.5">{s.label}</p>
+                            </div>
+                        ))}
+                    </div>
+                </FadeIn>
             </div>
         </div>
     )

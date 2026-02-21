@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import MarketingNav from '@/components/layout/MarketingNav'
+import MarketingFooter from '@/components/layout/MarketingFooter'
+import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
     return (
@@ -15,19 +17,19 @@ export default function PrivacyPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <div className="max-w-3xl mx-auto px-6 md:px-12 pt-20 pb-28">
-                <div className="mb-12">
+            <StaggerContainer className="max-w-3xl mx-auto px-6 md:px-12 pt-20 pb-28 relative z-10">
+                <StaggerItem className="mb-12">
                     <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-3">Legal</p>
                     <h1 className="font-display text-4xl font-bold text-white mb-3">Privacy Policy</h1>
                     <p className="text-slate-500 text-sm">Last updated: February 20, 2025 · Effective: February 20, 2025</p>
-                </div>
+                </StaggerItem>
 
-                <div className="rounded-xl p-5 mb-10" style={{ background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.15)' }}>
-                    <p className="text-slate-300 text-sm">
+                <StaggerItem className="rounded-[1.5rem] p-6 mb-10 bg-black/40 border border-indigo-500/20 shadow-[0_0_30px_rgba(99,102,241,0.1)]">
+                    <p className="text-slate-300 text-sm leading-relaxed">
                         This Privacy Policy explains how Zointly Inc. (&ldquo;Zointly&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) collects, uses, and protects your personal information when you use Zointly (&ldquo;the Service&rdquo;).
                         We are committed to handling your data responsibly and transparently.
                     </p>
-                </div>
+                </StaggerItem>
 
                 <Section title="1. Information We Collect">
                     <p><strong className="text-white">Account Information:</strong> When you register, we collect your name, email address, and password (hashed; never stored in plain text).</p>
@@ -102,14 +104,9 @@ export default function PrivacyPage() {
                     <p><a href="mailto:hello@zointly.io" className="text-indigo-400 hover:underline">hello@zointly.io</a> — subject line: &ldquo;Privacy Request&rdquo;</p>
                     <p>Zointly Inc. · hello@zointly.io</p>
                 </Section>
-            </div>
+            </StaggerContainer>
 
-            <footer className="border-t py-10 text-center" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                <p className="text-[9px] text-slate-700 font-bold uppercase tracking-widest">© {new Date().getFullYear()} Zointly Inc. ·{' '}
-                    <Link href="/terms" className="hover:text-slate-400">Terms of Service</Link> ·{' '}
-                    <Link href="/contact" className="hover:text-slate-400">Contact</Link>
-                </p>
-            </footer>
+            <MarketingFooter />
         </div>
     )
 }

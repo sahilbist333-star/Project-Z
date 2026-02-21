@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { ArrowRight, Mail } from 'lucide-react'
+import { FadeIn, HeroBackground3D } from '@/components/ui/motion'
 
 export default function ForgotPasswordPage() {
     const [email, setEmail] = useState('')
@@ -36,8 +37,8 @@ export default function ForgotPasswordPage() {
                     <p className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.2em] hidden md:block">Feedback Decision System</p>
                 </header>
 
-                <main className="flex-1 flex items-center justify-center px-10 py-12">
-                    <div className="w-full max-w-[400px]">
+                <main className="flex-1 flex items-center justify-center px-10 py-12 relative overflow-hidden z-10">
+                    <FadeIn delay={0.1} className="w-full max-w-[400px]">
                         {sent ? (
                             <div className="text-center">
                                 <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
@@ -88,18 +89,19 @@ export default function ForgotPasswordPage() {
                                 </p>
                             </div>
                         )}
-                    </div>
+                    </FadeIn>
                 </main>
             </div>
 
             {/* Right panel */}
             <div className="hidden lg:flex w-[480px] flex-shrink-0 flex-col items-center justify-center p-12 relative overflow-hidden"
                 style={{ background: '#0a0a0b', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                <HeroBackground3D />
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full blur-[120px] opacity-15"
                         style={{ background: 'rgba(99,102,241,0.4)' }} />
                 </div>
-                <div className="relative z-10 text-center max-w-xs">
+                <FadeIn delay={0.2} className="relative z-10 text-center max-w-xs">
                     <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6"
                         style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)' }}>
                         <span className="text-indigo-400 text-2xl">🔐</span>
@@ -108,7 +110,7 @@ export default function ForgotPasswordPage() {
                     <p className="text-slate-500 text-sm leading-relaxed">
                         Reset links expire after 24 hours and can only be used once. Your account security is our priority.
                     </p>
-                </div>
+                </FadeIn>
             </div>
         </div>
     )
