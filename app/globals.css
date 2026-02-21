@@ -242,6 +242,20 @@ body {
   animation: hero-glow-alt 15s ease-in-out infinite;
 }
 
+@keyframes grid-pan {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 32px 32px;
+  }
+}
+
+.anim-grid-pan {
+  animation: grid-pan 10s linear infinite;
+}
+
 .anim-fade-in {
   animation: fadeIn 0.3s ease both;
 }

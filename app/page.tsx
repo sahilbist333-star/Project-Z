@@ -70,7 +70,7 @@ export default function LandingPage() {
       <MarketingNav links={HOME_LINKS} />
 
       {/* Hero */}
-      <header className="relative pt-36 pb-24 overflow-hidden"
+      <header className="relative pt-36 pb-24 overflow-hidden anim-grid-pan"
         style={{
           backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.025) 1px, transparent 0)',
           backgroundSize: '32px 32px'
