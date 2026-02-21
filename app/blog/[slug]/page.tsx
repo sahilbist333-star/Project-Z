@@ -13,7 +13,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <MarketingNav />
 
             {/* Hero */}
-            <section className="pt-48 pb-16 px-6 relative max-w-3xl mx-auto">
+            <section className="pt-48 pb-16 px-6 relative max-w-5xl mx-auto">
                 <Link href="/blog" className="inline-flex items-center gap-2 text-indigo-400 text-sm font-semibold hover:text-indigo-300 transition-colors mb-8">
                     <ArrowLeft className="w-4 h-4" /> Back to Blog
                 </Link>
