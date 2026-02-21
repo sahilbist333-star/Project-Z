@@ -1,7 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@/lib/types'
 import { LayoutDashboard, Plus, Settings, LogOut, Zap, AlertTriangle } from 'lucide-react'
@@ -11,14 +11,20 @@ import UpgradeModal from '@/components/ui/UpgradeModal'
 interface Props {
     profile: User
     unreadAlertCount?: number
+    avatarUrl?: string | null
     children: React.ReactNode
 }
 
-export default function SidebarLayout({ profile, unreadAlertCount = 0, children }: Props) {
+export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl, children }: Props) {
     const pathname = usePathname()
     const router = useRouter()
+    const searchParams = useSearchParams()
     const supabase = createClient()
     const [showUpgrade, setShowUpgrade] = useState(false)
+
+    // Automatically open upgrade modal if "?upgrade=true" is in the URL
+    // (React's useEffect should be imported if not present, but it's imported at the top? Wait let me check if useEffect is imported.
+    // I better replace the imports too)
 
     const handleSignOut = async () => {
         await supabase.auth.signOut()
@@ -121,12 +127,16 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, children 
 
                 {/* User footer */}
                 <div className="p-3 border-t flex items-center gap-2.5" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
-                        style={{ background: '#6366f1' }}>
-                        <span className="text-white text-[10px] font-bold">
-                            {(profile.full_name || profile.email || 'U')[0].toUpperCase()}
-                        </span>
-                    </div>
+                    {avatarUrl ? (
+                        <img src={avatarUrl} alt="Avatar" className="w-7 h-7 rounded-full object-cover flex-shrink-0 border" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+                    ) : (
+                        <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+                            style={{ background: '#6366f1' }}>
+                            <span className="text-white text-[10px] font-bold">
+                                {(profile.full_name || profile.email || 'U')[0].toUpperCase()}
+                            </span>
+                        </div>
+                    )}
                     <div className="flex-1 min-w-0">
                         <p className="text-[11px] font-semibold text-white truncate">{profile.full_name || 'User'}</p>
                         <p className="text-[9px] text-slate-600 font-medium truncate">

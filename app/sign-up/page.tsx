@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -19,6 +19,12 @@ export default function SignUpPage() {
     const [message, setMessage] = useState('')
     const router = useRouter()
     const supabase = createClient()
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) router.push('/dashboard')
+        })
+    }, [router, supabase])
 
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault()

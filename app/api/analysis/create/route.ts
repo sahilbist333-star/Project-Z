@@ -20,6 +20,29 @@ export async function POST(request: NextRequest) {
 
         if (!profile) return NextResponse.json({ error: 'Profile not found' }, { status: 404 })
 
+        // ── Parse body ────────────────────────────────────────────────
+        const body = await request.json()
+        const { input_text, is_sample = false } = body
+
+        if (!input_text || typeof input_text !== 'string') {
+            return NextResponse.json({ error: 'Input text required' }, { status: 400 })
+        }
+
+        // ── Plan limit check ──────────────────────────────────────────
+        if (profile.plan === 'growth' && profile.subscription_status !== 'active') {
+            return NextResponse.json({ error: 'payment_required', message: 'Active subscription required' }, { status: 402 })
+        }
+
+        const limit = PLAN_LIMITS[profile.plan as 'free' | 'growth']
+        if (!is_sample && profile.analyses_used_this_month >= limit) {
+            return NextResponse.json({ error: 'limit_reached', message: 'Monthly analysis limit reached' }, { status: 429 })
+        }
+
+        // ── New account rate guard ────────────────────────────────────
+        if (!is_sample && minutesSince(profile.created_at) < 10 && profile.analyses_used_this_month >= 1) {
+            return NextResponse.json({ error: 'Please wait a few minutes before running another analysis.' }, { status: 429 })
+        }
+
         // ── Rolling usage reset check (Free & Annual Growth) ──────────
         if (profile.plan === 'free' || (profile.plan === 'growth' && profile.billing_interval === 'annual')) {
             const daysSinceReset = daysSince(profile.last_usage_reset_at)
@@ -39,29 +62,6 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        // ── Plan limit check ──────────────────────────────────────────
-        if (profile.plan === 'growth' && profile.subscription_status !== 'active') {
-            return NextResponse.json({ error: 'payment_required', message: 'Active subscription required' }, { status: 402 })
-        }
-
-        const limit = PLAN_LIMITS[profile.plan as 'free' | 'growth']
-        if (profile.analyses_used_this_month >= limit) {
-            return NextResponse.json({ error: 'limit_reached', message: 'Monthly analysis limit reached' }, { status: 429 })
-        }
-
-        // ── New account rate guard ────────────────────────────────────
-        if (minutesSince(profile.created_at) < 10 && profile.analyses_used_this_month >= 1) {
-            return NextResponse.json({ error: 'Please wait a few minutes before running another analysis.' }, { status: 429 })
-        }
-
-        // ── Parse body ────────────────────────────────────────────────
-        const body = await request.json()
-        const { input_text, is_sample = false } = body
-
-        if (!input_text || typeof input_text !== 'string') {
-            return NextResponse.json({ error: 'Input text required' }, { status: 400 })
-        }
-
         const cleaned = cleanInput(input_text)
 
         // ── Minimum entries check ─────────────────────────────────────
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 
         // ── Plan-based entry limits ───────────────────────────────────
         const entryLimit = ENTRY_LIMITS[profile.plan as 'free' | 'growth']
-        if (cleaned.length > entryLimit) {
+        if (!is_sample && cleaned.length > entryLimit) {
             return NextResponse.json({
                 error: 'upgrade_required',
                 message: `Your plan supports up to ${entryLimit} entries. Upgrade for up to 5,000.`,

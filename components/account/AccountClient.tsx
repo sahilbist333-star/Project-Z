@@ -6,12 +6,14 @@ import { useRouter } from 'next/navigation'
 interface Props {
     profile: any
     showSignOut?: boolean
+    defaultAvatarUrl?: string | null
 }
 
-export default function AccountClient({ profile, showSignOut }: Props) {
+export default function AccountClient({ profile, showSignOut, defaultAvatarUrl }: Props) {
     const [fullName, setFullName] = useState(profile.full_name || '')
     const [saving, setSaving] = useState(false)
     const [saved, setSaved] = useState(false)
+    const [uploadingAvatar, setUploadingAvatar] = useState(false)
     const supabase = createClient()
     const router = useRouter()
 
@@ -29,6 +31,31 @@ export default function AccountClient({ profile, showSignOut }: Props) {
         setTimeout(() => setSaved(false), 2000)
     }
 
+    const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        setUploadingAvatar(true)
+        // Upload to storage
+        const fileExt = file.name.split('.').pop()
+        const filePath = `${profile.id}.png` // Enforce png or just use the id as the name
+
+        const { error: uploadError } = await supabase.storage
+            .from('avatars')
+            .upload(filePath, file, { upsert: true, contentType: 'image/png' })
+
+        if (!uploadError) {
+            // Update auth metadata to trigger refresh and track state
+            await supabase.auth.updateUser({
+                data: { has_avatar: true, avatar_version: Date.now() }
+            })
+            router.refresh()
+        } else {
+            alert('Error uploading avatar: ' + uploadError.message)
+        }
+        setUploadingAvatar(false)
+    }
+
     if (showSignOut) {
         return (
             <button onClick={handleSignOut}
@@ -41,6 +68,16 @@ export default function AccountClient({ profile, showSignOut }: Props) {
 
     return (
         <form onSubmit={handleSave} className="space-y-4">
+            <div>
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Profile Picture</label>
+                <div className="flex items-center gap-4">
+                    <label className="cursor-pointer px-4 py-2 rounded-md text-sm font-semibold transition-all border"
+                        style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)', color: '#fff' }}>
+                        {uploadingAvatar ? 'Uploading...' : 'Upload Image'}
+                        <input type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} disabled={uploadingAvatar} />
+                    </label>
+                </div>
+            </div>
             <div>
                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Full Name</label>
                 <input value={fullName} onChange={e => setFullName(e.target.value)}

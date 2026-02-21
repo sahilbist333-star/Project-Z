@@ -13,6 +13,11 @@ export default async function AccountPage() {
     const { data: profile } = await supabase.from('users').select('*').eq('id', user.id).single()
     if (!profile) redirect('/sign-in')
 
+    const avatarTimestamp = user.user_metadata?.avatar_version
+    const avatarUrl = user.user_metadata?.has_avatar
+        ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/avatars/${user.id}.png?t=${avatarTimestamp}`
+        : null
+
     const isGrowth = profile.plan === 'growth'
     const limit = PLAN_LIMITS[profile.plan as 'free' | 'growth']
     const used = profile.analyses_used_this_month
@@ -33,16 +38,20 @@ export default async function AccountPage() {
                 <StaggerItem className="rounded-2xl p-6" style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)' }}>
                     <h2 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-5">Profile</h2>
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold text-white"
-                            style={{ background: '#6366f1' }}>
-                            {(profile.full_name || profile.email || 'U')[0].toUpperCase()}
-                        </div>
+                        {avatarUrl ? (
+                            <img src={avatarUrl} alt="Avatar" className="w-14 h-14 rounded-full object-cover border" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+                        ) : (
+                            <div className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold text-white"
+                                style={{ background: '#6366f1' }}>
+                                {(profile.full_name || profile.email || 'U')[0].toUpperCase()}
+                            </div>
+                        )}
                         <div>
                             <p className="text-white font-semibold">{profile.full_name || 'No name set'}</p>
                             <p className="text-slate-400 text-sm">{profile.email}</p>
                         </div>
                     </div>
-                    <AccountClient profile={profile} />
+                    <AccountClient profile={profile} defaultAvatarUrl={avatarUrl} />
                 </StaggerItem>
 
                 {/* Subscription card */}
@@ -75,8 +84,8 @@ export default async function AccountPage() {
                     </div>
 
                     {!isGrowth && (
-                        <a href="/pricing"
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-md text-white font-semibold text-sm transition-all hover:opacity-90"
+                        <a href="?upgrade=true"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-md text-white font-semibold text-sm transition-all hover:opacity-90 cursor-pointer"
                             style={{ background: '#6366f1' }}>
                             Upgrade to Growth →
                         </a>

@@ -36,5 +36,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
         .eq('user_id', user.id)
         .eq('seen', false)
 
-    return <SidebarLayout profile={profile} unreadAlertCount={unreadAlertCount ?? 0}>{children}</SidebarLayout>
+    const avatarTimestamp = user.user_metadata?.avatar_version
+    const avatarUrl = user.user_metadata?.has_avatar
+        ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/avatars/${user.id}.png?t=${avatarTimestamp}`
+        : null
+
+    return <SidebarLayout profile={profile} unreadAlertCount={unreadAlertCount ?? 0} avatarUrl={avatarUrl}>{children}</SidebarLayout>
 }
