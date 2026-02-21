@@ -91,14 +91,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </section>
 
             {/* CTA Section */}
-            <section className="max-w-5xl mx-auto px-6 md:px-12 pb-24 relative z-10 text-center">
-                <div className="p-10 md:p-16 rounded-[2.5rem] relative overflow-hidden" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <section className="max-w-5xl mx-auto px-6 md:px-12 pb-16 relative z-10 text-center">
+                <div className="p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.05)' }}>
                     <div className="absolute inset-0 pointer-events-none opacity-20" style={{ background: 'radial-gradient(circle at center, rgba(99,102,241,0.2) 0%, transparent 70%)' }} />
-                    <div className="w-14 h-14 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6">
-                        <Zap className="w-6 h-6 text-indigo-400" />
+                    <div className="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-4">
+                        <Zap className="w-5 h-5 text-indigo-400" />
                     </div>
-                    <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-6">Ready to transform your feedback?</h2>
-                    <p className="text-slate-400 text-lg mb-10 max-w-xl mx-auto">Stop guessing what to build next. Join Zointly today and turn raw customer data into a prioritized, evidence-backed product roadmap.</p>
+                    <h2 className="font-display text-2xl md:text-4xl font-bold text-white mb-4">Ready to transform your feedback?</h2>
+                    <p className="text-slate-400 text-base md:text-lg mb-8 max-w-xl mx-auto">Stop guessing what to build next. Join Zointly today and turn raw customer data into a prioritized, evidence-backed product roadmap.</p>
                     <Link href="/sign-up"
                         className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-full font-bold text-[11px] uppercase tracking-widest hover:scale-[1.05] transition-all border-none bg-gradient-to-r from-indigo-400 to-purple-400 shadow-[0_0_24px_rgba(192,132,252,0.4)]">
                         Get Started Free <ArrowRight className="w-4 h-4 ml-1" />
