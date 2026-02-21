@@ -99,16 +99,16 @@ export function GlowingPerspectiveCard({ children, className = "" }: { children:
 
 export function InfiniteMarquee({ children, className = "", speed = 40 }: { children: ReactNode, className?: string, speed?: number }) {
     return (
-        <div className={`overflow-hidden flex w-full ${className}`}>
+        <div className={`overflow-hidden flex w-full max-w-[100vw] ${className}`}>
             <motion.div
-                className="flex items-center whitespace-nowrap min-w-full shrink-0"
+                className="flex items-center whitespace-nowrap min-w-max"
                 animate={{ x: ["0%", "-50%"] }}
                 transition={{ duration: speed, ease: "linear", repeat: Infinity }}
             >
-                <div className="flex items-center justify-around w-full shrink-0 px-6">
+                <div className="flex items-center min-w-max shrink-0 pr-12 lg:pr-16 gap-12 lg:gap-16">
                     {children}
                 </div>
-                <div className="flex items-center justify-around w-full shrink-0 px-6">
+                <div className="flex items-center min-w-max shrink-0 pr-12 lg:pr-16 gap-12 lg:gap-16">
                     {children}
                 </div>
             </motion.div>

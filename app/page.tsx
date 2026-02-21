@@ -195,10 +195,10 @@ export default function LandingPage() {
 
       {/* Social Proof Marquee */}
       <FadeIn>
-        <section className="py-10 border-y border-white/5 bg-black/20">
+        <section className="py-8 border-y border-white/5 bg-black/20">
           <div className="max-w-7xl mx-auto overflow-hidden">
             <p className="text-center text-[9px] font-bold uppercase tracking-[0.3em] text-slate-500 mb-6">Trusted by innovative product teams</p>
-            <InfiniteMarquee className="opacity-50 grayscale hover:grayscale-0 transition-all duration-500 py-2">
+            <InfiniteMarquee className="opacity-50 grayscale hover:grayscale-0 transition-all duration-500" speed={30}>
               {/* Dummy Logos acting as placeholders since we can't use real SVGs easily */}
               {['Acme Corp', 'GlobalNet', 'NovaTech', 'Stark Ind.', 'Omega', 'Vertex', 'Nexus', 'Horizon'].map(logo => (
                 <span key={logo} className="font-display font-bold text-lg text-slate-300 tracking-tight cursor-default">{logo}</span>
