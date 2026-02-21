@@ -110,14 +110,15 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                         {/* Mobile Menu Toggle button */}
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="md:hidden p-2 -mr-2 text-slate-400 hover:text-white transition-colors flex items-center justify-center"
+                            className="md:hidden p-2 -mr-2 text-slate-400 hover:text-white transition-colors flex items-center justify-center relative w-10 h-10"
                             aria-label="Toggle mobile menu"
                         >
-                            {isMobileMenuOpen ? (
-                                <X className="w-5 h-5" />
-                            ) : (
-                                <Menu className="w-5 h-5" />
-                            )}
+                            <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50'}`}>
+                                <X className="w-6 h-6" />
+                            </div>
+                            <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${!isMobileMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}>
+                                <Menu className="w-6 h-6" />
+                            </div>
                         </button>
                     </div>
                 </div>
