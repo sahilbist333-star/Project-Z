@@ -76,8 +76,10 @@ export default function LandingPage() {
           backgroundSize: '32px 32px'
         }}>
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px]"
-            style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.12) 0%, transparent 70%)' }} />
+          <div className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[1000px] h-[700px] anim-hero-glow mix-blend-screen"
+            style={{ background: 'radial-gradient(ellipse at 50% 10%, rgba(99,102,241,0.15) 0%, transparent 60%)' }} />
+          <div className="absolute top-[10%] left-[40%] -translate-x-1/2 w-[800px] h-[600px] anim-hero-glow-alt mix-blend-screen"
+            style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(139,92,246,0.1) 0%, transparent 60%)' }} />
         </div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-8"

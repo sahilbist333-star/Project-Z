@@ -206,6 +206,42 @@ body {
   }
 }
 
+@keyframes hero-glow {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes hero-glow-alt {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1.1) translate(-2%, 2%);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) translate(2%, -2%);
+  }
+}
+
+.anim-hero-glow {
+  animation: hero-glow 12s ease-in-out infinite;
+}
+
+.anim-hero-glow-alt {
+  animation: hero-glow-alt 15s ease-in-out infinite;
+}
+
 .anim-fade-in {
   animation: fadeIn 0.3s ease both;
 }
