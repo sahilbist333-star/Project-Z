@@ -115,7 +115,7 @@ export default function HomepagePricing() {
                                 </li>
                             ))}
                         </ul>
-                        <a href="mailto:hello@zointly.io"
+                        <a href="mailto:hello@zointly.com"
                             className="w-full text-center py-3 rounded-sm border font-bold text-[9px] uppercase tracking-widest transition-all text-slate-300 hover:bg-white/5"
                             style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
                             Contact Sales

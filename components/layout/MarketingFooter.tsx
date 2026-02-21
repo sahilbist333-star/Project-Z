@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Twitter, Linkedin, Instagram, Youtube } from 'lucide-react'
 import { FadeIn } from '@/components/ui/motion'
 
 export default function MarketingFooter() {
@@ -13,7 +14,23 @@ export default function MarketingFooter() {
                             </div>
                             <span className="font-display font-bold text-sm text-white uppercase tracking-tight">Zointly</span>
                         </div>
-                        <p className="text-slate-600 text-xs leading-relaxed">AI-powered product decision intelligence for modern product teams.</p>
+                        <p className="text-slate-600 text-xs leading-relaxed mb-6">AI-powered product decision intelligence for modern product teams.</p>
+
+                        {/* Social Links */}
+                        <div className="flex items-center gap-4">
+                            <a href="https://twitter.com/zointly" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-indigo-400 transition-colors">
+                                <Twitter className="w-4 h-4" />
+                            </a>
+                            <a href="https://linkedin.com/company/zointly" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-indigo-400 transition-colors">
+                                <Linkedin className="w-4 h-4" />
+                            </a>
+                            <a href="https://instagram.com/zointly" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-indigo-400 transition-colors">
+                                <Instagram className="w-4 h-4" />
+                            </a>
+                            <a href="https://youtube.com/@zointly" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-indigo-400 transition-colors">
+                                <Youtube className="w-4 h-4" />
+                            </a>
+                        </div>
                     </div>
                     <div>
                         <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest mb-4">Product</p>

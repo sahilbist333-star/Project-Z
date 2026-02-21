@@ -46,7 +46,7 @@ export default function PricingPage() {
             description: 'For large organizations with compliance, SSO, and unlimited usage requirements.',
             features: ['Unlimited analyses', 'Unlimited entries per analysis', 'Everything in Growth', 'White-label public reports', 'SSO / SAML integration', 'Custom API access', 'Dedicated Slack support', 'Custom data retention policy'],
             cta: 'Talk to Sales',
-            href: 'mailto:sales@zointly.io',
+            href: 'mailto:sales@zointly.com',
             highlight: false,
             anchorText: null,
         },

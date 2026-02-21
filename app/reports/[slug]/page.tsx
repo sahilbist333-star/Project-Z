@@ -94,8 +94,9 @@ export default async function PublicReportPage({ params }: Props) {
                                     </div>
                                     <div>
                                         <h3 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2">Proposed Solution</h3>
-                                        <p className="text-slate-300 text-sm leading-relaxed">{opp.proposed_solution}</p>
-                                    </div>
+                                        <a href="mailto:hello@zointly.com" className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-full font-medium transition-colors text-sm">
+                                            Contact Support
+                                        </a>    </div>
                                 </div>
 
                                 {/* Evidence quotes */}

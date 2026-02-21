@@ -87,7 +87,7 @@ export default function PrivacyPage() {
                         <li><strong className="text-white">Portability:</strong> Request an export of your analyses</li>
                         <li><strong className="text-white">Objection:</strong> Opt out of any non-essential data processing</li>
                     </ul>
-                    <p>To exercise any of these rights, contact <a href="mailto:hello@zointly.io" className="text-indigo-400 hover:underline">hello@zointly.io</a>. We will respond within 30 days.</p>
+                    <p>To exercise any of these rights, contact <a href="mailto:hello@zointly.com" className="text-indigo-400 hover:underline">hello@zointly.com</a>. We will respond within 30 days.</p>
                 </Section>
 
                 <Section title="8. Children's Privacy">
@@ -101,8 +101,8 @@ export default function PrivacyPage() {
 
                 <Section title="10. Contact Us">
                     <p>For privacy-related questions, data requests, or complaints, contact our privacy team at:</p>
-                    <p><a href="mailto:hello@zointly.io" className="text-indigo-400 hover:underline">hello@zointly.io</a> — subject line: &ldquo;Privacy Request&rdquo;</p>
-                    <p>Zointly Inc. · hello@zointly.io</p>
+                    <p><a href="mailto:hello@zointly.com" className="text-indigo-400 hover:underline">hello@zointly.com</a> — subject line: &ldquo;Privacy Request&rdquo;</p>
+                    <p>Zointly Inc. · hello@zointly.com</p>
                 </Section>
             </StaggerContainer>
 

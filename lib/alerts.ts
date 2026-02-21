@@ -100,7 +100,7 @@ export async function saveAlertsAndNotify(
 
     try {
         await resend.emails.send({
-            from: 'Zointly <alerts@zointly.io>',
+            from: 'Zointly <alerts@zointly.com>',
             to: userEmail,
             subject: 'New product signal detected in your customer feedback',
             html: `

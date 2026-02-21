@@ -34,7 +34,7 @@ export default function TermsPage() {
 
                 <Section title="1. Account Registration">
                     <p>You must be at least 16 years old to create a Zointly account. You agree to provide accurate, current, and complete information during registration and to keep your account credentials confidential.</p>
-                    <p>You are responsible for all activity that occurs under your account. Notify us immediately at <a href="mailto:hello@zointly.io" className="text-indigo-400 hover:underline">hello@zointly.io</a> if you suspect unauthorized access.</p>
+                    <p>You are responsible for all activity that occurs under your account. Notify us immediately at <a href="mailto:hello@zointly.com" className="text-indigo-400 hover:underline">hello@zointly.com</a> if you suspect unauthorized access.</p>
                 </Section>
 
                 <Section title="2. Acceptable Use">
@@ -52,7 +52,7 @@ export default function TermsPage() {
                     <p><strong className="text-white">Free Plan:</strong> Available at no charge, subject to the usage limits described on our Pricing page. We may change free plan limits with 30 days&apos; notice.</p>
                     <p><strong className="text-white">Growth Plan:</strong> Billed monthly at the rate shown at checkout. Subscriptions renew automatically unless cancelled before the next billing date.</p>
                     <p><strong className="text-white">Cancellation:</strong> You may cancel your subscription at any time from the Account Settings page. Cancellations take effect at the end of your current billing cycle. No partial refunds are issued for unused time.</p>
-                    <p><strong className="text-white">Refunds:</strong> Unless required by applicable law, payments are non-refundable. If you believe a charge was made in error, contact us within 14 days at <a href="mailto:hello@zointly.io" className="text-indigo-400 hover:underline">hello@zointly.io</a>.</p>
+                    <p><strong className="text-white">Refunds:</strong> Unless required by applicable law, payments are non-refundable. If you believe a charge was made in error, contact us within 14 days at <a href="mailto:hello@zointly.com" className="text-indigo-400 hover:underline">hello@zointly.com</a>.</p>
                 </Section>
 
                 <Section title="4. Intellectual Property">
@@ -81,7 +81,7 @@ export default function TermsPage() {
                 </Section>
 
                 <Section title="9. Contact">
-                    <p>For legal questions or Terms-related inquiries, contact us at: <a href="mailto:hello@zointly.io" className="text-indigo-400 hover:underline">hello@zointly.io</a></p>
+                    <p>For legal questions or Terms-related inquiries, contact us at: <a href="mailto:hello@zointly.com" className="text-indigo-400 hover:underline">hello@zointly.com</a></p>
                 </Section>
             </StaggerContainer>
 

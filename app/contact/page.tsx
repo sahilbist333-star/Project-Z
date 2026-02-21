@@ -17,7 +17,7 @@ export default function ContactPage() {
         e.preventDefault()
         // Build a mailto link
         const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
-        const mailto = `mailto:hello@zointly.io?subject=${encodeURIComponent(`[Zointly] ${subject}`)}&body=${body}`
+        const mailto = `mailto:hello@zointly.com?subject=${encodeURIComponent(`[Zointly] ${subject}`)}&body=${body}`
         window.location.href = mailto
         setSent(true)
     }
@@ -40,9 +40,9 @@ export default function ContactPage() {
                     {/* Info */}
                     <StaggerContainer className="space-y-5">
                         {[
-                            { icon: Mail, title: 'Email', value: 'hello@zointly.io', href: 'mailto:hello@zointly.io' },
-                            { icon: MessageSquare, title: 'Support', value: 'support@zointly.io', href: 'mailto:support@zointly.io' },
-                            { icon: Zap, title: 'Enterprise Sales', value: 'sales@zointly.io', href: 'mailto:sales@zointly.io' },
+                            { icon: Mail, title: 'Email', value: 'hello@zointly.com', href: 'mailto:hello@zointly.com' },
+                            { icon: MessageSquare, title: 'Support', value: 'support@zointly.com', href: 'mailto:support@zointly.com' },
+                            { icon: Zap, title: 'Enterprise Sales', value: 'sales@zointly.com', href: 'mailto:sales@zointly.com' },
                         ].map(({ icon: Icon, title, value, href }) => (
                             <StaggerItem key={title} className="p-5 rounded-[1.5rem] bg-black/40 border border-white/5 hover:border-white/10 transition-colors">
                                 <div className="flex items-center gap-3 mb-2">
