@@ -2,8 +2,9 @@ import Link from 'next/link'
 import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import HomepagePricing from '@/components/pricing/HomepagePricing'
-import { CheckCircle2, BarChart3, Share2, Bell, Zap, Shield, Globe, ChevronDown, TrendingUp, ArrowRight, PlayCircle, Sparkles } from 'lucide-react'
+import { ArrowRight, BarChart3, Bell, CheckCircle2, ChevronRight, Globe, TrendingUp, Zap, Share2, Shield, PlayCircle, Sparkles } from 'lucide-react'
 import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, FloatElement, GlowingPerspectiveCard, InfiniteMarquee, MousePerspectiveCard, HeroBackground3D } from '@/components/ui/motion'
+import { FaqAccordion } from '@/components/ui/FaqAccordion'
 
 const features = [
   {
@@ -248,7 +249,7 @@ export default function LandingPage() {
                     {/* Fake Chart bars */}
                     <div className="absolute bottom-0 w-full flex items-end justify-between px-6 gap-2 opacity-60">
                       {[40, 70, 45, 90, 60, 85, 55, 100].map((h, i) => (
-                        <div key={i} className="w-full bg-indigo-500/50 rounded-t-sm" style={{ height: `${h}%` }}></div>
+                        <div key={i} className="w-full bg-indigo-500/50 rounded-t-sm" style={{ height: `${h}% ` }}></div>
                       ))}
                     </div>
                   </div>
@@ -333,7 +334,7 @@ export default function LandingPage() {
               <StaggerItem key={step}>
                 <div className="relative p-10 h-full rounded-[2rem] bg-black/40 border border-white/5 hover:border-white/10 transition-all hover:-translate-y-2 group overflow-hidden">
                   {/* Decorative blob */}
-                  <div className={`absolute -right-10 -top-10 w-32 h-32 bg-${color}-500/10 blur-[50px] rounded-full group-hover:bg-${color}-500/20 transition-colors`}></div>
+                  <div className={`absolute - right - 10 - top - 10 w - 32 h - 32 bg - ${color} -500 / 10 blur - [50px] rounded - full group - hover: bg - ${color} -500 / 20 transition - colors`}></div>
 
                   <div className="text-[60px] font-black font-display leading-none mb-8 text-white/5 group-hover:text-white/10 transition-colors">
                     {step}
@@ -403,7 +404,7 @@ export default function LandingPage() {
                       <div>
                         <p className="text-xs sm:text-sm font-semibold text-white truncate max-w-[120px] sm:max-w-[200px]">{opp.title}</p>
                         <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-1 sm:mt-2 inline-block"
-                          style={{ background: `${opp.color}18`, color: opp.color }}>{opp.priority}</span>
+                          style={{ background: `${opp.color} 18`, color: opp.color }}>{opp.priority}</span>
                       </div>
                       <div className="text-right shrink-0">
                         <p className="font-display text-xl sm:text-2xl font-bold text-indigo-400">{opp.score}</p>
@@ -462,18 +463,8 @@ export default function LandingPage() {
           <FadeIn className="text-center mb-16">
             <h2 className="font-display text-3xl md:text-5xl font-black text-white tracking-tight">Frequently asked questions.</h2>
           </FadeIn>
-          <StaggerContainer className="space-y-4">
-            {faqs.map(({ q, a }) => (
-              <StaggerItem key={q}>
-                <details className="group rounded-[1.5rem] bg-black/40 border border-white/5 transition-colors hover:border-white/10">
-                  <summary className="flex justify-between items-center p-6 md:p-8 cursor-pointer list-none">
-                    <span className="text-base font-semibold text-white">{q}</span>
-                    <ChevronDown className="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4" />
-                  </summary>
-                  <div className="px-6 md:px-8 pb-8 text-base text-slate-400 leading-relaxed">{a}</div>
-                </details>
-              </StaggerItem>
-            ))}
+          <StaggerContainer className="mt-16 w-full">
+            <FaqAccordion items={faqs} />
           </StaggerContainer>
         </div>
       </section>

@@ -3,16 +3,17 @@ import { ArrowLeft } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     // Generate a simple title from the slug
-    const title = params.slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    const resolvedParams = await params
+    const title = resolvedParams.slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 
     return (
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
             {/* Hero */}
-            <section className="pt-36 pb-16 px-6 relative max-w-3xl mx-auto">
+            <section className="pt-48 pb-16 px-6 relative max-w-3xl mx-auto">
                 <Link href="/blog" className="inline-flex items-center gap-2 text-indigo-400 text-sm font-semibold hover:text-indigo-300 transition-colors mb-8">
                     <ArrowLeft className="w-4 h-4" /> Back to Blog
                 </Link>

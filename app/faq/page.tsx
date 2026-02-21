@@ -53,7 +53,7 @@ export default function FAQPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <section className="pt-36 pb-14 text-center px-6 relative">
+            <section className="pt-48 pb-14 text-center px-6 relative">
                 <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.07) 0%, transparent 60%)' }} />
                 <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Help Center</p>
                 <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Frequently Asked Questions</h1>

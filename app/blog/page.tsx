@@ -60,7 +60,7 @@ export default function BlogPage() {
         <div className="min-h-screen" style={{ background: '#080808' }}>
             <MarketingNav />
 
-            <section className="pt-36 pb-14 text-center px-6 relative overflow-hidden">
+            <section className="pt-48 pb-14 text-center px-6 relative overflow-hidden">
                 <HeroBackground3D />
                 <FadeIn className="relative z-10">
                     <div className="inline-flex items-center gap-2 mb-4">

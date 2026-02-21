@@ -23,7 +23,7 @@ export default function AboutPage() {
             <MarketingNav />
 
             {/* Hero */}
-            <section className="pt-36 pb-20 text-center px-6 relative overflow-hidden">
+            <section className="pt-48 pb-20 text-center px-6 relative overflow-hidden">
                 <HeroBackground3D />
                 <FadeIn className="relative z-10 max-w-3xl mx-auto">
                     <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4">Our Story</p>
