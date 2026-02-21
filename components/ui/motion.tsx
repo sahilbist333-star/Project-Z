@@ -117,8 +117,12 @@ export function InfiniteMarquee({ children, className = "", speed = 40 }: { chil
 }
 
 export function MousePerspectiveCard({ children, className = "" }: { children: ReactNode, className?: string }) {
-    const x = useMotionValue(0)
-    const y = useMotionValue(0)
+    // Default values for a permanent 3D tilt
+    const defaultX = 0.3
+    const defaultY = -0.3
+
+    const x = useMotionValue(defaultX)
+    const y = useMotionValue(defaultY)
 
     const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 })
     const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 })
@@ -139,8 +143,8 @@ export function MousePerspectiveCard({ children, className = "" }: { children: R
     }
 
     const handleMouseLeave = () => {
-        x.set(0)
-        y.set(0)
+        x.set(defaultX)
+        y.set(defaultY)
     }
 
     return (
