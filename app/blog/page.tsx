@@ -182,7 +182,7 @@ export default function BlogPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="max-w-4xl mx-auto px-6 md:px-12 pb-16 relative z-10 text-center">
+            <section className="max-w-5xl mx-auto px-6 md:px-12 pb-16 relative z-10 text-center">
                 <div className="p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden" style={{ background: '#0d0d0f', border: '1px solid rgba(255,255,255,0.05)' }}>
                     <div className="absolute inset-0 pointer-events-none opacity-20" style={{ background: 'radial-gradient(circle at center, rgba(99,102,241,0.2) 0%, transparent 70%)' }} />
                     <div className="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-4">
