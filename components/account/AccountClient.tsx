@@ -36,23 +36,27 @@ export default function AccountClient({ profile, showSignOut, defaultAvatarUrl }
         if (!file) return
 
         setUploadingAvatar(true)
-        // Upload to storage
-        const fileExt = file.name.split('.').pop()
-        const filePath = `${profile.id}.png` // Enforce png or just use the id as the name
 
-        const { error: uploadError } = await supabase.storage
-            .from('avatars')
-            .upload(filePath, file, { upsert: true, contentType: 'image/png' })
+        const formData = new FormData()
+        formData.append('file', file)
 
-        if (!uploadError) {
-            // Update auth metadata to trigger refresh and track state
-            await supabase.auth.updateUser({
-                data: { has_avatar: true, avatar_version: Date.now() }
+        try {
+            const res = await fetch('/api/user/avatar', {
+                method: 'POST',
+                body: formData,
             })
-            router.refresh()
-        } else {
-            alert('Error uploading avatar: ' + uploadError.message)
+            const data = await res.json()
+
+            if (!res.ok) {
+                alert('Error uploading avatar: ' + (data.error || 'Server error'))
+            } else {
+                // Refresh the server component to get the new avatarUrl
+                router.refresh()
+            }
+        } catch (err: any) {
+            alert('Error uploading avatar: ' + err.message)
         }
+
         setUploadingAvatar(false)
     }
 
