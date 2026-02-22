@@ -106,18 +106,6 @@ export async function POST(
             change_summary: changeSummary,
         }).eq('id', id)
 
-        // Fetch the analysis to check if it's a sample
-        const { data: analysisRecord } = await admin
-            .from('analyses')
-            .select('is_sample')
-            .eq('id', id)
-            .single()
-
-        // Increment analyses_used_this_month ONLY on success and if NOT a sample
-        if (!analysisRecord?.is_sample) {
-            await admin.rpc('increment_analyses_used', { user_id_input: user_id })
-        }
-
         return NextResponse.json({ success: true })
     } catch (err: any) {
         console.error(`Analysis ${id} processing failed:`, err)

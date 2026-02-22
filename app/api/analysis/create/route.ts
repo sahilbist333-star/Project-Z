@@ -97,7 +97,11 @@ export async function POST(request: NextRequest) {
             .single()
 
         if (existing) {
-            return NextResponse.json({ analysis_id: existing.id, deduplicated: true })
+            return NextResponse.json({
+                id: existing.id,
+                analysis_id: existing.id,
+                deduplicated: true
+            })
         }
 
         // ── Create analysis record ────────────────────────────────────
@@ -124,7 +128,7 @@ export async function POST(request: NextRequest) {
 
         // ── Increment usage ONLY if NOT sample ─────────────────────────
         if (!is_sample) {
-            await admin.rpc('increment_analyses_used', { user_id: user.id })
+            await admin.rpc('increment_analyses_used', { user_id_input: user.id })
         }
 
         // ── Fire-and-forget processing (no await) ─────────────────────
