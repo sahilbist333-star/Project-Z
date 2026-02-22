@@ -105,7 +105,7 @@ export default function OnboardingPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     title: 'Sample Feedback Analysis',
-                    feedback: SAMPLE_FEEDBACK,
+                    input_text: SAMPLE_FEEDBACK.join('\n'),
                     is_sample: true
                 })
             })
