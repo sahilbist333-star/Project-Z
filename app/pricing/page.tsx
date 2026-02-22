@@ -1,12 +1,15 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { CheckCircle2, ChevronDown, CheckCircle } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
+import { createClient } from '@/lib/supabase/client'
+import UpgradeButton from '@/components/pricing/UpgradeButton'
 
 const faqs = [
+    // ... (rest of faqs)
     { q: 'Can I switch plans at any time?', a: 'Yes. Upgrade or cancel anytime from your account page. When you upgrade, you are immediately moved to the Growth plan. Downgrading takes effect at the end of your current billing cycle.' },
     { q: 'What happens to my data if I downgrade?', a: 'All your analyses and public reports remain accessible regardless of plan. Only new analysis creation is limited by your plan.' },
     { q: 'Is there a free trial of Growth?', a: 'The Starter plan is essentially a perpetual free tier. You can run 3 full analyses per month for free, indefinitely, to evaluate the product before upgrading.' },
@@ -15,6 +18,14 @@ const faqs = [
 
 export default function PricingPage() {
     const [interval, setInterval] = useState<'monthly' | 'annual'>('monthly')
+    const [user, setUser] = useState<any>(null)
+    const supabase = createClient()
+
+    useEffect(() => {
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            setUser(user)
+        })
+    }, [supabase])
 
     const plans = [
         {
@@ -126,13 +137,21 @@ export default function PricingPage() {
                                     </li>
                                 ))}
                             </ul>
-                            <Link href={plan.href}
-                                className={`w-full text-center py-4 rounded-full font-bold text-[10px] uppercase tracking-widest transition-all block hover:scale-105 ${plan.highlight ? 'text-white' : 'text-slate-300 hover:text-white'}`}
-                                style={plan.highlight
-                                    ? { background: '#6366f1', boxShadow: '0 0 20px rgba(99,102,241,0.3)' }
-                                    : { background: 'transparent', border: '1px solid rgba(255,255,255,0.1)' }}>
-                                {plan.cta}
-                            </Link>
+                            {plan.name === 'Growth' && user ? (
+                                <UpgradeButton
+                                    interval={interval}
+                                    cta={plan.cta}
+                                    className="hover:scale-105"
+                                />
+                            ) : (
+                                <Link href={plan.href}
+                                    className={`w-full text-center py-4 rounded-full font-bold text-[10px] uppercase tracking-widest transition-all block hover:scale-105 ${plan.highlight ? 'text-white' : 'text-slate-300 hover:text-white'}`}
+                                    style={plan.highlight
+                                        ? { background: '#6366f1', boxShadow: '0 0 20px rgba(99,102,241,0.3)' }
+                                        : { background: 'transparent', border: '1px solid rgba(255,255,255,0.1)' }}>
+                                    {plan.cta}
+                                </Link>
+                            )}
                         </StaggerItem>
                     ))}
                 </StaggerContainer>

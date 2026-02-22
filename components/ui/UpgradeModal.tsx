@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { X, Zap, CheckCircle2 } from 'lucide-react'
-import Link from 'next/link'
+import UpgradeButton from '@/components/pricing/UpgradeButton'
 
 interface Props {
     onClose: () => void
@@ -70,11 +70,12 @@ export default function UpgradeModal({ onClose, used, limit }: Props) {
                         <span className="font-display text-3xl font-bold text-white">₹2,999</span>
                         <span className="text-slate-500 text-sm">/month · cancel anytime</span>
                     </div>
-                    <Link href="/pricing" onClick={onClose}
-                        className="w-full block text-center text-white font-bold py-3 rounded-md text-sm transition-all hover:opacity-90 pulse-glow"
-                        style={{ background: '#6366f1', boxShadow: '0 0 20px rgba(99,102,241,0.3)' }}>
-                        Upgrade Now →
-                    </Link>
+
+                    <UpgradeButton
+                        cta="Upgrade Now →"
+                        className="pulse-glow"
+                    />
+
                     <button onClick={onClose} className="w-full text-center text-slate-600 text-xs mt-3 hover:text-slate-400 transition-colors">
                         Maybe later
                     </button>

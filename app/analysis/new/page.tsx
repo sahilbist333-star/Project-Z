@@ -1,234 +1,249 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Upload, ChevronRight, FileText, AlertTriangle, Zap, Info } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { Zap, Loader2, Sparkles, MessageSquare, Clipboard, Upload, FileText, FileSpreadsheet, X, Info, Database, AlertTriangle, Plus, ArrowRight } from 'lucide-react'
+import { SAMPLE_FEEDBACK } from '@/lib/sample-data'
 import Papa from 'papaparse'
+import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion'
 import Link from 'next/link'
-
-type LimitError = 'upgrade_required' | 'limit_reached' | 'not_enough_data' | null
+import Logo from '@/components/ui/Logo'
 
 export default function NewAnalysisPage() {
-    const [input, setInput] = useState('')
-    const [loading, setLoading] = useState(false)
+    const [title, setTitle] = useState('')
+    const [text, setText] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState('')
-    const [limitError, setLimitError] = useState<LimitError>(null)
-    const [usageInfo, setUsageInfo] = useState<{ used: number, limit: number, plan: string } | null>(null)
-    const [tab, setTab] = useState<'paste' | 'sample'>('paste')
-    const fileRef = useRef<HTMLInputElement>(null)
+    const [usage, setUsage] = useState<any>(null)
+    const [loading, setLoading] = useState(true)
     const router = useRouter()
+    const supabase = createClient()
 
     useEffect(() => {
-        fetch('/api/user/usage')
-            .then(res => res.json())
-            .then(data => {
-                if (data.used !== undefined) {
-                    setUsageInfo(data)
-                }
-            })
-            .catch(() => { })
+        const fetchUsage = async () => {
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user) return
+            const { data } = await supabase.from('users').select('plan, analyses_used_this_month').eq('id', user.id).single()
+            setUsage(data)
+            setLoading(false)
+        }
+        fetchUsage()
     }, [])
 
-    const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (!file) return
         Papa.parse(file, {
             complete: (results) => {
-                const lines = results.data
-                    .map((row: any) => (Array.isArray(row) ? row[0] : Object.values(row)[0]))
-                    .filter(Boolean)
+                const csvText = results.data
+                    .map((row: any) => Object.values(row).join(' '))
                     .join('\n')
-                setInput(lines as string)
+                setText(csvText)
             },
-            header: true,
-            skipEmptyLines: true,
+            header: true
         })
     }
 
-    const submit = async (text: string, is_sample: boolean = false) => {
-        setLoading(true)
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!text.trim()) return
+        setIsSubmitting(true)
         setError('')
-        setLimitError(null)
+
         try {
             const res = await fetch('/api/analysis/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ input_text: text, is_sample }),
+                body: JSON.stringify({ input_text: text, title })
             })
             const data = await res.json()
-            if (!res.ok) {
-                if (data.error === 'upgrade_required') {
-                    setLimitError('upgrade_required')
-                    setError(`Your plan supports up to ${data.limit} entries. You provided ${data.count}. Upgrade to Growth for up to 5,000.`)
-                } else if (data.error === 'limit_reached') {
-                    setLimitError('limit_reached')
-                } else if (data.error === 'not_enough_data') {
-                    setLimitError('not_enough_data')
-                    setError(`At least 30 feedback entries required (you provided ${data.count}).`)
-                } else {
-                    setError(data.error || 'Something went wrong. Please try again.')
-                }
-                setLoading(false)
-                return
-            }
-            router.push(`/analysis/${data.analysis_id}`)
-        } catch {
-            setError('Network error. Please try again.')
-            setLoading(false)
+            if (!res.ok) throw new Error(data.error || 'Failed to start analysis')
+            router.push(`/analysis/${data.id}`)
+        } catch (err: any) {
+            setError(err.message)
+            setIsSubmitting(false)
         }
     }
 
-    const handleSample = async () => {
-        const { SAMPLE_FEEDBACK } = await import('@/lib/sample-data')
-        await submit(SAMPLE_FEEDBACK.join('\n'), true)
+    const useSampleData = () => {
+        setTitle('Sample Customer Feedback')
+        setText(SAMPLE_FEEDBACK.join('\n'))
     }
 
-    const lineCount = input.split('\n').filter(l => l.trim().length > 0).length
-
-    // Full-page limit reached screen
-    if (limitError === 'limit_reached') {
+    if (loading) {
         return (
-            <div className="p-8 max-w-xl anim-scale-in">
-                <div className="rounded-2xl overflow-hidden" style={{ background: '#0f0f12', border: '1px solid rgba(239,68,68,0.2)' }}>
-                    <div className="p-8 text-center">
-                        <div className="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-5"
-                            style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
-                            <AlertTriangle className="w-7 h-7 text-red-400" />
-                        </div>
-                        <h2 className="font-display text-xl font-bold text-white mb-2">Monthly Limit Reached</h2>
-                        <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                            You&apos;ve used all of your monthly analyses on the Free plan.
-                            Upgrade to Growth to run up to <strong className="text-white">50 analyses/month</strong>.
-                        </p>
-                        <div className="rounded-xl p-5 mb-6 text-left" style={{ background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.15)' }}>
-                            <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-widest mb-3">Growth Plan includes</p>
-                            <div className="space-y-2">
-                                {['50 analyses per month', '5,000 entries per analysis', 'Insight alerts + email notifications', 'Priority processing'].map(f => (
-                                    <p key={f} className="text-xs text-slate-300 flex items-center gap-2">
-                                        <span className="text-indigo-400">→</span> {f}
-                                    </p>
-                                ))}
-                            </div>
-                        </div>
-                        <Link href="/pricing"
-                            className="w-full flex items-center justify-center gap-2 py-3 rounded-md text-white font-bold text-sm mb-3 hover:opacity-90 transition-all pulse-glow"
-                            style={{ background: '#6366f1' }}>
-                            <Zap className="w-4 h-4" />
-                            Upgrade to Growth — ₹49/month
-                        </Link>
-                        <button onClick={() => setLimitError(null)}
-                            className="text-slate-600 text-xs hover:text-slate-400 transition-colors">
-                            ← Go back
-                        </button>
-                    </div>
+            <div className="h-[80vh] flex flex-col items-center justify-center gap-4">
+                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">Preparing analysis engine...</p>
+            </div>
+        )
+    }
+
+    const limit = usage?.plan === 'growth' ? 100 : 3
+    const used = usage?.analyses_used_this_month || 0
+    const isLimitReached = used >= limit
+
+    if (isLimitReached) {
+        return (
+            <div className="h-[80vh] flex flex-col items-center justify-center text-center p-8">
+                <div className="w-20 h-20 rounded-[2.5rem] bg-indigo-500/10 flex items-center justify-center mb-8 relative">
+                    <Zap className="w-8 h-8 text-indigo-400" />
+                    <div className="absolute inset-0 bg-indigo-500/20 blur-2xl rounded-full" />
+                </div>
+                <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-4">Monthly Limit Reached</h2>
+                <p className="text-slate-400 max-w-sm mb-12 font-medium">
+                    You've used all <span className="text-white">{limit} analyses</span> for this month. Upgrade to Growth for unlimited intelligence.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <Link href="/pricing" className="px-10 py-4 rounded-full bg-white text-black font-black text-[11px] uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+                        View Growth Plans
+                    </Link>
+                    <Link href="/dashboard" className="px-10 py-4 rounded-full bg-white/5 text-white font-black text-[11px] uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-all">
+                        Back to Dashboard
+                    </Link>
                 </div>
             </div>
         )
     }
 
-    const usagePercent = usageInfo ? (usageInfo.used / usageInfo.limit) * 100 : 0
-    const isDanger = usagePercent >= 90
-    const isWarning = usagePercent >= 70 && !isDanger
-
     return (
-        <div className="p-8 max-w-3xl anim-fade-in">
-            <div className="mb-6 anim-slide-down">
-                <h1 className="font-display text-2xl font-bold text-white mb-1">New Analysis</h1>
-                <p className="text-slate-500 text-sm">Paste feedback or upload a CSV file. Min 30 entries.</p>
+        <FadeIn className="max-w-4xl mx-auto p-8 mb-20 relative min-h-screen">
+            {/* Background elements to match homepage */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+                style={{
+                    backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.025) 1px, transparent 0)',
+                    backgroundSize: '32px 32px'
+                }}>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-indigo-500/10 blur-[120px] rounded-full -translate-y-1/2" />
+                <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/5 blur-[100px] rounded-full translate-y-1/3 translate-x-1/3" />
             </div>
 
-            {/* Usage Banners */}
-            {usageInfo && (isWarning || isDanger) && (
-                <div className={`mb-6 p-4 rounded-lg flex items-start gap-3 border anim-slide-down ${isDanger ? 'bg-red-500/10 border-red-500/20' : 'bg-yellow-500/10 border-yellow-500/20'}`}>
-                    <AlertTriangle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isDanger ? 'text-red-400' : 'text-yellow-400'}`} />
-                    <div className="flex-1">
-                        <p className={`text-sm font-semibold mb-1 ${isDanger ? 'text-red-400' : 'text-yellow-400'}`}>
-                            {isDanger ? 'Approaching Limit' : 'Usage Warning'}
-                        </p>
-                        <p className={`text-sm ${isDanger ? 'text-red-300/80' : 'text-yellow-300/80'}`}>
-                            You have used {usageInfo.used} out of {usageInfo.limit} analyses this month.
-                        </p>
-                        {usageInfo.plan === 'free' && (
-                            <Link href="/pricing" className={`inline-flex items-center gap-1 mt-3 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-md transition-colors ${isDanger ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30' : 'bg-yellow-500/20 text-yellow-500 hover:bg-yellow-500/30'}`}>
-                                Upgrade to Growth plan →
-                            </Link>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            {/* Tabs */}
-            <div className="flex gap-2 mb-6">
-                {(['paste', 'sample'] as const).map((t) => (
-                    <button key={t} onClick={() => setTab(t)}
-                        className="px-4 py-2 rounded-md text-xs font-bold uppercase tracking-widest transition-all hover:scale-[1.02]"
-                        style={{
-                            background: tab === t ? '#6366f1' : 'rgba(255,255,255,0.04)',
-                            color: tab === t ? 'white' : '#6b7280',
-                            border: '1px solid',
-                            borderColor: tab === t ? '#6366f1' : 'rgba(255,255,255,0.06)',
-                        }}>
-                        {t === 'paste' ? 'Paste / Upload' : 'Try Sample Data'}
-                    </button>
-                ))}
+            {/* Top Logo Bar */}
+            <div className="flex justify-center mb-12 relative z-10">
+                <Logo size="lg" />
             </div>
 
-            {tab === 'sample' ? (
-                <div className="rounded-xl p-8 text-center anim-scale-in"
-                    style={{ background: '#111113', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <FileText className="w-10 h-10 text-indigo-400 mx-auto mb-4" />
-                    <h3 className="text-white font-bold text-lg mb-2">Try with sample feedback</h3>
-                    <p className="text-slate-400 text-sm mb-6 max-w-md mx-auto">
-                        See how Zointly works using 60 realistic SaaS product feedback entries across several categories.
-                    </p>
-                    <button onClick={handleSample} disabled={loading} className="btn-primary hover:scale-[1.02] transition-transform">
-                        {loading ? 'Analyzing...' : 'Run Sample Analysis →'}
-                    </button>
+            {/* Header */}
+            <div className="text-center mb-16 relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[9px] font-black uppercase tracking-widest mb-6 backdrop-blur-md">
+                    <Sparkles className="w-3 h-3" /> New Intelligence Task
                 </div>
-            ) : (
-                <div className="space-y-4 anim-slide-up">
-                    {error && (
-                        <div className="rounded-lg p-4 border anim-scale-in"
-                            style={{ background: 'rgba(239,68,68,0.08)', borderColor: 'rgba(239,68,68,0.2)' }}>
-                            <p className="text-red-400 text-sm">{error}</p>
+                <h1 className="text-5xl font-black text-white uppercase tracking-tighter mb-4 drop-shadow-2xl">
+                    Fuel Your Strategy
+                </h1>
+                <p className="text-slate-500 font-medium text-sm max-w-md mx-auto">
+                    Paste raw feedback or upload a dataset to extract actionable product opportunities.
+                </p>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-8">
+                {/* Sidebar Info */}
+                <div className="md:col-span-1 space-y-6">
+                    <div className="p-6 rounded-3xl bg-white/2 border border-white/5 backdrop-blur-xl">
+                        <div className="flex items-center gap-2 mb-4">
+                            <Database className="w-4 h-4 text-indigo-400" />
+                            <h3 className="text-[10px] font-black text-white uppercase tracking-widest">Usage Quota</h3>
                         </div>
-                    )}
-
-                    {/* CSV Upload */}
-                    <div>
-                        <input ref={fileRef} type="file" accept=".csv" onChange={handleFile} className="hidden" />
-                        <button onClick={() => fileRef.current?.click()}
-                            className="w-full flex items-center justify-center gap-2 py-3 rounded-md border transition-all text-sm font-medium text-slate-400 hover:text-white hover:border-indigo-500/30"
-                            style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>
-                            <Upload className="w-4 h-4" />
-                            Upload CSV (one feedback per row)
-                        </button>
+                        <div className="space-y-3">
+                            <div className="flex justify-between text-[10px] font-bold text-slate-500 uppercase">
+                                <span>Used</span>
+                                <span className="text-white">{used} / {limit}</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                <div className="h-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] transition-all duration-1000"
+                                    style={{ width: `${(used / limit) * 100}%` }} />
+                            </div>
+                            <p className="text-[9px] text-slate-600 font-medium leading-relaxed">
+                                {limit - used} remaining this period.
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <div className="flex-1 border-t" style={{ borderColor: '#1f1f23' }} />
-                        <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">or paste text</span>
-                        <div className="flex-1 border-t" style={{ borderColor: '#1f1f23' }} />
+                    <div className="p-6 rounded-3xl bg-indigo-500/5 border border-indigo-500/10">
+                        <h3 className="text-[10px] font-black text-indigo-300 uppercase tracking-widest mb-3">Tips</h3>
+                        <ul className="space-y-3">
+                            {[
+                                'Include customer segments',
+                                'Mix positive and negative',
+                                'Min. 5 independent entries'
+                            ].map((tip, i) => (
+                                <li key={i} className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
+                                    <div className="w-1 h-1 rounded-full bg-indigo-500" />
+                                    {tip}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
-
-                    <div>
-                        <textarea value={input} onChange={e => setInput(e.target.value)}
-                            className="field resize-none transition-all focus:border-indigo-500/40"
-                            rows={14}
-                            placeholder={"Paste customer feedback here — one entry per line.\n\nExamples:\nThe search doesn't find related tickets even with different words.\nBulk export would save my team hours every week.\nIntegration with Slack would be a game changer..."} />
-                        <p className="text-[11px] mt-2 font-medium transition-colors"
-                            style={{ color: lineCount < 30 ? '#6b7280' : '#6366f1' }}>
-                            {lineCount} entries {lineCount < 30 && `(need at least 30)`}
-                        </p>
-                    </div>
-
-                    <button onClick={() => submit(input)} disabled={loading || lineCount < 30}
-                        className="btn-primary w-full hover:scale-[1.01] transition-transform disabled:hover:scale-100">
-                        {loading ? 'Sending to analysis...' : (
-                            <><span>Analyze Feedback</span><ChevronRight className="w-4 h-4" /></>
-                        )}
-                    </button>
                 </div>
-            )}
-        </div>
+
+                {/* Main Content */}
+                <div className="md:col-span-3">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        {error && (
+                            <FadeIn className="p-4 rounded-2xl bg-red-400/10 border border-red-400/20 flex items-center gap-3 text-red-400 text-xs font-bold uppercase tracking-wide">
+                                <AlertTriangle className="w-4 h-4 shrink-0" />
+                                {error}
+                            </FadeIn>
+                        )}
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4">Analysis Name</label>
+                            <input
+                                type="text"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder="e.g. Q4 Mobile App Feedback"
+                                className="w-full bg-white/2 border border-white/5 rounded-3xl px-6 py-4 text-white text-sm font-medium focus:outline-none focus:border-indigo-500/30 transition-all placeholder:text-slate-700"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4">Feedback Data</label>
+                            <div className="relative group">
+                                <textarea
+                                    value={text}
+                                    onChange={(e) => setText(e.target.value)}
+                                    placeholder="Paste customer feedback here, one entry per line..."
+                                    rows={12}
+                                    className="w-full bg-white/2 border border-white/5 rounded-[2rem] px-8 py-8 text-white text-sm font-medium focus:outline-none focus:border-indigo-500/30 transition-all placeholder:text-slate-700 resize-none"
+                                />
+                                <div className="absolute bottom-6 right-6 flex items-center gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={useSampleData}
+                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+                                    >
+                                        <Plus className="w-3 h-3" /> Try Sample Data
+                                    </button>
+                                    <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-bold text-indigo-400 hover:bg-indigo-500/20 transition-all">
+                                        <FileSpreadsheet className="w-3 h-3" /> Upload CSV
+                                        <input type="file" accept=".csv" onChange={handleFileUpload} className="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={isSubmitting || !text.trim()}
+                            className="w-full h-16 rounded-[2rem] bg-indigo-500 text-white font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-[1.01] hover:shadow-[0_0_40px_rgba(99,102,241,0.4)] disabled:opacity-50 disabled:grayscale disabled:hover:scale-100 flex items-center justify-center gap-3 shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                        >
+                            {isSubmitting ? (
+                                <>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    Synchronizing Intelligence...
+                                </>
+                            ) : (
+                                <>
+                                    <Sparkles className="w-5 h-5" />
+                                    Execute Analysis
+                                    <ArrowRight className="w-4 h-4 ml-1 opacity-50" />
+                                </>
+                            )}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </FadeIn>
     )
 }

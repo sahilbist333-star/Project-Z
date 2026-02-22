@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
         const cleaned = cleanInput(input_text)
 
         // ── Minimum entries check ─────────────────────────────────────
-        if (cleaned.length < 30) {
+        if (!is_sample && cleaned.length < 30) {
             return NextResponse.json({ error: 'not_enough_data', count: cleaned.length }, { status: 422 })
         }
 
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
         const periodStart = new Date(now)
         periodStart.setDate(periodStart.getDate() - 30)
 
-        const { data: analysis, error } = await admin.from('analyses').insert({
+        const { data: analysis, error: insertError } = await admin.from('analyses').insert({
             user_id: user.id,
             input_text: input_text.slice(0, 100000), // store truncated for reference
             input_size: input_text.length,
@@ -117,8 +117,13 @@ export async function POST(request: NextRequest) {
             analysis_period_end: now.toISOString(),
         }).select().single()
 
-        if (error || !analysis) {
+        if (insertError || !analysis) {
             return NextResponse.json({ error: 'Failed to create analysis' }, { status: 500 })
+        }
+
+        // ── Increment usage ONLY if NOT sample ─────────────────────────
+        if (!is_sample) {
+            await admin.rpc('increment_analyses_used', { user_id: user.id })
         }
 
         // ── Fire-and-forget processing (no await) ─────────────────────

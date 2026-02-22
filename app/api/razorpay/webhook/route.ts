@@ -15,22 +15,28 @@ export async function POST(request: NextRequest) {
     const event = JSON.parse(body)
     const admin = createAdminClient()
 
+    console.log(`[Razorpay Webhook] Received event: ${event.event}`)
+
     try {
         const payload = event.payload
 
         switch (event.event) {
             case 'subscription.activated': {
                 const subscriptionId = payload?.subscription?.entity?.id
+                console.log(`[Razorpay Webhook] Activating subscription: ${subscriptionId}`)
                 if (!subscriptionId) break
-                await admin.from('users')
+                const { error } = await admin.from('users')
                     .update({ subscription_status: 'active' })
                     .eq('subscription_id', subscriptionId)
+
+                if (error) console.error(`[Razorpay Webhook] Error updating status:`, error)
                 break
             }
 
             case 'payment.captured': {
                 // Fires on initial payment AND every monthly renewal
                 const subscriptionId = payload?.payment?.entity?.subscription_id
+                console.log(`[Razorpay Webhook] Payment captured for subscription: ${subscriptionId}`)
                 if (!subscriptionId) break
 
                 // Use Razorpay timestamp from payload
@@ -39,7 +45,9 @@ export async function POST(request: NextRequest) {
                     ? new Date(endAtTimestamp * 1000).toISOString()
                     : addDays(new Date(), 30).toISOString();
 
-                await admin.from('users')
+                console.log(`[Razorpay Webhook] Setting new expiry: ${newExpiry}`)
+
+                const { error } = await admin.from('users')
                     .update({
                         plan: 'growth',
                         subscription_status: 'active',
@@ -48,6 +56,8 @@ export async function POST(request: NextRequest) {
                         last_usage_reset_at: new Date().toISOString(),
                     })
                     .eq('subscription_id', subscriptionId)
+
+                if (error) console.error(`[Razorpay Webhook] Error updating user:`, error)
                 break
             }
 

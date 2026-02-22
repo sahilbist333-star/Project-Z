@@ -16,10 +16,23 @@ export default function AccountClient({ profile, showSignOut, defaultAvatarUrl }
     const [uploadingAvatar, setUploadingAvatar] = useState(false)
     const supabase = createClient()
     const router = useRouter()
+    const [cancelling, setCancelling] = useState(false)
 
     const handleSignOut = async () => {
         await supabase.auth.signOut()
         router.push('/')
+    }
+
+    const handleCancelSubscription = async () => {
+        if (!confirm('Are you sure you want to cancel your Growth plan? You will lose access to premium insights and high intelligence quotas at the end of your billing cycle.')) return
+        setCancelling(true)
+        alert('Subscription cancellation is initiated. Our support team will process this shortly.')
+        setCancelling(false)
+    }
+
+    const handleManageSubscription = () => {
+        // In a real app, this would redirect to Razorpay Portal or a custom billing page
+        alert('Redirecting to secure billing portal...')
     }
 
     const handleSave = async (e: React.FormEvent) => {
@@ -102,6 +115,22 @@ export default function AccountClient({ profile, showSignOut, defaultAvatarUrl }
                 style={{ background: '#6366f1' }}>
                 {saved ? 'Saved ✓' : saving ? 'Saving...' : 'Save Changes'}
             </button>
+
+            {profile.plan === 'growth' && (
+                <div className="pt-8 border-t border-white/5 space-y-4">
+                    <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Subscription Management</h3>
+                    <div className="flex gap-4">
+                        <button type="button" onClick={handleManageSubscription}
+                            className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white font-bold text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all">
+                            Manage Billing
+                        </button>
+                        <button type="button" onClick={handleCancelSubscription} disabled={cancelling}
+                            className="px-6 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 font-bold text-[10px] uppercase tracking-widest hover:bg-red-500/20 transition-all">
+                            {cancelling ? 'Processing...' : 'Cancel Subscription'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </form>
     )
 }

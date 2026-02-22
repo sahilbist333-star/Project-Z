@@ -4,9 +4,10 @@ import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@/lib/types'
-import { LayoutDashboard, Plus, Settings, LogOut, Zap, AlertTriangle } from 'lucide-react'
+import { LayoutDashboard, Plus, Settings, LogOut, Zap, AlertTriangle, BarChart3 } from 'lucide-react'
 import { PLAN_LIMITS } from '@/lib/types'
 import UpgradeModal from '@/components/ui/UpgradeModal'
+import Logo from '@/components/ui/Logo'
 
 interface Props {
     profile: User
@@ -41,7 +42,7 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
     const nav = [
         { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
         { href: '/analysis/new', icon: Plus, label: 'New Analysis' },
-        { href: '/account', icon: Settings, label: 'Account' },
+        ...(isGrowth ? [{ href: '/dashboard/insights', icon: Zap, label: 'Intelligence Center' }] : [])
     ]
 
     return (
@@ -49,11 +50,8 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
             {/* Sidebar */}
             <aside className="w-60 flex flex-col border-r flex-shrink-0 relative z-20" style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', borderColor: 'rgba(255,255,255,0.05)' }}>
                 {/* Logo */}
-                <div className="flex items-center gap-2.5 h-16 px-5 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                    <div className="w-6 h-6 rounded flex items-center justify-center flex-shrink-0" style={{ background: '#6366f1' }}>
-                        <span className="text-white text-[10px] font-bold">Z</span>
-                    </div>
-                    <span className="font-display text-[9px] font-bold tracking-[0.2em] text-white uppercase">Zointly</span>
+                <div className="h-16 px-5 flex items-center border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+                    <Logo size="sm" />
                 </div>
 
                 {/* Nav */}
@@ -79,6 +77,19 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
                             </Link>
                         )
                     })}
+
+                    {/* All Analyses Link */}
+                    {used > 0 && (
+                        <Link href="/dashboard/reports"
+                            className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-[11px] font-semibold relative ${pathname === '/dashboard/reports' ? 'text-indigo-300 bg-indigo-500/10' : 'text-slate-500 hover:text-slate-300'}`}
+                            style={{
+                                background: pathname === '/dashboard/reports' ? 'rgba(99,102,241,0.12)' : 'transparent',
+                                color: pathname === '/dashboard/reports' ? '#a5b4fc' : '#6b7280',
+                            }}>
+                            <BarChart3 className="w-4 h-4" />
+                            All Analyses
+                        </Link>
+                    )}
                 </nav>
 
                 {/* Usage Meter */}
@@ -125,27 +136,39 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
                     </div>
                 </div>
 
-                {/* User footer */}
-                <div className="p-3 border-t flex items-center gap-2.5" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-                    {avatarUrl ? (
-                        <img src={avatarUrl} alt="Avatar" className="w-7 h-7 rounded-full object-cover flex-shrink-0 border" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
-                    ) : (
-                        <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
-                            style={{ background: '#6366f1' }}>
-                            <span className="text-white text-[10px] font-bold">
-                                {(profile.full_name || profile.email || 'U')[0].toUpperCase()}
-                            </span>
+                {/* Account & User footer */}
+                <div className="p-3 border-t space-y-2" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+                    <Link href="/account"
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-[11px] font-semibold relative ${pathname === '/account' ? 'text-indigo-300 bg-indigo-500/10' : 'text-slate-500 hover:text-slate-300'}`}
+                        style={{
+                            background: pathname === '/account' ? 'rgba(99,102,241,0.12)' : 'transparent',
+                            color: pathname === '/account' ? '#a5b4fc' : '#6b7280',
+                        }}>
+                        <Settings className="w-4 h-4" />
+                        Account
+                    </Link>
+
+                    <div className="flex items-center gap-2.5 px-3 py-2">
+                        {avatarUrl ? (
+                            <img src={avatarUrl} alt="Avatar" className="w-7 h-7 rounded-full object-cover flex-shrink-0 border" style={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+                        ) : (
+                            <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+                                style={{ background: '#6366f1' }}>
+                                <span className="text-white text-[10px] font-bold">
+                                    {(profile.full_name || profile.email || 'U')[0].toUpperCase()}
+                                </span>
+                            </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                            <p className="text-[11px] font-semibold text-white truncate">{profile.full_name || 'User'}</p>
+                            <p className="text-[9px] text-slate-600 font-medium truncate">
+                                {profile.plan === 'growth' ? '✦ Growth Plan' : 'Free Plan'}
+                            </p>
                         </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                        <p className="text-[11px] font-semibold text-white truncate">{profile.full_name || 'User'}</p>
-                        <p className="text-[9px] text-slate-600 font-medium truncate">
-                            {profile.plan === 'growth' ? '✦ Growth Plan' : 'Free Plan'}
-                        </p>
+                        <button onClick={handleSignOut} className="text-slate-600 hover:text-white transition-colors p-1 rounded flex-shrink-0">
+                            <LogOut className="w-3.5 h-3.5" />
+                        </button>
                     </div>
-                    <button onClick={handleSignOut} className="text-slate-600 hover:text-white transition-colors p-1 rounded flex-shrink-0">
-                        <LogOut className="w-3.5 h-3.5" />
-                    </button>
                 </div>
             </aside>
 
