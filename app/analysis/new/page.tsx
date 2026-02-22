@@ -231,20 +231,22 @@ export default function NewAnalysisPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting || !text.trim()}
-                                className="flex-1 h-16 rounded-[2rem] bg-indigo-500 text-white font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-[1.01] hover:shadow-[0_0_40px_rgba(99,102,241,0.4)] disabled:opacity-50 disabled:grayscale disabled:hover:scale-100 flex items-center justify-center gap-3 shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                                className="flex-1 h-16 rounded-[2rem] bg-indigo-500 text-white font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-[1.01] hover:shadow-[0_0_40px_rgba(99,102,241,0.4)] disabled:opacity-50 disabled:grayscale disabled:hover:scale-100 flex items-center justify-center shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
                             >
-                                {isSubmitting ? (
-                                    <>
-                                        <Loader2 className="w-5 h-5 animate-spin" />
-                                        Synchronizing Intelligence...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Sparkles className="w-5 h-5" />
-                                        Execute Analysis
-                                        <ArrowRight className="w-4 h-4 ml-1 opacity-50" />
-                                    </>
-                                )}
+                                <div className="flex items-center justify-center gap-2">
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                            <span>Synchronizing Intelligence...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Sparkles className="w-5 h-5" />
+                                            <span>Execute Analysis</span>
+                                            <ArrowRight className="w-4 h-4 ml-1 opacity-50" />
+                                        </>
+                                    )}
+                                </div>
                             </button>
                             <Link
                                 href="/dashboard"
