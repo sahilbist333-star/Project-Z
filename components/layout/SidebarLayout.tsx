@@ -43,7 +43,7 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
         { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
         { href: '/analysis/new', icon: Plus, label: 'New Analysis' },
         { href: '/dashboard/reports', icon: BarChart3, label: 'Analysis Reports' },
-        ...(isGrowth ? [{ href: '/dashboard/insights', icon: Zap, label: 'Intelligence Center' }] : [])
+        ...(isGrowth ? [{ href: '/dashboard/insights', icon: Zap, label: 'Insights' }] : [])
     ]
 
     return (

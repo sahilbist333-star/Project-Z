@@ -37,14 +37,9 @@ export default function GrowthInsightsPage() {
 
     return (
         <FadeIn className="p-8 max-w-6xl mx-auto mb-20 relative">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white transition-colors mb-8 group">
-                <ArrowLeft className="w-3 h-3 transition-transform group-hover:-translate-x-1" />
-                Back to Dashboard
-            </Link>
-
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                 <div>
-                    <h1 className="text-4xl font-black text-white uppercase tracking-tighter">Intelligence Center</h1>
+                    <h1 className="text-4xl font-black text-white uppercase tracking-tighter">Insights</h1>
                     <p className="text-slate-500 text-sm mt-2 font-medium">Advanced cohort analysis and real-time signal tracking.</p>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-black uppercase tracking-widest">
