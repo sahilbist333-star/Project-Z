@@ -127,12 +127,19 @@ export async function POST(request: NextRequest) {
         }
 
         // ── Fire-and-forget processing (no await) ─────────────────────
-        const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+        const protocol = request.headers.get('x-forwarded-proto') || 'http'
+        const host = request.headers.get('host')
+        const appUrl = host ? `${protocol}://${host}` : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000')
+
+        console.log(`[Analysis] Triggering process for ${analysis.id} via ${appUrl}`)
+
         fetch(`${appUrl}/api/analysis/${analysis.id}/process`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'x-internal-key': process.env.SUPABASE_SERVICE_ROLE_KEY! },
             body: JSON.stringify({ entries: cleaned, user_id: user.id }),
-        }).catch(() => { }) // intentionally ignore
+        }).catch((err) => {
+            console.error(`[Analysis] Failed to trigger process for ${analysis.id}:`, err)
+        })
 
         return NextResponse.json({ analysis_id: analysis.id })
     } catch (err) {
