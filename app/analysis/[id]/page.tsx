@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Share2, FileText, CheckCircle2, AlertTriangle, Loader2, Sparkles, ChevronRight, BarChart3, Download, ArrowLeft, MoreVertical, Zap, MessageSquare } from 'lucide-react'
@@ -9,7 +9,8 @@ import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
 import ShareModal from '@/components/analysis/ShareModal'
 
-export default function AnalysisDetail({ params }: { params: { id: string } }) {
+export default function AnalysisDetail({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = React.use(params)
     const [analysis, setAnalysis] = useState<any>(null)
     const [opportunities, setOpportunities] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
@@ -26,8 +27,8 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
             if (!user) return
 
             const [{ data: analysisData }, { data: oppData }, { data: userData }] = await Promise.all([
-                supabase.from('analyses').select('*').eq('id', params.id).single(),
-                supabase.from('opportunities').select('*').eq('analysis_id', params.id).order('impact_score', { ascending: false }),
+                supabase.from('analyses').select('*').eq('id', id).single(),
+                supabase.from('opportunities').select('*').eq('analysis_id', id).order('impact_score', { ascending: false }),
                 supabase.from('users').select('plan').eq('id', user.id).single()
             ])
 
@@ -39,7 +40,7 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
             // If processing, poll every 3 seconds
             if (analysisData?.status === 'processing') {
                 const interval = setInterval(async () => {
-                    const { data: updated } = await supabase.from('analyses').select('status').eq('id', params.id).single()
+                    const { data: updated } = await supabase.from('analyses').select('status').eq('id', id).single()
                     if (updated?.status !== 'processing') {
                         window.location.reload()
                         clearInterval(interval)
@@ -49,7 +50,7 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
             }
         }
         fetchData()
-    }, [params.id])
+    }, [id])
 
     if (loading) {
         return (
