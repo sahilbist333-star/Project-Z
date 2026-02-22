@@ -100,7 +100,7 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
                 <div className="w-full max-w-sm space-y-12">
                     <div className="text-center">
                         <Loader2 className="w-10 h-10 text-indigo-500 animate-spin mx-auto mb-6" />
-                        <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2 italic">Generating Insight</h2>
+                        <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Generating Insight</h2>
                         <p className="text-slate-500 text-xs font-medium uppercase tracking-widest">Building your opportunity roadmap</p>
                     </div>
                     <div className="space-y-4">
@@ -164,7 +164,7 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
                             <BarChart3 className="w-6 h-6 text-indigo-400" />
                         </div>
                         <div>
-                            <h1 className="text-4xl font-black text-white uppercase tracking-tighter italic leading-none">
+                            <h1 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">
                                 {analysis.title || 'Intelligence Report'}
                             </h1>
                             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2">
@@ -215,7 +215,7 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
                                 <div className="text-[10px] font-bold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 uppercase tracking-widest">
                                     Impact {opp.impact_score}/10
                                 </div>
-                                <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest italic pt-1">
+                                <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest pt-1">
                                     Priority {i + 1}
                                 </div>
                             </div>

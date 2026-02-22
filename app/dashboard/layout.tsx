@@ -68,7 +68,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                             <p className="text-[10px] font-black text-white uppercase tracking-tight leading-none">
                                 {profile.full_name || 'User'}
                             </p>
-                            <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-1 italic">
+                            <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest mt-1">
                                 {profile.plan}
                             </p>
                         </div>

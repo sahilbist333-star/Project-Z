@@ -105,7 +105,7 @@ export default async function PublicReportPage({ params }: Props) {
                                         <h3 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-3">Evidence</h3>
                                         <div className="space-y-2">
                                             {opp.customer_quotes.slice(0, 2).map((quote: string, qi: number) => (
-                                                <blockquote key={qi} className="rounded-lg px-4 py-3 border-l-2 text-sm text-slate-400 italic"
+                                                <blockquote key={qi} className="rounded-lg px-4 py-3 border-l-2 text-sm text-slate-400"
                                                     style={{ background: 'rgba(255,255,255,0.02)', borderColor: '#6366f1' }}>
                                                     &ldquo;{quote}&rdquo;
                                                 </blockquote>

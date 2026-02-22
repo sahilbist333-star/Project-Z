@@ -71,7 +71,7 @@ export default function ShareModal({ isOpen, onClose, reportUrl, title }: Props)
                             <div className="flex items-center justify-between mb-8">
                                 <div>
                                     <h2 className="text-xl font-black text-white uppercase tracking-tight">Share Report</h2>
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 italic">Spread the intelligence</p>
+                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Spread the intelligence</p>
                                 </div>
                                 <button onClick={onClose} className="p-2 rounded-full hover:bg-white/5 text-slate-400 hover:text-white transition-all">
                                     <X className="w-5 h-5" />

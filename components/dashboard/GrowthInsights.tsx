@@ -100,7 +100,7 @@ export default function GrowthInsights() {
                             <selectedInsight.icon className={`w-7 h-7 ${selectedInsight.color}`} />
                         </div>
 
-                        <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic mb-2">{selectedInsight.title}</h3>
+                        <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">{selectedInsight.title}</h3>
                         <p className="text-sm text-slate-400 font-medium mb-8 pr-6">{selectedInsight.desc}</p>
 
                         <div className="space-y-4">

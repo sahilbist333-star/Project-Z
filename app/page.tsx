@@ -165,7 +165,7 @@ export default function LandingPage() {
 
                   {/* Quote */}
                   <div className="p-8 bg-black/20">
-                    <p className="text-base text-slate-300 italic leading-relaxed mb-6">
+                    <p className="text-base text-slate-300 leading-relaxed mb-6">
                       &ldquo;The lack of granular reporting is the only thing preventing us from moving our entire 400-person team to your platform. We currently export manually 3× a day.&rdquo;
                     </p>
                     <div className="flex items-center gap-3">
@@ -321,7 +321,7 @@ export default function LandingPage() {
                 </div>
                 {/* Mock Quote Box */}
                 <div className="flex-1 w-full bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm self-end">
-                  <p className="text-sm italic text-slate-300 mb-4">"We need a way to export these reports directly to PDF for our weekly syncs..."</p>
+                  <p className="text-sm text-slate-300 mb-4">"We need a way to export these reports directly to PDF for our weekly syncs..."</p>
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 rounded-full bg-teal-500/20 flex justify-center items-center text-[10px] font-bold text-teal-300 border border-teal-500/30">JD</div>
                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Enterprise Customer</span>
