@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
         // ── Parse body ────────────────────────────────────────────────
         const body = await request.json()
-        const { input_text, is_sample = false } = body
+        const { input_text, title, is_sample = false } = body
 
         if (!input_text || typeof input_text !== 'string') {
             return NextResponse.json({ error: 'Input text required' }, { status: 400 })
@@ -107,6 +107,7 @@ export async function POST(request: NextRequest) {
 
         const { data: analysis, error: insertError } = await admin.from('analyses').insert({
             user_id: user.id,
+            title: title || null,
             input_text: input_text.slice(0, 100000), // store truncated for reference
             input_size: input_text.length,
             status: 'queued',
@@ -141,7 +142,10 @@ export async function POST(request: NextRequest) {
             console.error(`[Analysis] Failed to trigger process for ${analysis.id}:`, err)
         })
 
-        return NextResponse.json({ analysis_id: analysis.id })
+        return NextResponse.json({
+            id: analysis.id,
+            analysis_id: analysis.id
+        })
     } catch (err) {
         console.error('Analysis create error:', err)
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
