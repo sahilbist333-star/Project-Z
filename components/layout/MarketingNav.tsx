@@ -6,6 +6,7 @@ import { X, Menu, Bell, Sparkles, User, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import NotificationDropdown from '@/components/dashboard/NotificationDropdown'
+import Logo from '@/components/ui/Logo'
 
 interface NavLink {
     label: string
@@ -137,13 +138,9 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
                     style={{ background: 'rgba(8,8,8,0.7)', borderColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(24px)' }}>
                     <div className="px-5 md:px-6 h-14 md:h-16 flex items-center justify-between">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2 md:gap-2.5 group shrink-0">
-                            <div className="w-6 h-6 rounded flex items-center justify-center transition-transform group-hover:scale-110"
-                                style={{ background: '#6366f1' }}>
-                                <span className="text-white text-[10px] font-bold">Z</span>
-                            </div>
-                            <span className="font-display text-sm font-bold text-white uppercase tracking-tight">Zointly</span>
-                        </Link>
+                        <div className="shrink-0 flex items-center">
+                            <Logo size="sm" />
+                        </div>
 
                         {/* Links */}
                         <div className="hidden md:flex items-center gap-8 bg-black/20 px-6 h-10 rounded-full border border-white/5">

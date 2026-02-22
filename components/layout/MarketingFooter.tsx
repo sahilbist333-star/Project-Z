@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Twitter, Linkedin, Instagram, Youtube } from 'lucide-react'
 import { FadeIn } from '@/components/ui/motion'
+import Logo from '@/components/ui/Logo'
 
 export default function MarketingFooter() {
     return (
@@ -8,11 +9,8 @@ export default function MarketingFooter() {
             <FadeIn className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="grid md:grid-cols-4 gap-10 mb-12">
                     <div>
-                        <div className="flex items-center gap-2.5 mb-4">
-                            <div className="w-7 h-7 rounded flex items-center justify-center" style={{ background: '#6366f1' }}>
-                                <span className="text-white text-xs font-bold">Z</span>
-                            </div>
-                            <span className="font-display font-bold text-sm text-white uppercase tracking-tight">Zointly</span>
+                        <div className="mb-4">
+                            <Logo size="sm" />
                         </div>
                         <p className="text-slate-600 text-xs leading-relaxed mb-6">AI-powered product decision intelligence for modern product teams.</p>
 
