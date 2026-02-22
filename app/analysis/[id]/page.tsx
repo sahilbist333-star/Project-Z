@@ -76,9 +76,14 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
                 <p className="text-slate-400 max-w-sm mb-12 font-medium">
                     {analysis?.error_message || "We couldn't process this feedback. Please try again with more data."}
                 </p>
-                <Link href="/analysis/new" className="px-10 py-4 rounded-full bg-white text-black font-black text-[11px] uppercase tracking-widest hover:scale-105 transition-all">
-                    Start New Analysis
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <Link href="/analysis/new" className="px-10 py-4 rounded-full bg-white text-black font-black text-[11px] uppercase tracking-widest hover:scale-105 transition-all">
+                        Start New Analysis
+                    </Link>
+                    <Link href="/dashboard" className="px-10 py-4 rounded-full bg-white/5 text-white font-black text-[11px] uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-all">
+                        Return to Dashboard
+                    </Link>
+                </div>
             </div>
         )
     }

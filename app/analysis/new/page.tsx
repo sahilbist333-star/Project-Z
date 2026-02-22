@@ -205,7 +205,7 @@ export default function NewAnalysisPage() {
                                     onChange={(e) => setText(e.target.value)}
                                     placeholder="Paste customer feedback here, one entry per line..."
                                     rows={12}
-                                    className="w-full bg-white/2 border border-white/5 rounded-[2rem] px-8 py-8 text-white text-sm font-medium focus:outline-none focus:border-indigo-500/30 transition-all placeholder:text-slate-700 resize-none"
+                                    className="w-full bg-white/2 border border-white/5 rounded-[2rem] px-8 py-8 pb-20 text-white text-sm font-medium focus:outline-none focus:border-indigo-500/30 transition-all placeholder:text-slate-700 resize-none"
                                 />
                                 <div className="absolute bottom-6 right-6 flex items-center gap-3">
                                     <button

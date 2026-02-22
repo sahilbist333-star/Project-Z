@@ -24,11 +24,15 @@ export default function AllAnalysesPage() {
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) return
 
+        const threeMonthsAgo = new Date()
+        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3)
+
         const { data, error } = await supabase
             .from('analyses')
             .select('*')
             .eq('user_id', user.id)
             .eq('is_sample', false)
+            .gte('created_at', threeMonthsAgo.toISOString())
             .order('created_at', { ascending: false })
 
         if (!error && data) setAnalyses(data)

@@ -42,6 +42,7 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
     const nav = [
         { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
         { href: '/analysis/new', icon: Plus, label: 'New Analysis' },
+        { href: '/dashboard/reports', icon: BarChart3, label: 'Analyses' },
         ...(isGrowth ? [{ href: '/dashboard/insights', icon: Zap, label: 'Intelligence Center' }] : [])
     ]
 
@@ -78,18 +79,6 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
                         )
                     })}
 
-                    {/* All Analyses Link */}
-                    {used > 0 && (
-                        <Link href="/dashboard/reports"
-                            className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-[11px] font-semibold relative ${pathname === '/dashboard/reports' ? 'text-indigo-300 bg-indigo-500/10' : 'text-slate-500 hover:text-slate-300'}`}
-                            style={{
-                                background: pathname === '/dashboard/reports' ? 'rgba(99,102,241,0.12)' : 'transparent',
-                                color: pathname === '/dashboard/reports' ? '#a5b4fc' : '#6b7280',
-                            }}>
-                            <BarChart3 className="w-4 h-4" />
-                            All Analyses
-                        </Link>
-                    )}
                 </nav>
 
                 {/* Usage Meter */}
