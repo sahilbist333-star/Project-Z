@@ -62,3 +62,89 @@ export const SAMPLE_FEEDBACK: string[] = [
     "The pricing page doesn't explain what counts as one 'analysis'. Very confusing.",
     "I burned through my 3 free analyses not understanding what they were.",
 ]
+
+export const SAMPLE_OPPORTUNITIES = [
+    {
+        title: "Bulk Data Export & Reporting",
+        demand_score: 9.2,
+        confidence: 95,
+        priority: "P0",
+        mentions_estimate: 15,
+        problem_summary: "Users are experiencing significant operational friction due to the lack of bulk export capabilities. PMs and analysts are manually downloading individual reports, which blocks weekly review processes and prevents enterprise-level data portability.",
+        proposed_solution: "Implement a high-performance background export system supporting CSV and JSON formats. Add a 'Bulk Actions' menu to the dashboard with progress tracking and email notifications for large datasets.",
+        engineering_effort: "2-3 weeks",
+        customer_quotes: [
+            "Bulk export would save my team hours every week. It's a basic feature we're missing desperately.",
+            "Our PM manually downloads 50 reports every Monday. It's embarrassing we don't have bulk export.",
+            "We can't export reports — this blocks our entire weekly review process."
+        ]
+    },
+    {
+        title: "Semantic & Multi-language Search",
+        demand_score: 8.5,
+        confidence: 88,
+        priority: "P1",
+        mentions_estimate: 12,
+        problem_summary: "The current keyword-based search is too rigid and fails to surface related feedback that uses different terminology. Additionally, non-English feedback (particularly Spanish) is being misinterpreted or ignored by the current indexing logic.",
+        proposed_solution: "Transition to a vector-based semantic search engine using LLM embeddings. Implement automatic translation for multi-language indexing to ensure consistent intelligence across global feedback streams.",
+        engineering_effort: "1 month",
+        customer_quotes: [
+            "I need to search by semantic meaning, not just exact keywords. Current search is too rigid.",
+            "The search doesn't find related tickets even when they describe the same issue with different words.",
+            "Multilingual input is broken. Spanish feedback gets completely misinterpreted."
+        ]
+    },
+    {
+        title: "Native Slack & Zapier Integration",
+        demand_score: 7.8,
+        confidence: 82,
+        priority: "P1",
+        mentions_estimate: 9,
+        problem_summary: "The feedback loop is broken by manual data entry. Teams are gathering high-quality insights in Slack and Typeform but lack an automated way to pipe this data into the intelligence engine, leading to data silos.",
+        proposed_solution: "Build a native Slack app for 1-click feedback clipping and a Zapier integration for connecting 6000+ external apps like Intercom and Hubspot.",
+        engineering_effort: "3-4 weeks",
+        customer_quotes: [
+            "Integration with Slack would be a game changer for our team's feedback workflow.",
+            "Can you add a Zapier integration? We'd immediately connect our Typeform surveys.",
+            "Intercom integration would save us 3 hours per week of data preparation."
+        ]
+    },
+    {
+        title: "Dashboard Performance Optimization",
+        demand_score: 7.2,
+        confidence: 90,
+        priority: "P2",
+        mentions_estimate: 8,
+        problem_summary: "Core application performance degrades significantly when processing datasets exceeding 100 entries. High latency in dashboard loading (8s+) is negatively impacting the 'Daily Active User' (DAU) metric and perceived reliability.",
+        proposed_solution: "Implement data virtualization for large lists and server-side pagination. Optimize Supabase queries with materialization and edge caching for frequently accessed intelligence summaries.",
+        engineering_effort: "2 weeks",
+        customer_quotes: [
+            "Dashboard takes 8 seconds to load on my laptop. This is way too slow to use daily.",
+            "Performance is terrible when I have more than 100 feedback entries. Needs optimization.",
+            "The app times out when processing large files. Need better loading states."
+        ]
+    },
+    {
+        title: "Role-Based Access Control (RBAC)",
+        demand_score: 6.5,
+        confidence: 75,
+        priority: "P2",
+        mentions_estimate: 6,
+        problem_summary: "Larger teams are experiencing accidental data loss due to a lack of permission boundaries. Stakeholders require visibility without the risk of non-expert users modifying or deleting critical analysis results.",
+        proposed_solution: "Introduce Owner, Admin, and Viewer roles. Implement 'Soft Delete' with a 30-day recovery bin to prevent permanent loss of intelligence work.",
+        engineering_effort: "2-3 weeks",
+        customer_quotes: [
+            "We need role-based access so junior PMs can view but not run analyses.",
+            "Two of my team members accidentally deleted analyses I needed. Please add permissions.",
+            "Soft delete with a recycle bin would save us from accidental data loss."
+        ]
+    }
+]
+
+export const SAMPLE_CHANGE_SUMMARY = {
+    items: [
+        { type: "new", title: "Bulk Export Demand", detail: "Significant spike in requests for CSV/JSON portability detected in last 30 days." },
+        { type: "surge", title: "Slack Workflow Integration", detail: "Active discussion on Slack automation has increased by 45% since Q4." },
+        { type: "escalation", title: "Performance Critical", detail: "Latency issues escalated to P1 priority due to enterprise account friction." }
+    ]
+}
