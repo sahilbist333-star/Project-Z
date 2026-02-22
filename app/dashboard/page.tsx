@@ -127,7 +127,7 @@ export default function DashboardPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                 <div>
-                    <h1 className="font-display text-4xl font-black text-white tracking-tight uppercase">
+                    <h1 className="font-display text-4xl font-black text-white tracking-tight uppercase not-italic">
                         Dashboard
                     </h1>
                     <p className="text-slate-500 text-sm mt-2 font-medium">

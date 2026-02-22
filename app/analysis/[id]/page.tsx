@@ -72,15 +72,15 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
                 <div className="w-16 h-16 rounded-3xl bg-red-400/10 border border-red-400/20 flex items-center justify-center mb-6">
                     <AlertTriangle className="w-8 h-8 text-red-400" />
                 </div>
-                <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Analysis Failed</h2>
+                <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2 font-display not-italic">Analysis Failed</h2>
                 <p className="text-slate-400 max-w-sm mb-12 font-medium">
                     {analysis?.error_message || "We couldn't process this feedback. Please try again with more data."}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                    <Link href="/analysis/new" className="px-10 py-4 rounded-full bg-white text-black font-black text-[11px] uppercase tracking-widest hover:scale-105 transition-all">
+                    <Link href="/analysis/new" className="px-10 py-4 rounded-full bg-white text-black font-black text-[11px] uppercase tracking-widest hover:scale-105 transition-all not-italic">
                         Start New Analysis
                     </Link>
-                    <Link href="/dashboard" className="px-10 py-4 rounded-full bg-white/5 text-white font-black text-[11px] uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-all">
+                    <Link href="/dashboard" className="px-10 py-4 rounded-full bg-white/5 text-white font-black text-[11px] uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-all not-italic">
                         Return to Dashboard
                     </Link>
                 </div>
@@ -100,7 +100,7 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
                 <div className="w-full max-w-sm space-y-12">
                     <div className="text-center">
                         <Loader2 className="w-10 h-10 text-indigo-500 animate-spin mx-auto mb-6" />
-                        <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Generating Insight</h2>
+                        <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2 font-display not-italic">Generating Insight</h2>
                         <p className="text-slate-500 text-xs font-medium uppercase tracking-widest">Building your opportunity roadmap</p>
                     </div>
                     <div className="space-y-4">
@@ -164,7 +164,7 @@ export default function AnalysisDetail({ params }: { params: { id: string } }) {
                             <BarChart3 className="w-6 h-6 text-indigo-400" />
                         </div>
                         <div>
-                            <h1 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">
+                            <h1 className="text-4xl font-black text-white uppercase tracking-tighter leading-none font-display not-italic">
                                 {analysis.title || 'Intelligence Report'}
                             </h1>
                             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2">

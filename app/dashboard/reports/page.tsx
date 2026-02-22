@@ -72,7 +72,7 @@ export default function AllAnalysesPage() {
         <FadeIn className="p-8 max-w-6xl mx-auto mb-20">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                 <div>
-                    <h1 className="text-3xl font-black text-white uppercase tracking-tighter">Analysis Reports</h1>
+                    <h1 className="text-3xl font-black text-white uppercase tracking-tighter font-display not-italic">Analysis Reports</h1>
                     <p className="text-slate-500 text-sm mt-1 font-medium">Manage and review your product strategy history.</p>
                 </div>
 
