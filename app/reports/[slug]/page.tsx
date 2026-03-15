@@ -94,9 +94,8 @@ export default async function PublicReportPage({ params }: Props) {
                                     </div>
                                     <div>
                                         <h3 className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2">Proposed Solution</h3>
-                                        <a href="mailto:hello@zointly.com" className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-full font-medium transition-colors text-sm">
-                                            Contact Support
-                                        </a>    </div>
+                                        <p className="text-slate-300 text-sm leading-relaxed">{opp.proposed_solution}</p>
+                                    </div>
                                 </div>
 
                                 {/* Evidence quotes */}
@@ -120,7 +119,7 @@ export default async function PublicReportPage({ params }: Props) {
                 {/* CTA */}
                 <div className="mt-16 text-center py-12 rounded-xl" style={{ background: '#0f0f11', border: '1px solid rgba(99,102,241,0.2)' }}>
                     <p className="text-slate-500 text-sm mb-4">Want evidence-based prioritization for your product?</p>
-                    <a href="https://zointly.io"
+                    <a href="https://zointly.com"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-white font-semibold text-sm"
                         style={{ background: '#6366f1' }}>
                         Try Zointly Free →

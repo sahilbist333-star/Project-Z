@@ -31,7 +31,7 @@ export default function AnalysisDetail({ params }: { params: Promise<{ id: strin
 
             const [{ data: analysisData }, { data: oppData }, { data: userData }] = await Promise.all([
                 supabase.from('analyses').select('*').eq('id', id).single(),
-                supabase.from('opportunities').select('*').eq('analysis_id', id).order('impact_score', { ascending: false }),
+                supabase.from('opportunities').select('*').eq('analysis_id', id).order('demand_score', { ascending: false }),
                 supabase.from('users').select('plan').eq('id', user.id).single()
             ])
 
