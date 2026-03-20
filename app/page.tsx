@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
+
+export const metadata: Metadata = {
+  title: 'Zointly | AI Copilot for Product Managers',
+  description: 'The AI Copilot for Product Managers. Transform user interviews and customer feedback into prioritized product roadmaps with AI-driven demand scoring and verbatim evidence.',
+}
 import HomepagePricing from '@/components/pricing/HomepagePricing'
 import { ArrowRight, BarChart3, Bell, CheckCircle2, ChevronRight, Globe, TrendingUp, Zap, Share2, Shield, PlayCircle, Sparkles, HelpCircle, Activity, GitPullRequest } from 'lucide-react'
 import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, FloatElement, GlowingPerspectiveCard, InfiniteMarquee, MousePerspectiveCard, HeroBackground3D } from '@/components/ui/motion'

@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import MarketingNav from '@/components/layout/MarketingNav'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service | Zointly',
+  description: 'Terms of use for the Zointly AI product discovery platform, including our AI-generated analysis disclaimer and feedback processing policy.',
+}
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
 

@@ -44,6 +44,17 @@ export default function NewAnalysisPage() {
         })
     }
 
+    const handleInterviewUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+        const reader = new FileReader()
+        reader.onload = (event) => {
+            const content = event.target?.result as string
+            setText(content)
+        }
+        reader.readAsText(file)
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!text.trim()) return
@@ -198,12 +209,12 @@ export default function NewAnalysisPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4">Feedback Data</label>
+                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-4">Feedback / Interview Data</label>
                             <div className="relative group">
                                 <textarea
                                     value={text}
                                     onChange={(e) => setText(e.target.value)}
-                                    placeholder="Paste customer feedback here, one entry per line..."
+                                    placeholder="Paste customer feedback or interview transcripts here..."
                                     rows={12}
                                     className="w-full bg-white/2 border border-white/5 rounded-[2rem] px-8 py-8 pb-24 text-white text-sm font-medium focus:outline-none focus:border-indigo-500/30 transition-all placeholder:text-slate-700 resize-none"
                                 />
@@ -222,6 +233,10 @@ export default function NewAnalysisPage() {
                                     <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-bold text-indigo-400 hover:bg-indigo-500/20 transition-all">
                                         <FileSpreadsheet className="w-3 h-3" /> Upload CSV
                                         <input type="file" accept=".csv" onChange={handleFileUpload} className="hidden" />
+                                    </label>
+                                    <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-400 hover:bg-blue-500/20 transition-all">
+                                        <FileText className="w-3 h-3" /> Upload Transcript
+                                        <input type="file" accept=".txt" onChange={handleInterviewUpload} className="hidden" />
                                     </label>
                                 </div>
                             </div>

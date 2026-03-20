@@ -4,11 +4,32 @@ import CustomCursor from '@/components/ui/CustomCursor'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
-  title: 'Zointly | The AI Copilot for Product Managers',
+  metadataBase: new URL('https://zointly.com'),
+  title: {
+    default: 'Zointly | The AI Copilot for Product Managers',
+    template: '%s | Zointly'
+  },
   description: 'Upload user interviews and feedback. Zointly\'s AI tells you exactly what features your users need next, backed by verbatim evidence.',
   openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://zointly.com',
+    siteName: 'Zointly',
     title: 'Zointly | The AI Copilot for Product Managers',
-    description: 'AI-powered product roadmap acceleration for PMs',
+    description: 'AI-powered product roadmap acceleration and user research analysis. Turn customer feedback into prioritized features with evidence-backed insights.',
+    images: [{
+      url: '/logo.png',
+      width: 1200,
+      height: 630,
+      alt: 'Zointly Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Zointly | The AI Copilot for Product Managers',
+    description: 'The AI Copilot for Product Discovery. Transform user interviews into prioritized product roadmaps.',
+    images: ['/logo.png'],
+    creator: '@zointly',
   },
   appleWebApp: {
     capable: true,

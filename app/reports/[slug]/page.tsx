@@ -1,8 +1,18 @@
 import { createAdminClient } from '@/lib/supabase/admin'
 import { notFound } from 'next/navigation'
 import { Quote } from 'lucide-react'
+import Logo from '@/components/ui/Logo'
+import { Metadata } from 'next'
 
 interface Props { params: Promise<{ slug: string }> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params
+    return {
+        title: `Product Opportunity Report | Zointly`,
+        description: `View the evidence-backed product opportunities identified by Zointly's AI Copilot for this feedback dataset.`,
+    }
+}
 
 const PRIORITY_COLORS: Record<string, string> = {
     P0: '#ef4444', P1: '#f97316', P2: '#eab308', P3: '#6b7280',
@@ -12,28 +22,45 @@ export default async function PublicReportPage({ params }: Props) {
     const { slug } = await params
     const admin = createAdminClient()
 
-    const { data: report } = await admin
+    let analysis: any = null
+    let report: any = null
+
+    // 1. Try to fetch by public_slug in reports table
+    const { data: reportRecord } = await admin
         .from('reports')
         .select('*, analyses(*, opportunities(*))')
         .eq('public_slug', slug)
         .single()
 
-    if (!report) notFound()
+    if (reportRecord) {
+        report = reportRecord
+        analysis = reportRecord.analyses
+    } else {
+        // 2. Fallback: Try to fetch directly by analysis ID if slug is a valid UUID
+        const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)
+        if (isUuid) {
+            const { data: analysisRecord } = await admin
+                .from('analyses')
+                .select('*, opportunities(*)')
+                .eq('id', slug)
+                .single()
+            
+            if (analysisRecord) {
+                analysis = analysisRecord
+            }
+        }
+    }
 
-    const analysis = (report as any).analyses
-    const opportunities: any[] = analysis?.opportunities || []
+    if (!analysis) notFound()
+
+    const opportunities: any[] = analysis.opportunities || []
 
     return (
         <div className="min-h-screen" style={{ background: '#080808', color: '#94a3b8' }}>
             {/* Header */}
             <header className="border-b py-6 px-8" style={{ borderColor: 'rgba(255,255,255,0.06)', background: '#0a0a0b' }}>
                 <div className="max-w-5xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded flex items-center justify-center" style={{ background: '#6366f1' }}>
-                            <span className="text-white text-xs font-bold">Z</span>
-                        </div>
-                        <span className="font-display text-[10px] font-bold tracking-widest text-white uppercase">Zointly</span>
-                    </div>
+                    <Logo size="sm" link={false} />
                     <div className="px-3 py-1 rounded text-[9px] font-bold uppercase tracking-widest"
                         style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#818cf8' }}>
                         Verified Report

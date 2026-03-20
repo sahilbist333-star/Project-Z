@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, ArrowRight } from 'lucide-react'
 import { FadeIn, HeroBackground3D } from '@/components/ui/motion'
 
+import { getURL } from '@/lib/auth'
+
 export default function SignUpPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -39,7 +41,7 @@ export default function SignUpPage() {
             email, password,
             options: { 
                 data: { full_name: fullName },
-                emailRedirectTo: `${location.origin}/api/auth/callback?next=/dashboard`
+                emailRedirectTo: `${getURL()}api/auth/callback?next=/dashboard`
             },
         })
         setLoading(false)
@@ -49,9 +51,10 @@ export default function SignUpPage() {
 
     const handleGoogle = async () => {
         setGoogleLoading(true)
+        const redirectTo = `${getURL()}api/auth/callback?next=/dashboard`
         await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { redirectTo: `${location.origin}/api/auth/callback?next=/dashboard` },
+            options: { redirectTo },
         })
     }
 

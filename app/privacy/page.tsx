@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import MarketingNav from '@/components/layout/MarketingNav'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Zointly',
+  description: 'How Zointly protects your user research data and feedback with enterprise-grade security and transparent privacy practices for product teams.',
+}
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
 

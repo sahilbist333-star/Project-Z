@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Zap, Search, Share2, Bell, Shield, Globe, Target } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Our Story | Zointly',
+  description: 'Built by PMs for PMs. Learn how Zointly is bridging the product discovery gap with the first AI Copilot for Product Intelligence.',
+}
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
