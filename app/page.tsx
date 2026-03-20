@@ -90,7 +90,7 @@ export default function LandingPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-8 bg-black/30 backdrop-blur-md"
                   style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
                   <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#6366f1' }} />
-                  <span className="text-[9px] font-bold text-slate-300 uppercase tracking-[0.3em]">AI-Powered Product Intelligence</span>
+                  <span className="text-[9px] font-bold text-slate-300 uppercase tracking-[0.3em]">The AI Copilot for Product Managers</span>
                 </div>
               </StaggerItem>
 
@@ -106,7 +106,7 @@ export default function LandingPage() {
 
               <StaggerItem>
                 <p className="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed font-light max-w-xl">
-                  Turn raw customer feedback into prioritized product opportunities with AI-verified demand scores, verbatim evidence, and shareable reports.
+                  Upload user data like interviews and feedback. Zointly's AI will tell you exactly what features your users need next, backed by verbatim evidence and demand scores.
                 </p>
               </StaggerItem>
 
