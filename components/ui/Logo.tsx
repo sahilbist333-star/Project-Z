@@ -19,7 +19,7 @@ export default function Logo({ className = '', showText = true, link = true, siz
     const content = (
         <div className={`flex items-center group ${className}`}>
             <Image
-                src="/logo.png"
+                src="/logo.svg"
                 alt="Zointly Logo"
                 width={width}
                 height={height}
