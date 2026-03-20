@@ -19,6 +19,7 @@ export interface User {
   last_usage_reset_at: string
   last_alert_email_at: string | null
   onboarding_completed: boolean
+  is_admin: boolean
   created_at: string
 }
 

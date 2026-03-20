@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@/lib/types'
-import { LayoutDashboard, Plus, Settings, LogOut, Zap, AlertTriangle, BarChart3, CheckCircle2 } from 'lucide-react'
+import { LayoutDashboard, Plus, Settings, LogOut, Zap, AlertTriangle, BarChart3, CheckCircle2, Shield } from 'lucide-react'
 import { PLAN_LIMITS } from '@/lib/types'
 import UpgradeModal from '@/components/ui/UpgradeModal'
 import Logo from '@/components/ui/Logo'
@@ -43,7 +43,8 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
         { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
         { href: '/analysis/new', icon: Plus, label: 'New Analysis' },
         { href: '/dashboard/reports', icon: BarChart3, label: 'Analysis Reports' },
-        ...(isGrowth ? [{ href: '/dashboard/insights', icon: Zap, label: 'Insights' }] : [])
+        ...(isGrowth ? [{ href: '/dashboard/insights', icon: Zap, label: 'Insights' }] : []),
+        ...(profile.is_admin ? [{ href: '/admin', icon: Shield, label: 'Admin Panel' }] : [])
     ]
 
     return (
