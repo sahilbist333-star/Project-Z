@@ -18,7 +18,11 @@ import {
     Calendar,
     ChevronRight,
     UserCheck,
-    AlertCircle
+    AlertCircle,
+    X,
+    ChevronLeft,
+    Download,
+    Eye
 } from 'lucide-react'
 import { 
     FadeIn, 
@@ -26,8 +30,11 @@ import {
     StaggerItem 
 } from '@/components/ui/motion'
 import { format, parseISO } from 'date-fns'
+import { AnimatePresence, motion } from 'framer-motion'
 
 type Tab = 'overview' | 'users' | 'analyses' | 'subscriptions' | 'feedback' | 'newsletter'
+
+const PAGE_SIZE = 10
 
 export default function AdminClient() {
     const [loading, setLoading] = useState(true)
@@ -35,6 +42,18 @@ export default function AdminClient() {
     const [error, setError] = useState<string | null>(null)
     const [activeTab, setActiveTab] = useState<Tab>('overview')
     const [searchQuery, setSearchQuery] = useState('')
+    
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1)
+
+    // Filter states
+    const [userPlanFilter, setUserPlanFilter] = useState('all')
+    const [analysisStatusFilter, setAnalysisStatusFilter] = useState('all')
+    const [feedbackTypeFilter, setFeedbackTypeFilter] = useState('all')
+
+    // Modal state
+    const [selectedItem, setSelectedItem] = useState<any>(null)
+    const [modalType, setModalType] = useState<Tab | null>(null)
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -55,21 +74,58 @@ export default function AdminClient() {
         fetchStats()
     }, [])
 
+    // Filtering Logic
     const filteredUsers = useMemo(() => {
         if (!data?.users) return []
-        return data.users.filter((u: any) => 
-            u.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            (u.full_name?.toLowerCase().includes(searchQuery.toLowerCase()))
-        )
-    }, [data?.users, searchQuery])
+        return data.users.filter((u: any) => {
+            const matchesSearch = u.email.toLowerCase().includes(searchQuery.toLowerCase()) || (u.full_name?.toLowerCase().includes(searchQuery.toLowerCase()))
+            const matchesPlan = userPlanFilter === 'all' || u.plan === userPlanFilter
+            return matchesSearch && matchesPlan
+        })
+    }, [data?.users, searchQuery, userPlanFilter])
 
     const filteredAnalyses = useMemo(() => {
         if (!data?.analyses) return []
-        return data.analyses.filter((a: any) => 
-            a.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            a.users?.email.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-    }, [data?.analyses, searchQuery])
+        return data.analyses.filter((a: any) => {
+            const matchesSearch = a.title?.toLowerCase().includes(searchQuery.toLowerCase()) || a.users?.email.toLowerCase().includes(searchQuery.toLowerCase())
+            const matchesStatus = analysisStatusFilter === 'all' || a.status === analysisStatusFilter
+            return matchesSearch && matchesStatus
+        })
+    }, [data?.analyses, searchQuery, analysisStatusFilter])
+
+    const filteredFeedback = useMemo(() => {
+        if (!data?.feedback) return []
+        return data.feedback.filter((f: any) => {
+            const matchesSearch = f.user_email?.toLowerCase().includes(searchQuery.toLowerCase()) || f.message.toLowerCase().includes(searchQuery.toLowerCase())
+            const matchesType = feedbackTypeFilter === 'all' || f.feedback_type === feedbackTypeFilter
+            return matchesSearch && matchesType
+        })
+    }, [data?.feedback, searchQuery, feedbackTypeFilter])
+
+    const filteredSubscribers = useMemo(() => {
+        if (!data?.subscribers) return []
+        return data.subscribers.filter((s: any) => s.email.toLowerCase().includes(searchQuery.toLowerCase()))
+    }, [data?.subscribers, searchQuery])
+
+    // Pagination Logic
+    const paginatedData = useMemo(() => {
+        const source = activeTab === 'users' ? filteredUsers :
+                      activeTab === 'analyses' ? filteredAnalyses :
+                      activeTab === 'feedback' ? filteredFeedback :
+                      filteredSubscribers
+        
+        const start = (currentPage - 1) * PAGE_SIZE
+        const end = start + PAGE_SIZE
+        return {
+            items: source.slice(start, end),
+            total: source.length,
+            totalPages: Math.ceil(source.length / PAGE_SIZE)
+        }
+    }, [activeTab, filteredUsers, filteredAnalyses, filteredFeedback, filteredSubscribers, currentPage])
+
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [activeTab, searchQuery, userPlanFilter, analysisStatusFilter, feedbackTypeFilter])
 
     if (loading) {
         return (
@@ -92,7 +148,7 @@ export default function AdminClient() {
         )
     }
 
-    const { stats, feedback, subscribers } = data
+    const { stats } = data
 
     const tabs: { id: Tab; label: string; icon: any }[] = [
         { id: 'overview', label: 'Overview', icon: TrendingUp },
@@ -102,6 +158,11 @@ export default function AdminClient() {
         { id: 'feedback', label: 'Feedback', icon: MessageSquare },
         { id: 'newsletter', label: 'Newsletter', icon: Mail },
     ]
+
+    const handleRowClick = (item: any, type: Tab) => {
+        setSelectedItem(item)
+        setModalType(type)
+    }
 
     return (
         <div className="p-8 max-w-7xl mx-auto relative z-10 pb-20 min-h-screen">
@@ -116,9 +177,7 @@ export default function AdminClient() {
                             Admin Center
                         </h1>
                     </div>
-                    <p className="text-slate-500 text-xs font-bold uppercase tracking-widest opacity-60">
-                        Command & Control Matrix
-                    </p>
+                </p>
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="px-5 py-2 rounded-full bg-green-500/5 border border-green-500/10 flex items-center gap-2">
@@ -129,7 +188,7 @@ export default function AdminClient() {
             </div>
 
             {/* Tab Navigation */}
-            <div className="flex items-center gap-1 mb-10 p-1.5 rounded-2xl bg-white/2 border border-white/5 backdrop-blur-xl w-fit overflow-x-auto no-scrollbar max-w-full">
+            <div className="flex items-center gap-1 mb-6 p-1.5 rounded-2xl bg-white/2 border border-white/5 backdrop-blur-xl w-fit overflow-x-auto no-scrollbar max-w-full">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
@@ -148,6 +207,60 @@ export default function AdminClient() {
                     </button>
                 ))}
             </div>
+
+            {/* Content Filters & Actions */}
+            {activeTab !== 'overview' && (
+                <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
+                    <div className="flex-1 flex items-center gap-3 w-full bg-white/2 border border-white/5 rounded-2xl p-2.5 pl-4 hover:border-white/10 transition-colors">
+                        <Search className="w-4 h-4 text-slate-500" />
+                        <input 
+                            type="text"
+                            placeholder={`Search ${activeTab}...`}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="bg-transparent border-none focus:ring-0 text-sm text-white placeholder-slate-600 w-full"
+                        />
+                    </div>
+                    
+                    {activeTab === 'users' && (
+                        <select 
+                            value={userPlanFilter}
+                            onChange={(e) => setUserPlanFilter(e.target.value)}
+                            className="bg-white/2 border border-white/5 rounded-2xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer"
+                        >
+                            <option value="all">All Plans</option>
+                            <option value="free">Free</option>
+                            <option value="growth">Growth</option>
+                        </select>
+                    )}
+
+                    {activeTab === 'analyses' && (
+                        <select 
+                            value={analysisStatusFilter}
+                            onChange={(e) => setAnalysisStatusFilter(e.target.value)}
+                            className="bg-white/2 border border-white/5 rounded-2xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer"
+                        >
+                            <option value="all">All Status</option>
+                            <option value="completed">Completed</option>
+                            <option value="processing">Processing</option>
+                            <option value="failed">Failed</option>
+                        </select>
+                    )}
+
+                    {activeTab === 'feedback' && (
+                        <select 
+                            value={feedbackTypeFilter}
+                            onChange={(e) => setFeedbackTypeFilter(e.target.value)}
+                            className="bg-white/2 border border-white/5 rounded-2xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer"
+                        >
+                            <option value="all">All Feedback</option>
+                            <option value="bug">Bugs</option>
+                            <option value="feature">Features</option>
+                            <option value="general">General</option>
+                        </select>
+                    )}
+                </div>
+            )}
 
             {/* Tab Content */}
             <div className="min-h-[500px]">
@@ -179,9 +292,11 @@ export default function AdminClient() {
                                 </h2>
                                 <div className="space-y-3">
                                     {data.analyses.slice(0, 5).map((a: any) => (
-                                        <div key={a.id} className="p-4 rounded-2xl bg-white/2 border border-white/5 flex items-center justify-between">
+                                        <div key={a.id} 
+                                            onClick={() => handleRowClick(a, 'analyses')}
+                                            className="p-4 rounded-2xl bg-white/2 border border-white/5 flex items-center justify-between cursor-pointer hover:bg-white/5 transition-colors group">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center">
+                                                <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-white/10">
                                                     <BarChart3 className="w-4 h-4 text-slate-500" />
                                                 </div>
                                                 <div className="min-w-0">
@@ -203,9 +318,11 @@ export default function AdminClient() {
                                 </h2>
                                 <div className="space-y-3">
                                     {data.users.slice(0, 5).map((u: any) => (
-                                        <div key={u.id} className="p-4 rounded-2xl bg-white/2 border border-white/5 flex items-center justify-between">
+                                        <div key={u.id} 
+                                            onClick={() => handleRowClick(u, 'users')}
+                                            className="p-4 rounded-2xl bg-white/2 border border-white/5 flex items-center justify-between cursor-pointer hover:bg-white/5 transition-colors group">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center font-black text-[10px] text-slate-500">
+                                                <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center font-black text-[10px] text-slate-500 group-hover:bg-white/10">
                                                     {u.email[0].toUpperCase()}
                                                 </div>
                                                 <div className="min-w-0">
@@ -222,19 +339,8 @@ export default function AdminClient() {
                     </FadeIn>
                 )}
 
-                {(activeTab === 'users' || activeTab === 'analyses') && (
+                {(activeTab !== 'overview' && activeTab !== 'subscriptions') && (
                     <FadeIn key={activeTab} className="space-y-6">
-                        <div className="flex items-center gap-4 bg-white/2 border border-white/5 rounded-2xl p-2 pl-4">
-                            <Search className="w-4 h-4 text-slate-500" />
-                            <input 
-                                type="text"
-                                placeholder={`Search ${activeTab}...`}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="bg-transparent border-none focus:ring-0 text-sm text-white placeholder-slate-600 w-full"
-                            />
-                        </div>
-
                         <div className="bg-white/2 border border-white/5 rounded-[2.5rem] overflow-hidden">
                             <table className="w-full text-left border-collapse">
                                 <thead className="bg-white/2 border-b border-white/5">
@@ -245,9 +351,9 @@ export default function AdminClient() {
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Email</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Plan</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Joined</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Admin</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Action</th>
                                             </>
-                                        ) : (
+                                        ) : activeTab === 'analyses' ? (
                                             <>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Status</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Title</th>
@@ -255,12 +361,27 @@ export default function AdminClient() {
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Entries</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Date</th>
                                             </>
+                                        ) : activeTab === 'feedback' ? (
+                                            <>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Type</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">User</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Message</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Date</th>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Intercepted</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Email Address</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Source</th>
+                                            </>
                                         )}
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/2">
-                                    {(activeTab === 'users' ? filteredUsers : filteredAnalyses).map((item: any) => (
-                                        <tr key={item.id} className="hover:bg-white/[0.02] transition-colors group">
+                                    {paginatedData.items.map((item: any) => (
+                                        <tr key={item.id} 
+                                            onClick={() => handleRowClick(item, activeTab)}
+                                            className="hover:bg-white/[0.02] transition-colors group cursor-pointer">
                                             {activeTab === 'users' ? (
                                                 <>
                                                     <td className="px-6 py-4">
@@ -268,7 +389,7 @@ export default function AdminClient() {
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         <p className="text-[11px] font-bold text-white">{item.email}</p>
-                                                        <p className="text-[9px] text-slate-600 font-medium">{item.id.slice(0, 8)}...</p>
+                                                        <p className="text-[9px] text-slate-600 font-medium">{item.full_name || 'No full name'}</p>
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md ${item.plan === 'growth' ? 'bg-indigo-500/10 text-indigo-400' : 'bg-white/5 text-slate-500'}`}>
@@ -279,10 +400,10 @@ export default function AdminClient() {
                                                         {format(parseISO(item.created_at), 'MMM d, yyyy')}
                                                     </td>
                                                     <td className="px-6 py-4 text-right">
-                                                        {item.is_admin ? <Shield className="w-3.5 h-3.5 text-indigo-500 ml-auto" /> : <div className="w-3.5 h-3.5 bg-white/5 rounded-full ml-auto opacity-20" />}
+                                                        <Eye className="w-3.5 h-3.5 text-slate-700 group-hover:text-indigo-400 transition-colors ml-auto" />
                                                     </td>
                                                 </>
-                                            ) : (
+                                            ) : activeTab === 'analyses' ? (
                                                 <>
                                                     <td className="px-6 py-4">
                                                         <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${
@@ -301,10 +422,37 @@ export default function AdminClient() {
                                                     <td className="px-6 py-4 text-[10px] font-black text-slate-400">
                                                         {item.total_entries || 0}
                                                     </td>
+                                                    <td className="px-6 py-4 text-right text-[10px] font-bold text-slate-600 uppercase">
+                                                        {format(parseISO(item.created_at), 'MM/dd HH:mm')}
+                                                    </td>
+                                                </>
+                                            ) : activeTab === 'feedback' ? (
+                                                <>
+                                                    <td className="px-6 py-4">
+                                                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-green-500/5 text-green-400">
+                                                            {item.feedback_type}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-6 py-4 overflow-hidden max-w-[120px]">
+                                                        <p className="text-[11px] font-bold text-slate-400 truncate">{item.user_email || 'Anonymous'}</p>
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <p className="text-[11px] text-slate-500 truncate max-w-[300px] italic">"{item.message}"</p>
+                                                    </td>
+                                                    <td className="px-6 py-4 text-right text-[10px] font-bold text-slate-600 uppercase">
+                                                        {format(parseISO(item.created_at), 'MMM d')}
+                                                    </td>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <td className="px-6 py-4 text-[10px] font-bold text-slate-600 uppercase">
+                                                        {format(parseISO(item.created_at), 'MMM d, yyyy')}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <p className="text-sm font-bold text-white">{item.email}</p>
+                                                    </td>
                                                     <td className="px-6 py-4 text-right">
-                                                        <p className="text-[10px] font-bold text-slate-600 uppercase">
-                                                            {format(parseISO(item.created_at), 'MM/dd HH:mm')}
-                                                        </p>
+                                                        <span className="text-[9px] font-black uppercase tracking-widest text-slate-700">Landing Page</span>
                                                     </td>
                                                 </>
                                             )}
@@ -312,13 +460,51 @@ export default function AdminClient() {
                                     ))}
                                 </tbody>
                             </table>
-                            {(activeTab === 'users' ? filteredUsers : filteredAnalyses).length === 0 && (
-                                <div className="py-20 text-center">
-                                    <AlertCircle className="w-10 h-10 text-slate-800 mx-auto mb-4" />
-                                    <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em]">No records intercepted</p>
+                            {paginatedData.items.length === 0 && (
+                                <div className="py-24 text-center">
+                                    <AlertCircle className="w-12 h-12 text-slate-800 mx-auto mb-4" />
+                                    <h3 className="text-xl font-black text-white uppercase tracking-tight mb-2">Null Intercept</h3>
+                                    <p className="text-xs text-slate-600 font-bold uppercase tracking-[0.2em]">The matrix is empty for this query</p>
                                 </div>
                             )}
                         </div>
+
+                        {/* Pagination Footer */}
+                        {paginatedData.totalPages > 1 && (
+                            <div className="flex items-center justify-between px-2 mt-8">
+                                <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">
+                                    Displaying {paginatedData.items.length} of {paginatedData.total} records
+                                </p>
+                                <div className="flex items-center gap-2">
+                                    <button 
+                                        disabled={currentPage === 1}
+                                        onClick={() => setCurrentPage(p => p - 1)}
+                                        className="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-500 disabled:opacity-20 hover:text-white transition-all">
+                                        <ChevronLeft className="w-4 h-4" />
+                                    </button>
+                                    <div className="flex items-center gap-1">
+                                        {[...Array(paginatedData.totalPages)].map((_, i) => (
+                                            <button 
+                                                key={i}
+                                                onClick={() => setCurrentPage(i + 1)}
+                                                className={`w-8 h-8 rounded-xl text-[10px] font-black transition-all ${
+                                                    currentPage === i + 1 
+                                                        ? 'bg-indigo-500 text-white shadow-lg' 
+                                                        : 'bg-white/2 text-slate-600 hover:text-slate-400'
+                                                }`}>
+                                                {i + 1}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <button 
+                                        disabled={currentPage === paginatedData.totalPages}
+                                        onClick={() => setCurrentPage(p => p + 1)}
+                                        className="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-500 disabled:opacity-20 hover:text-white transition-all">
+                                        <ChevronRight className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </FadeIn>
                 )}
 
@@ -348,9 +534,9 @@ export default function AdminClient() {
                             </h2>
                             <div className="space-y-4">
                                 {data.users.filter((u: any) => u.subscription_id).map((u: any) => (
-                                    <div key={u.id} className="p-5 rounded-3xl bg-white/2 border border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div key={u.id} className="p-5 rounded-3xl bg-white/2 border border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4 group hover:bg-white/5 transition-colors cursor-pointer" onClick={() => handleRowClick(u, 'users')}>
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center font-black text-indigo-400">
+                                            <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center font-black text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">
                                                 $
                                             </div>
                                             <div>
@@ -375,70 +561,156 @@ export default function AdminClient() {
                         </div>
                     </FadeIn>
                 )}
+            </div>
 
-                {activeTab === 'feedback' && (
-                    <FadeIn key="feedback" className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {feedback.map((item: any) => (
-                            <div key={item.id} className="p-8 rounded-[2.5rem] bg-white/2 border border-white/5 flex flex-col group relative overflow-hidden">
-                                <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity">
-                                    <MessageSquare className="w-12 h-12 text-slate-800" />
-                                </div>
-                                <div className="flex items-center justify-between mb-6">
-                                    <span className="text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-green-500/10 text-green-400">
-                                        {item.feedback_type}
-                                    </span>
-                                    <span className="text-[10px] text-slate-700 font-bold uppercase tracking-wider">
-                                        {format(parseISO(item.created_at), 'MMM d, yyyy')}
-                                    </span>
-                                </div>
-                                <p className="text-sm text-slate-300 leading-relaxed font-medium mb-8 flex-1 italic">
-                                    &quot;{item.message}&quot;
-                                </p>
-                                <div className="flex items-center gap-3 pt-6 border-t border-white/5">
-                                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center font-black text-[10px] text-slate-500 border border-white/10 uppercase">
-                                        {(item.user_email || 'A')[0]}
+            {/* Detail Modal */}
+            <AnimatePresence>
+                {selectedItem && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedItem(null)}
+                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                        />
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            className="w-full max-w-2xl bg-[#0a0a0c] border border-white/10 rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col max-h-[90vh]"
+                        >
+                            <div className="p-8 border-b border-white/5 flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+                                        {modalType === 'users' ? <Users className="w-6 h-6 text-indigo-400" /> :
+                                         modalType === 'analyses' ? <BarChart3 className="w-6 h-6 text-blue-400" /> :
+                                         <MessageSquare className="w-6 h-6 text-green-400" />}
                                     </div>
-                                    <div className="min-w-0">
-                                        <p className="text-[11px] font-bold text-white truncate">{item.user_email || 'Anonymous Collector'}</p>
-                                        <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest">Feedback Source</p>
+                                    <div>
+                                        <h2 className="text-xl font-black text-white uppercase tracking-tight">Record Intelligence</h2>
+                                        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Type: {modalType}</p>
                                     </div>
                                 </div>
+                                <button 
+                                    onClick={() => setSelectedItem(null)}
+                                    className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
+                                    <X className="w-5 h-5 text-slate-400" />
+                                </button>
                             </div>
-                        ))}
-                    </FadeIn>
-                )}
 
-                {activeTab === 'newsletter' && (
-                    <FadeIn key="newsletter" className="max-w-2xl mx-auto space-y-6">
-                        <div className="bg-white/2 border border-white/5 rounded-[2.5rem] overflow-hidden">
-                            <div className="p-6 bg-white/2 border-b border-white/5 flex items-center justify-between">
-                                <h3 className="text-xs font-black text-white uppercase tracking-widest">Active Subscribers</h3>
-                                <span className="px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-[10px] font-black uppercase">
-                                    {subscribers.length} total
-                                </span>
-                            </div>
-                            <div className="divide-y divide-white/2">
-                                {subscribers.map((s: any) => (
-                                    <div key={s.id} className="p-6 flex items-center justify-between hover:bg-white/[0.01] transition-colors">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-2xl bg-orange-500/5 border border-orange-500/10 flex items-center justify-center">
-                                                <Mail className="w-5 h-5 text-orange-500 opacity-50" />
+                            <div className="p-8 overflow-y-auto custom-scrollbar flex-1">
+                                {modalType === 'users' && (
+                                    <div className="space-y-8">
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="p-6 rounded-3xl bg-white/2 border border-white/5">
+                                                <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest mb-1">Email Coordinates</p>
+                                                <p className="text-white font-bold">{selectedItem.email}</p>
                                             </div>
-                                            <div>
-                                                <p className="text-sm font-bold text-white">{s.email}</p>
-                                                <p className="text-[10px] text-slate-600 font-bold uppercase tracking-wider">Intercepted {format(parseISO(s.created_at), 'MMM d, yyyy')}</p>
+                                            <div className="p-6 rounded-3xl bg-white/2 border border-white/5">
+                                                <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest mb-1">Active Plan</p>
+                                                <p className="text-indigo-400 font-bold uppercase tracking-wider">{selectedItem.plan}</p>
                                             </div>
                                         </div>
-                                        <button className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-600 hover:text-white transition-all">
-                                            <ChevronRight className="w-4 h-4" />
-                                        </button>
+                                        <div className="space-y-4">
+                                            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-2">System Metadata</h3>
+                                            <div className="divide-y divide-white/5 border border-white/5 rounded-3xl bg-white/2">
+                                                <div className="p-4 flex justify-between">
+                                                    <span className="text-xs text-indigo-300">Internal ID</span>
+                                                    <span className="text-xs text-white font-mono">{selectedItem.id}</span>
+                                                </div>
+                                                <div className="p-4 flex justify-between">
+                                                    <span className="text-xs text-indigo-300">Deployment Date</span>
+                                                    <span className="text-xs text-white">{format(parseISO(selectedItem.created_at), 'MMMM d, yyyy HH:mm')}</span>
+                                                </div>
+                                                <div className="p-4 flex justify-between">
+                                                    <span className="text-xs text-indigo-300">Subscription Status</span>
+                                                    <span className={`text-xs font-bold uppercase ${selectedItem.subscription_status === 'active' ? 'text-green-400' : 'text-slate-600'}`}>
+                                                        {selectedItem.subscription_status}
+                                                    </span>
+                                                </div>
+                                                <div className="p-4 flex justify-between">
+                                                    <span className="text-xs text-indigo-300">Analyses Processed</span>
+                                                    <span className="text-xs text-white">{selectedItem.analyses_used_this_month}</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                ))}
+                                )}
+
+                                {modalType === 'analyses' && (
+                                    <div className="space-y-8">
+                                        <div className="p-8 rounded-[2.5rem] bg-indigo-500/5 border border-indigo-500/10 text-center">
+                                            <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-3">Analysis Profile</h3>
+                                            <p className="text-2xl font-black text-white tracking-tight mb-2 underline decoration-indigo-500/30 underline-offset-8">
+                                                {selectedItem.title || 'Untitled Signal'}
+                                            </p>
+                                            <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">{selectedItem.users?.email}</p>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="p-5 rounded-3xl bg-white/2 border border-white/5 flex items-center justify-between">
+                                                <div>
+                                                    <p className="text-[9px] font-bold text-slate-600 uppercase mb-1">Status</p>
+                                                    <p className="text-xs font-black text-white uppercase tracking-widest">{selectedItem.status}</p>
+                                                </div>
+                                                <AlertCircle className={`w-5 h-5 ${selectedItem.status === 'completed' ? 'text-green-500' : 'text-red-500'}`} />
+                                            </div>
+                                            <div className="p-5 rounded-3xl bg-white/2 border border-white/5 flex items-center justify-between">
+                                                <div>
+                                                    <p className="text-[9px] font-bold text-slate-600 uppercase mb-1">Vector Size</p>
+                                                    <p className="text-xs font-black text-white uppercase tracking-widest">{selectedItem.total_entries} Rows</p>
+                                                </div>
+                                                <BarChart3 className="w-5 h-5 text-indigo-400" />
+                                            </div>
+                                        </div>
+                                        <div className="flex justify-center pt-4">
+                                            <a href={`/analysis/${selectedItem.id}`} target="_blank" className="flex items-center gap-3 px-8 py-3 rounded-full bg-indigo-500 text-white text-[11px] font-black uppercase tracking-widest shadow-xl shadow-indigo-500/30 hover:scale-105 transition-all">
+                                                Inspect Result <ArrowRight className="w-4 h-4" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {modalType === 'feedback' && (
+                                    <div className="space-y-8">
+                                        <div className="flex items-center justify-between px-2">
+                                            <span className="px-4 py-1.5 rounded-full bg-green-500/10 text-green-400 text-[10px] font-black uppercase tracking-widest">
+                                                {selectedItem.feedback_type} Discovery
+                                            </span>
+                                            <span className="text-[10px] text-slate-600 font-black uppercase tracking-widest">
+                                                Captured {format(parseISO(selectedItem.created_at), 'HH:mm')}
+                                            </span>
+                                        </div>
+                                        <div className="p-8 rounded-[3rem] bg-white/2 border border-white/5 relative bg-gradient-to-br from-white/[0.03] to-transparent">
+                                            <p className="text-sm text-slate-300 leading-relaxed font-medium italic relative z-10">
+                                                &quot;{selectedItem.message}&quot;
+                                            </p>
+                                            <MessageSquare className="absolute -bottom-6 -right-6 w-32 h-32 text-white/[0.02] -rotate-12" />
+                                        </div>
+                                        <div className="p-6 rounded-3xl bg-indigo-500/5 border border-indigo-500/10 flex items-center gap-4">
+                                            <div className="w-10 h-10 rounded-2xl bg-indigo-500/20 flex items-center justify-center font-black text-indigo-400">
+                                                {selectedItem.user_email?.[0].toUpperCase() || 'A'}
+                                            </div>
+                                            <div>
+                                                <p className="text-xs font-bold text-white leading-none">{selectedItem.user_email || 'Anonymous Collector'}</p>
+                                                <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1.5">Feedback Source Matrix</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                        </div>
-                    </FadeIn>
+                            
+                            <div className="p-8 border-t border-white/5 bg-white/2 flex justify-end">
+                                <button 
+                                    onClick={() => setSelectedItem(null)}
+                                    className="px-8 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-400 uppercase tracking-widest transition-all">
+                                    Close Intelligence
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
                 )}
-            </div>
+            </AnimatePresence>
         </div>
     )
 }
