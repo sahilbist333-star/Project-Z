@@ -20,34 +20,21 @@ export async function GET() {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    // 2. Fetch stats
+    // 2. Fetch Detailed Data
     try {
         const [
-            { count: totalUsers },
-            { count: activeSubscriptions },
-            { count: totalAnalyses },
-            { count: totalFeedback },
-            { count: totalSubscribers }
+            { data: allUsers, count: totalUsers },
+            { data: allAnalyses, count: totalAnalyses },
+            { data: allFeedback, count: totalFeedback },
+            { data: allSubscribers, count: totalSubscribers },
+            { count: activeSubscriptions }
         ] = await Promise.all([
-            supabase.from('users').select('*', { count: 'exact', head: true }),
-            supabase.from('users').select('*', { count: 'exact', head: true }).neq('subscription_status', 'inactive'),
-            supabase.from('analyses').select('*', { count: 'exact', head: true }),
-            supabase.from('feedback').select('*', { count: 'exact', head: true }),
-            supabase.from('newsletter_subscriptions').select('*', { count: 'exact', head: true })
+            supabase.from('users').select('*', { count: 'exact' }).order('created_at', { ascending: false }),
+            supabase.from('analyses').select('*, users(email)').order('created_at', { ascending: false }),
+            supabase.from('feedback').select('*').order('created_at', { ascending: false }),
+            supabase.from('newsletter_subscriptions').select('*').order('created_at', { ascending: false }),
+            supabase.from('users').select('*', { count: 'exact', head: true }).neq('subscription_status', 'inactive')
         ])
-
-        // Get some recent activity
-        const { data: recentAnalyses } = await supabase
-            .from('analyses')
-            .select('id, title, status, created_at, user_id, users(email)')
-            .order('created_at', { ascending: false })
-            .limit(5)
-
-        const { data: recentFeedback } = await supabase
-            .from('feedback')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(5)
 
         return NextResponse.json({
             stats: {
@@ -57,8 +44,10 @@ export async function GET() {
                 totalFeedback: totalFeedback || 0,
                 totalSubscribers: totalSubscribers || 0
             },
-            recentAnalyses,
-            recentFeedback
+            users: allUsers || [],
+            analyses: allAnalyses || [],
+            feedback: allFeedback || [],
+            subscribers: allSubscribers || []
         })
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 })
