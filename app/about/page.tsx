@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Zap, Search, Share2, Bell, Shield, Globe, Target } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Our Story | Zointly',
+  title: 'Our Story',
   description: 'Built by PMs for PMs. Learn how Zointly is bridging the product discovery gap with the first AI Copilot for Product Intelligence.',
 }
 import MarketingNav from '@/components/layout/MarketingNav'

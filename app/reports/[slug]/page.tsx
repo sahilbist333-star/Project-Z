@@ -9,7 +9,7 @@ interface Props { params: Promise<{ slug: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params
     return {
-        title: `Product Opportunity Report | Zointly`,
+        title: `Product Opportunity Report`,
         description: `View the evidence-backed product opportunities identified by Zointly's AI Copilot for this feedback dataset.`,
     }
 }
