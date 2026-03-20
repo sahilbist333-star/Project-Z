@@ -18,9 +18,9 @@ const values = [
 ]
 
 const team = [
-    { name: 'Sahil Maykott', role: 'Founder & CEO', bio: 'Former product manager obsessed with turning fuzzy user feedback into clear decision signals.' },
-    { name: 'Alex Rivera', role: 'Head of Engineering', bio: 'Built scalable data pipelines at DataScale. Believer in fast feedback loops between code and customers.' },
-    { name: 'Priya Singh', role: 'Head of Product', bio: '10+ years shipping B2B SaaS. Passionate about tools that make product teams move faster and smarter.' },
+    { name: 'S. Maykott', role: 'Founder & CEO', bio: 'Former product manager obsessed with turning fuzzy user feedback into clear decision signals.' },
+    { name: 'S. Maykott', role: 'Head of Engineering', bio: 'Built scalable data pipelines at DataScale. Believer in fast feedback loops between code and customers.' },
+    { name: 'S. Maykott', role: 'Head of Product', bio: '10+ years shipping B2B SaaS. Passionate about tools that make product teams move faster and smarter.' },
 ]
 
 export default function AboutPage() {
