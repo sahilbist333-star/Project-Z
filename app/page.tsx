@@ -208,7 +208,7 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto overflow-hidden">
             <p className="text-center text-[9px] font-bold uppercase tracking-[0.3em] text-slate-500 mb-6">Trusted by innovative product teams</p>
             <InfiniteMarquee className="opacity-30 grayscale hover:grayscale-0 transition-all duration-500" speed={30}>
-              <img src="/logos/team-logo.png" alt="Team Logo" className="h-5 w-auto px-8 inline-block" />
+              <img src="/logos/maykott-logo.svg" alt="Maykott Logo" className="h-5 w-auto px-8 inline-block" />
               {["Intercom", "Zendesk", "Slack", "HubSpot", "Notion", "Linear", "Amplitude", "Segment"].map((team) => (
                 <span key={team} className="inline-block px-8 font-display font-bold text-base text-slate-400 hover:text-white transition-colors tracking-tight uppercase tracking-[0.1em] cursor-default whitespace-nowrap">
                   {team}
