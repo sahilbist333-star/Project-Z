@@ -43,7 +43,7 @@ const SOURCES = [
 
 const PLANS = [
     { id: 'starter', name: 'Starter', price: '0', currency: '$', features: ['3 analyses / month', 'Up to 500 entries', 'Public reports', 'Basic opportunities'] },
-    { id: 'growth', name: 'Growth', price_monthly: '2,999', price_annual: '29,999', currency: '₹', popular: true, promo: 'Save ₹6,000 yearly', features: ['50 analyses / month', 'Up to 5,000 entries', 'Insight alerts', 'Email notifications', 'Priority processing'] },
+    { id: 'growth', name: 'Growth', price_monthly: '49', price_annual: '490', currency: '$', popular: true, promo: 'Save $98 yearly', features: ['50 analyses / month', 'Up to 5,000 entries', 'Insight alerts', 'Email notifications', 'Priority processing'] },
     { id: 'enterprise', name: 'Enterprise', price: 'Custom', currency: '', features: ['Unlimited analyses', 'Unlimited entries', 'White-label reports', 'Dedicated support', 'Custom API access'] },
 ]
 

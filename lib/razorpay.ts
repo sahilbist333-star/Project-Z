@@ -6,8 +6,8 @@ export const razorpay = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET!,
 })
 
-export const GROWTH_PLAN_AMOUNT = 4900 // ₹49.00 in paise
-export const GROWTH_PLAN_CURRENCY = 'INR'
+export const GROWTH_PLAN_AMOUNT = 4900 // $49.00 in cents
+export const GROWTH_PLAN_CURRENCY = 'USD'
 
 export function verifyWebhookSignature(
     body: string,

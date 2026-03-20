@@ -64,7 +64,7 @@ const faqs = [
   },
   {
     q: 'What happens after my free analyses are used?',
-    a: 'You can upgrade to Growth (₹49/month) for 50 analyses and up to 5,000 entries per run. Your existing analyses and reports remain accessible forever on any plan.',
+    a: 'You can upgrade to Growth ($49/month) for 50 analyses and up to 5,000 entries per run. Your existing analyses and reports remain accessible forever on any plan.',
   },
   {
     q: 'Do I need a credit card to sign up?',

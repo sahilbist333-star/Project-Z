@@ -48,7 +48,7 @@ export default function UpgradeButton({
                     key: data.key,
                     subscription_id: data.subscription_id,
                     name: 'Zointly',
-                    description: `Growth Plan — ${interval === 'monthly' ? '₹2,999/mo' : '₹29,999/yr'}`,
+                    description: `Growth Plan — ${interval === 'monthly' ? '$49/mo' : '$490/yr'}`,
                     handler: () => {
                         if (onSuccess) {
                             onSuccess()
