@@ -45,14 +45,28 @@ export default function AboutPage() {
 
             {/* Mission */}
             <section className="pb-24 px-6 relative z-10">
-                <FadeIn className="max-w-4xl mx-auto rounded-[2rem] p-12 text-center bg-black/40 backdrop-blur-xl border border-white/5 shadow-2xl skew-y-1 hover:skew-y-0 transition-transform duration-500">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/20 bg-purple-500/10 mb-6">
-                        <Target className="w-3.5 h-3.5 text-purple-400" />
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-300">Our Mission</span>
+                <FadeIn className="max-w-4xl mx-auto rounded-[2rem] p-8 md:p-14 text-center bg-black/40 backdrop-blur-xl border border-white/5 shadow-2xl transition-all duration-500">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 mb-8">
+                        <Target className="w-3.5 h-3.5 text-indigo-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-300">Our Mission</span>
                     </div>
-                    <blockquote className="font-display text-2xl md:text-3xl font-bold text-white leading-snug">
-                        &ldquo;Give every product team access to the same quality of decision intelligence that only the largest companies could afford.&rdquo;
+                    <blockquote className="font-display text-2xl md:text-4xl font-bold text-white leading-tight mb-10">
+                        &ldquo;To bridge the distance between what users say and what product teams build, making data-driven discovery the default for every company on earth.&rdquo;
                     </blockquote>
+                    <div className="grid md:grid-cols-2 gap-8 text-left border-t border-white/5 pt-10 mt-10">
+                        <div>
+                            <h4 className="text-indigo-400 font-bold text-xs uppercase tracking-widest mb-3">The Problem</h4>
+                            <p className="text-slate-400 text-sm leading-relaxed">
+                                Most product teams are flying blind. They have mountains of data but zero signal. Decisions are made by the Loudest Person In The Room (HiPPO), while real user needs get buried in support tickets and slack channels.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 className="text-purple-400 font-bold text-xs uppercase tracking-widest mb-3">The Solution</h4>
+                            <p className="text-slate-400 text-sm leading-relaxed">
+                                We built Zointly to act as a tireless researcher. By using AI to score demand based on frequency, urgency, and intensity, we turn fuzzy qualitative feedback into hard, undeniable evidence for your roadmap.
+                            </p>
+                        </div>
+                    </div>
                 </FadeIn>
             </section>
 

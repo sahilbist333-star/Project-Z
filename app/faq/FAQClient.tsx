@@ -59,7 +59,7 @@ export default function FAQPage() {
                     <HelpCircle className="w-3.5 h-3.5 text-teal-400" />
                     <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-300">Help Center</span>
                 </div>
-                <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Frequently Asked Questions</h1>
+                <h1 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">Frequently Asked Questions</h1>
                 <p className="text-slate-400 text-lg max-w-xl mx-auto">Everything you need to know about Zointly.</p>
             </section>
 

@@ -95,10 +95,9 @@ export default function DashboardPage() {
     }
 
     return (
-        <FadeIn className="p-8 max-w-6xl mx-auto relative z-10 pb-20">
-            {/* Background Glows */}
-            <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none -translate-y-1/2" />
-            <div className="fixed bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-500/5 blur-[100px] rounded-full pointer-events-none translate-y-1/2" />
+        <div className="p-8 max-w-6xl mx-auto relative z-10 pb-20 min-h-screen">
+            {/* Background Glows - Simplified for performance */}
+            <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-full bg-indigo-500/[0.02] blur-[150px] rounded-full pointer-events-none z-0" />
 
             {/* Success Banner */}
             {success === '1' && (
@@ -190,13 +189,25 @@ export default function DashboardPage() {
                         </div>
 
                         {analysesList.length === 0 ? (
-                            <div className="text-center py-24 rounded-[3rem] bg-white/2 border border-white/5 backdrop-blur-md">
-                                <div className="w-16 h-16 mx-auto rounded-3xl flex items-center justify-center mb-6 bg-white/5 border border-white/10">
-                                    <Plus className="w-8 h-8 text-indigo-400" />
+                            <div className="text-center py-24 rounded-[3rem] bg-indigo-500/5 border border-indigo-500/10 backdrop-blur-md relative overflow-hidden group">
+                                <div className="absolute inset-0 bg-indigo-500/5 blur-3xl rounded-full translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="w-20 h-20 mx-auto rounded-[2.5rem] flex items-center justify-center mb-8 bg-indigo-500/10 border border-indigo-500/20 relative z-10 shadow-[0_0_30px_rgba(99,102,241,0.2)]">
+                                    <Sparkles className="w-8 h-8 text-indigo-400" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-2">No data analyzed</h3>
-                                <p className="text-slate-500 text-sm mb-8 max-w-xs mx-auto">
-                                    Paste customer feedback to generate your first intelligence report.
+                                <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-3 relative z-10">Ignite Your Intelligence</h3>
+                                <p className="text-slate-500 text-sm mb-10 max-w-xs mx-auto font-medium relative z-10">
+                                    Transform your raw feedback into actionable product strategies in under 60 seconds.
+                                </p>
+                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+                                    <Link href="/analysis/new" className="px-10 py-4 rounded-full bg-indigo-500 text-white font-black text-[11px] uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-indigo-500/20">
+                                        Start Your First Analysis
+                                    </Link>
+                                    <button onClick={() => fetchData()} className="px-10 py-4 rounded-full bg-white/5 text-slate-400 font-black text-[11px] uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-all">
+                                        Refresh Data
+                                    </button>
+                                </div>
+                                <p className="text-[10px] text-slate-700 font-bold uppercase tracking-[0.2em] mt-10 relative z-10">
+                                    Tip: Try uploading a CSV for faster bulk analysis
                                 </p>
                             </div>
                         ) : (
@@ -254,6 +265,6 @@ export default function DashboardPage() {
                     </div>
                 </div>
             </div>
-        </FadeIn>
+        </div>
     )
 }

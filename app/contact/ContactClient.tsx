@@ -29,12 +29,12 @@ export default function ContactPage() {
             <section className="pt-48 pb-14 text-center px-6 relative overflow-hidden">
                 <HeroBackground3D />
                 <FadeIn className="relative z-10 flex flex-col items-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/10 mb-6">
-                        <Send className="w-3.5 h-3.5 text-blue-400" />
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">Get in Touch</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 mb-6">
+                        <Send className="w-3.5 h-3.5 text-indigo-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-300">Support Center</span>
                     </div>
-                    <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Contact Us</h1>
-                    <p className="text-slate-400 text-lg max-w-md mx-auto">We reply within 24 hours on business days.</p>
+                    <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Support & Feedback</h1>
+                    <p className="text-slate-400 text-lg max-w-md mx-auto">Have a question, found a bug, or want to suggest a feature? We&apos;re here to help.</p>
                 </FadeIn>
             </section>
 

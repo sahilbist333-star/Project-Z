@@ -50,7 +50,7 @@ export default function AnalysisDetail({ params }: { params: Promise<{ id: strin
                     setAnalysis((prev: any) => ({ ...prev, change_summary: SAMPLE_CHANGE_SUMMARY }))
                 }
             }
-            if (userData) setPlan(userData.plan)
+            if (userData) setPlan(userData.plan?.toLowerCase() || 'free')
             setLoading(false)
 
             // If processing, poll every 3 seconds
@@ -72,7 +72,7 @@ export default function AnalysisDetail({ params }: { params: Promise<{ id: strin
         if (plan !== 'growth') return
         setIsExporting(true)
         try {
-            await exportToPDF('analysis-content', `Zointly-${analysis.title?.replace(/\s+/g, '-') || 'Report'}`)
+            await exportToPDF('report-capture', `Zointly-${analysis.title?.replace(/\s+/g, '-') || 'Report'}`)
         } catch (error) {
             console.error('Export failed:', error)
         } finally {
@@ -153,8 +153,9 @@ export default function AnalysisDetail({ params }: { params: Promise<{ id: strin
     const reportUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://app.zointly.com'}/reports/${analysis.id}`
 
     return (
-        <div id="analysis-content" className="bg-[#080808]">
-            <FadeIn className="max-w-7xl mx-auto p-4 md:p-8 mb-20 relative">
+        <div id="analysis-content" className="bg-[#080808] print:bg-white pt-20 pb-20">
+            <div id="report-capture" className="max-w-7xl mx-auto p-4 md:p-8 relative">
+                <FadeIn>
                 {/* Nav Header */}
                 <div className="flex items-center justify-between mb-12">
                     <div className="flex items-center gap-6">
@@ -405,5 +406,6 @@ export default function AnalysisDetail({ params }: { params: Promise<{ id: strin
                 />
             </FadeIn>
         </div>
+    </div>
     )
 }

@@ -108,10 +108,10 @@ export function InfiniteMarquee({ children, className = "", speed = 40 }: { chil
                 animate={{ x: ["0%", "-50%"] }}
                 transition={{ duration: speed, ease: "linear", repeat: Infinity }}
             >
-                <div className="flex items-center min-w-max shrink-0 pr-12 lg:pr-16 gap-12 lg:gap-16">
+                <div className="flex items-center min-w-max shrink-0 pr-6 lg:pr-8 gap-6 lg:gap-8">
                     {children}
                 </div>
-                <div className="flex items-center min-w-max shrink-0 pr-12 lg:pr-16 gap-12 lg:gap-16">
+                <div className="flex items-center min-w-max shrink-0 pr-6 lg:pr-8 gap-6 lg:gap-8">
                     {children}
                 </div>
             </motion.div>

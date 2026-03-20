@@ -167,6 +167,9 @@ export default function NewAnalysisPage() {
                             <p className="text-[9px] text-slate-600 font-medium leading-relaxed">
                                 {limit - used} remaining this period.
                             </p>
+                            <p className="text-[9px] text-indigo-400/60 font-medium leading-relaxed mt-2">
+                                Max {usage?.plan === 'growth' ? '5,000' : '500'} entries per run.
+                            </p>
                         </div>
                     </div>
 

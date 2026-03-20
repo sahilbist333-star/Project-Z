@@ -4,11 +4,11 @@ import MarketingNav, { HOME_LINKS } from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 
 export const metadata: Metadata = {
-  title: 'AI Copilot for Product Managers',
+  title: 'Zointly | AI Copilot for Product Managers',
   description: 'Zointly is the AI Copilot for Product Managers. Transform user interviews and customer feedback into prioritized product roadmaps with evidence-backed demand scoring.',
 }
 import HomepagePricing from '@/components/pricing/HomepagePricing'
-import { ArrowRight, BarChart3, Bell, CheckCircle2, ChevronRight, Globe, TrendingUp, Zap, Share2, Shield, PlayCircle, Sparkles, HelpCircle, Activity, GitPullRequest } from 'lucide-react'
+import { ArrowRight, BarChart3, Bell, CheckCircle2, ChevronRight, Globe, TrendingUp, Zap, Share2, Shield, PlayCircle, Sparkles, HelpCircle, Activity, GitPullRequest, MessageSquare, FileText, Target, Layout } from 'lucide-react'
 import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, FloatElement, GlowingPerspectiveCard, InfiniteMarquee, MousePerspectiveCard, HeroBackground3D } from '@/components/ui/motion'
 import { FaqAccordion } from '@/components/ui/FaqAccordion'
 
@@ -207,10 +207,11 @@ export default function LandingPage() {
         <section className="py-8 border-y border-white/5 bg-black/20">
           <div className="max-w-7xl mx-auto overflow-hidden">
             <p className="text-center text-[9px] font-bold uppercase tracking-[0.3em] text-slate-500 mb-6">Trusted by innovative product teams</p>
-            <InfiniteMarquee className="opacity-50 grayscale hover:grayscale-0 transition-all duration-500" speed={30}>
-              {/* Dummy Logos acting as placeholders since we can't use real SVGs easily */}
-              {['Acme Corp', 'GlobalNet', 'NovaTech', 'Stark Ind.', 'Omega', 'Vertex', 'Nexus', 'Horizon'].map(logo => (
-                <span key={logo} className="font-display font-bold text-lg text-slate-300 tracking-tight cursor-default">{logo}</span>
+            <InfiniteMarquee className="opacity-30 grayscale hover:grayscale-0 transition-all duration-500" speed={30}>
+              {["Intercom", "Zendesk", "Slack", "HubSpot", "Notion", "Linear", "Amplitude", "Segment"].map((team) => (
+                <span key={team} className="inline-block px-8 font-display font-bold text-base text-slate-400 hover:text-white transition-colors tracking-tight uppercase tracking-[0.1em] cursor-default whitespace-nowrap">
+                  {team}
+                </span>
               ))}
             </InfiniteMarquee>
           </div>
@@ -237,8 +238,8 @@ export default function LandingPage() {
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             {/* Card 1: AI Demand Scoring (Large Wide) */}
-            <StaggerItem className="lg:col-span-2 row-span-2 group relative overflow-hidden p-6 sm:p-8 md:p-12 rounded-[2rem] bg-black/40 border border-white/5 hover:border-indigo-500/30 transition-all">
-              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 group-hover:bg-indigo-500/20 transition-colors"></div>
+            <StaggerItem className="lg:col-span-2 row-span-2 group relative overflow-hidden p-6 sm:p-8 md:p-12 rounded-[2rem] bg-black/40 border border-indigo-500/30 transition-all">
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/20 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 transition-colors"></div>
               <div className="relative z-10 h-full flex flex-col justify-between gap-12">
                 <div>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 bg-indigo-500/10 border border-indigo-500/20 shadow-[0_0_20px_rgba(99,102,241,0.2)]">
@@ -261,7 +262,7 @@ export default function LandingPage() {
                       muted
                       playsInline
                       poster="https://img.youtube.com/vi/T5LHXiTncp0/maxresdefault.jpg"
-                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 scale-[1.02]"
+                      className="w-full h-full object-cover opacity-100 transition-opacity duration-500 scale-[1.02]"
                     >
                       <source src="/waitlist-demo.mp4" type="video/mp4" />
                       {/* Fallback pattern if video fails */}
@@ -270,7 +271,7 @@ export default function LandingPage() {
 
                     {/* Play indicator: Centered and Always Visible but stylized */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
-                      <div className="w-20 h-20 rounded-full bg-indigo-500/20 backdrop-blur-md border border-indigo-400/30 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:bg-indigo-500/30 group-hover:border-indigo-400/50">
+                      <div className="w-20 h-20 rounded-full bg-indigo-500/30 backdrop-blur-md border border-indigo-400/50 flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.3)] transition-all duration-500 scale-110">
                         <PlayCircle className="w-10 h-10 text-white fill-white/10" strokeWidth={1.5} />
                       </div>
                     </div>

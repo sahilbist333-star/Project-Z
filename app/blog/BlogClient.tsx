@@ -6,62 +6,9 @@ import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { FadeIn, StaggerContainer, StaggerItem, HeroBackground3D } from '@/components/ui/motion'
 
-const posts = [
-    {
-        slug: 'demand-score-explained',
-        category: 'Product Intelligence',
-        date: 'Feb 12, 2025',
-        readTime: '6 min read',
-        title: 'How Zointly\'s Demand Score Works Under the Hood',
-        excerpt: 'A transparent look at the weighted algorithm behind the 0–10 demand score — how we combine frequency, urgency, and sentiment to rank product opportunities.',
-        image: 'data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E',
-    },
-    {
-        slug: 'feedback-to-roadmap',
-        category: 'Product Management',
-        date: 'Feb 5, 2025',
-        readTime: '8 min read',
-        title: 'From 500 Support Tickets to a Quarterly Roadmap in 90 Seconds',
-        excerpt: 'A step-by-step guide to using Zointly to process a full quarter of support feedback and turn it into a prioritized, evidence-backed product roadmap.',
-        image: 'data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E',
-    },
-    {
-        slug: 'stakeholder-report-strategy',
-        category: 'Product Strategy',
-        date: 'Jan 28, 2025',
-        readTime: '5 min read',
-        title: 'Why Verbatim Customer Quotes Beat Any Slide Deck',
-        excerpt: 'Product leaders share how replacing summary slides with raw customer feedback in Zointly reports completely changed how engineering and design engaged with prioritization.',
-        image: 'data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E',
-    },
-    {
-        slug: 'insight-alerts-guide',
-        category: 'Feature Guide',
-        date: 'Jan 20, 2025',
-        readTime: '4 min read',
-        title: 'The Complete Guide to Zointly Insight Alerts',
-        excerpt: 'Insight Alerts notify you when demand surges, new signals emerge, or priorities shift. Here\'s how to configure them and what each alert type means for your roadmap.',
-        image: 'data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E',
-    },
-    {
-        slug: 'csv-feedback-guide',
-        category: 'How-to Guide',
-        date: 'Jan 14, 2025',
-        readTime: '3 min read',
-        title: 'How to Format Your CSV for Perfect Zointly Analysis',
-        excerpt: 'A practical guide covering the ideal CSV structure, common formatting mistakes, and how to clean up messy export files from popular tools like Intercom, Zendesk, and Typeform.',
-        image: 'data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E',
-    },
-    {
-        slug: 'sample-data-tour',
-        category: 'Getting Started',
-        date: 'Jan 7, 2025',
-        readTime: '3 min read',
-        title: 'Your First Analysis: A Complete Walkthrough with Sample Data',
-        excerpt: 'New to Zointly? This step-by-step tutorial walks you through running your first analysis using our built-in sample dataset and reading every section of the results.',
-        image: 'data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E',
-    },
-]
+import { posts } from '@/lib/blog-data'
+
+import NewsletterForm from '@/components/ui/NewsletterForm'
 
 export default function BlogPage() {
     const [visiblePosts, setVisiblePosts] = useState(4)
@@ -85,7 +32,7 @@ export default function BlogPage() {
             {/* Featured post */}
             <section className="max-w-6xl mx-auto px-6 md:px-12 mb-16 relative z-10">
                 <FadeIn delay={0.1}>
-                    <div className="rounded-[2rem] md:rounded-[2.5rem] relative overflow-hidden bg-black/40 border border-indigo-500/20 shadow-[0_0_30px_rgba(99,102,241,0.05)] group">
+                    <Link href={`/blog/${posts[0].slug}`} className="block rounded-[2rem] md:rounded-[2.5rem] relative overflow-hidden bg-black/40 border border-indigo-500/20 shadow-[0_0_30px_rgba(99,102,241,0.05)] group hover:border-indigo-500/40 transition-all">
                         <div className="flex flex-col md:flex-row items-stretch">
                             {/* Featured Image */}
                             <div className="w-full md:w-5/12 h-56 md:h-auto bg-black/40 relative overflow-hidden">
@@ -100,13 +47,13 @@ export default function BlogPage() {
                                 <p className="text-slate-400 text-base md:text-lg leading-relaxed mb-6 max-w-xl">{posts[0].excerpt}</p>
                                 <div className="flex items-center justify-between mt-auto">
                                     <p className="text-slate-500 text-sm font-medium">{posts[0].date} · {posts[0].readTime}</p>
-                                    <Link href={`/blog/${posts[0].slug}`} className="inline-flex items-center justify-center p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all hover:scale-110">
+                                    <div className="inline-flex items-center justify-center p-3 rounded-full bg-white/5 border border-white/10 group-hover:bg-white/10 text-white transition-all group-hover:scale-110">
                                         <ArrowRight className="w-5 h-5 -rotate-45" />
-                                    </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 </FadeIn>
             </section>
 
@@ -173,9 +120,7 @@ export default function BlogPage() {
                             </div>
                             <h3 className="font-display text-xl font-bold text-white mb-3">Never miss an insight.</h3>
                             <p className="text-slate-400 text-sm mb-6">Join 2,000+ product managers receiving our weekly newsletter.</p>
-                            <Link href="/sign-up" className="w-full text-center py-3.5 rounded-xl font-bold text-[10px] uppercase tracking-widest bg-white text-black hover:bg-slate-200 transition-colors shadow-xl">
-                                Subscribe Free
-                            </Link>
+                            <NewsletterForm />
                         </div>
                     </div>
                 </div>

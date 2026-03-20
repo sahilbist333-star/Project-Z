@@ -3,10 +3,26 @@ import { ArrowLeft, CalendarDays, Clock, Zap, ArrowRight } from 'lucide-react'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import { ShareButtons } from '@/components/blog/ShareButtons'
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-    // Generate a simple title from the slug
+import { posts } from '@/lib/blog-data'
+
+export default async function BlogPostPage({
+    params,
+}: {
+    params: Promise<{ slug: string }>
+}) {
     const resolvedParams = await params
-    const title = resolvedParams.slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    const currentPost = posts.find(p => p.slug === resolvedParams.slug)
+    const title = currentPost ? currentPost.title : resolvedParams.slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    
+    // Get related posts (exclude current, pick same category first, then fallback)
+    const relatedPosts = posts
+        .filter(p => p.slug !== resolvedParams.slug)
+        .sort((a, b) => {
+            if (currentPost && a.category === currentPost.category && b.category !== currentPost.category) return -1
+            if (currentPost && b.category === currentPost.category && a.category !== currentPost.category) return 1
+            return 0
+        })
+        .slice(0, 2)
     const shareUrl = `https://zointly.com/blog/${resolvedParams.slug}`
 
     return (
@@ -32,7 +48,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {/* Hero Image */}
                 <div className="w-full aspect-[21/9] bg-black/40 border border-white/5 rounded-[2rem] mb-16 overflow-hidden relative group shadow-2xl">
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 group-hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute inset-0 mix-blend-overlay opacity-30" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+                    <div 
+                        className="absolute inset-0 transition-transform duration-700 group-hover:scale-105 bg-center bg-cover" 
+                        style={{ backgroundImage: `url("/blog/${resolvedParams.slug.replace(/(how-zointlys-demand-score-works-under-the-hood|from-500-support-tickets-to-a-quarterly-roadmap-in-90-seconds|why-verbatim-customer-quotes-beat-any-slide-deck|the-complete-guide-to-zointly-insight-alerts|how-to-format-your-csv-for-perfect-zointly-analysis|your-first-analysis-a-complete-walkthrough-with-sample-data)/, (match) => {
+                            if (match.includes('demand-score')) return 'demand-score.png'
+                            if (match.includes('roadmap')) return 'roadmap-automation.png'
+                            if (match.includes('quotes')) return 'verbatim-evidence.png'
+                            if (match.includes('alerts')) return 'insight-alerts.png'
+                            if (match.includes('csv')) return 'csv-formatting.png'
+                            if (match.includes('first-analysis')) return 'first-analysis.png'
+                            return 'demand-score.png'
+                        })}")` }} 
+                    />
                 </div>
 
                 {/* Content */}
@@ -66,10 +93,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         <Link href="/blog" className="text-xs font-bold text-indigo-400 uppercase tracking-widest hover:text-indigo-300">View All →</Link>
                     </div>
                     <div className="grid sm:grid-cols-2 gap-6">
-                        {[
-                            { title: 'How to build a feedback loop that actually works', category: 'Best Practices', date: 'Feb 15, 2025', readTime: '4 min read', slug: 'feedback-loop-guide', image: 'data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E' },
-                            { title: 'The hidden cost of ignoring user complaints', category: 'Industry Insights', date: 'Feb 10, 2025', readTime: '6 min read', slug: 'cost-of-ignoring-users', image: 'data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E' }
-                        ].map((post) => (
+                        {relatedPosts.map((post) => (
                             <Link href={`/blog/${post.slug}`} key={post.slug} className="flex flex-col rounded-[1.5rem] overflow-hidden transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(99,102,241,0.1)] cursor-pointer bg-black/40 border border-white/5 hover:border-indigo-500/20 group">
                                 <div className="w-full aspect-video bg-black/40 relative overflow-hidden border-b border-white/5">
                                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 group-hover:scale-105 transition-transform duration-700" />

@@ -58,45 +58,54 @@ export async function POST(
         await admin.from('opportunity_snapshots').insert(newSnapshots)
 
         // Generate change summary and alerts
-        let changeSummary = null
+        let alerts = []
         if (prevSnapshots && prevSnapshots.length > 0) {
-            const alerts = generateAlerts(newSnapshots as any, prevSnapshots as any)
+            alerts = generateAlerts(newSnapshots as any, prevSnapshots as any)
+        } else {
+            // First analysis: Generate initial insights from top opportunities
+            alerts = opportunities.slice(0, 3).map(o => ({
+                type: 'new_opportunity' as any,
+                message: `🆕 Initial high-demand signal: ${o.title}`
+            }))
+        }
 
-            // Build change summary for analyses table
-            const summaryItems = alerts.map((a) => {
-                let mappedType = 'other'
-                if (a.type === 'new_opportunity') mappedType = 'new'
-                else if (a.type === 'demand_surge' || a.type === 'mentions_spike') mappedType = 'surge'
-                else if (a.type === 'priority_escalation') mappedType = 'escalation'
+        // Build change summary for analyses table
+        const summaryItems = alerts.map((a: any) => {
+            let mappedType = 'other'
+            if (a.type === 'new_opportunity') mappedType = 'new'
+            else if (a.type === 'demand_surge' || a.type === 'mentions_spike') mappedType = 'surge'
+            else if (a.type === 'priority_escalation') mappedType = 'escalation'
 
-                const title = a.type.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+            const title = a.type.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 
-                return {
-                    type: mappedType,
-                    title,
-                    detail: a.message,
-                }
-            })
-            if (summaryItems.length > 0) {
-                changeSummary = { items: summaryItems }
+            return {
+                type: mappedType,
+                title,
+                detail: a.message,
             }
+        })
 
-            // Save alerts and send email
-            const { data: userProfile } = await admin
-                .from('users')
-                .select('email, last_alert_email_at')
-                .eq('id', user_id)
-                .single()
+        let changeSummary = null
+        if (summaryItems.length > 0) {
+            changeSummary = { items: summaryItems }
+        }
 
-            if (userProfile) {
-                await saveAlertsAndNotify(
-                    user_id,
-                    id,
-                    alerts,
-                    userProfile.email,
-                    userProfile.last_alert_email_at
-                )
-            }
+        // Fetch user profile for notification
+        const { data: userProfile } = await admin
+            .from('users')
+            .select('email, last_alert_email_at, plan')
+            .eq('id', user_id)
+            .single()
+
+        if (userProfile) {
+            await saveAlertsAndNotify(
+                user_id,
+                id,
+                alerts,
+                userProfile.email,
+                userProfile.last_alert_email_at,
+                userProfile.plan
+            )
         }
 
         // Mark completed and increment usage

@@ -13,7 +13,7 @@ const faqs = [
     { q: 'Can I switch plans at any time?', a: 'Yes. Upgrade or cancel anytime from your account page. When you upgrade, you are immediately moved to the Growth plan. Downgrading takes effect at the end of your current billing cycle.' },
     { q: 'What happens to my data if I downgrade?', a: 'All your analyses and public reports remain accessible regardless of plan. Only new analysis creation is limited by your plan.' },
     { q: 'Is there a free trial of Growth?', a: 'The Starter plan is essentially a perpetual free tier. You can run 3 full analyses per month for free, indefinitely, to evaluate the product before upgrading.' },
-    { q: 'How does billing work?', a: 'Growth is billed monthly via Razorpay. You will be charged ₹2,999 on the same date each month (or ₹29,999 once a year for annual billing). Enterprise plans are invoiced annually or quarterly.' },
+    { q: 'How does billing work?', a: 'Growth is billed monthly via Razorpay. You will be charged $49 on the same date each month (or $490 once a year for annual billing). Enterprise plans are invoiced annually or quarterly.' },
 ]
 
 export default function PricingPage() {
@@ -41,14 +41,14 @@ export default function PricingPage() {
         },
         {
             name: 'Growth',
-            price: interval === 'monthly' ? '₹2,999' : '₹29,999',
+            price: interval === 'monthly' ? '$49' : '$490',
             period: interval === 'monthly' ? '/month' : '/year',
             description: 'For product teams running regular analyses with higher volume and insight needs.',
             features: ['50 analyses per month', '5,000 feedback entries per analysis', 'Everything in Starter', 'Insight alerts — demand changes', 'Email notifications for new signals', 'Priority processing queue', 'Analysis history & comparison'],
             cta: interval === 'monthly' ? 'Get Growth Monthly' : 'Get Growth Annually',
             href: `/sign-up`, // Typically passing ?plan=growth via state, but sticking to standard flow
             highlight: true,
-            anchorText: interval === 'annual' ? '₹2,499/month billed annually. Save ₹6,000.' : null,
+            anchorText: interval === 'annual' ? '$40/month billed annually. Save $98.' : null,
         },
         {
             name: 'Enterprise',
@@ -103,7 +103,7 @@ export default function PricingPage() {
                     >
                         Yearly
                         <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.25)', color: '#4ade80' }}>
-                            Save ₹6,000
+                            Save $98
                         </span>
                     </button>
                 </div>

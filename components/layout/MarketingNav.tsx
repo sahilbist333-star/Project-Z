@@ -25,6 +25,7 @@ const SHARED_LINKS: NavLink[] = [
     { label: 'FAQ', href: '/faq' },
     { label: 'About', href: '/about' },
     { label: 'Blog', href: '/blog' },
+    { label: 'Contact', href: '/contact' },
 ]
 
 export { SHARED_LINKS as HOME_LINKS, SHARED_LINKS as DEFAULT_LINKS }
@@ -101,7 +102,7 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
     }
 
     return (
-        <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+        <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none" suppressHydrationWarning>
             {/* Scroll Gradient Background */}
             <div
                 className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#080808] to-transparent pointer-events-none transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
@@ -109,11 +110,11 @@ export default function MarketingNav({ links = SHARED_LINKS }: Props) {
 
             {/* Announcement bar - Full width, 0 margins, no rounded corners */}
             {isMounted && isAnnouncementVisible && (
-                <div className="bg-[#FACC15] pointer-events-auto relative z-20 flex items-center justify-center">
-                    <p className="text-center text-[9px] sm:text-[10px] py-2 sm:py-2.5 font-bold text-black tracking-widest uppercase px-8 flex-1 leading-snug">
+                <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 pointer-events-auto relative z-20 flex items-center justify-center border-b border-white/10">
+                    <p className="text-center text-[9px] sm:text-[10px] py-2 sm:py-2.5 font-bold text-white tracking-widest uppercase px-8 flex-1 leading-snug">
                         🆕 <span className="hidden sm:inline">Generate shareable evidence reports for stakeholders in one click.</span>
                         <span className="sm:hidden">Share evidence reports in one click.</span>{' '}
-                        <a href="/#public-reports" className="underline ml-1 whitespace-nowrap">See how →</a>
+                        <a href="/#public-reports" className="underline underline-offset-4 ml-1 whitespace-nowrap hover:text-indigo-200 transition-colors">See how →</a>
                     </p>
                     <button
                         onClick={handleClose}

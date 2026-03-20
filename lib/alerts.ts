@@ -70,22 +70,28 @@ export async function saveAlertsAndNotify(
     analysisId: string,
     alerts: AlertTrigger[],
     userEmail: string,
-    lastAlertEmailAt: string | null
+    lastAlertEmailAt: string | null,
+    plan: 'free' | 'growth' = 'free'
 ): Promise<void> {
-    if (alerts.length === 0) return
-
+    const isGrowth = plan === 'growth'
+    
     const admin = createAdminClient()
 
-    // Save alerts to DB
-    await admin.from('insight_alerts').insert(
-        alerts.map((a) => ({
-            user_id: userId,
-            analysis_id: analysisId,
-            alert_type: a.type,
-            message: a.message,
-            seen: false,
-        }))
-    )
+    // Save alerts to DB if any exist
+    if (alerts.length > 0) {
+        await admin.from('insight_alerts').insert(
+            alerts.map((a) => ({
+                user_id: userId,
+                analysis_id: analysisId,
+                alert_type: a.type,
+                message: a.message,
+                seen: false,
+            }))
+        )
+    }
+
+    // If no alerts AND it's not a Growth plan user, skip email
+    if (alerts.length === 0 && !isGrowth) return
 
     // Email guard: only send if no email in last 60 minutes
     const shouldEmail = !lastAlertEmailAt ||
@@ -94,24 +100,29 @@ export async function saveAlertsAndNotify(
     if (!shouldEmail) return
 
     const topAlerts = alerts.slice(0, 3)
-    const alertsHtml = topAlerts
-        .map((a) => `<li style="margin-bottom:8px">${a.message}</li>`)
-        .join('')
+    const hasAlerts = topAlerts.length > 0
+    const alertsHtml = hasAlerts
+        ? topAlerts.map((a) => `<li style="margin-bottom:8px">${a.message}</li>`).join('')
+        : `<li style="margin-bottom:8px">Successfully mapped your latest feedback nodes into prioritized opportunities.</li>`
 
     try {
         await resend.emails.send({
             from: 'Zointly <alerts@zointly.com>',
             to: userEmail,
-            subject: 'New product signal detected in your customer feedback',
+            subject: hasAlerts ? 'New product signal detected' : 'Your analysis report is ready',
             html: `
         <div style="font-family:Inter,sans-serif;max-width:600px;margin:0 auto;padding:32px">
           <div style="margin-bottom:24px">
             <span style="font-weight:700;font-size:18px;color:#6366f1">ZOINTLY</span>
           </div>
           <h2 style="font-size:22px;font-weight:700;color:#111;margin-bottom:12px">
-            New signals in your feedback
+            ${hasAlerts ? 'New signals in your feedback' : 'Analysis Completed'}
           </h2>
-          <p style="color:#666;margin-bottom:20px">Your latest analysis revealed changes worth reviewing:</p>
+          <p style="color:#666;margin-bottom:20px">
+            ${hasAlerts 
+              ? 'Your latest analysis revealed changes worth reviewing:' 
+              : 'Your feedback dataset has been successfully analyzed. Review your updated roadmap below:'}
+          </p>
           <ul style="padding-left:20px;color:#333">
             ${alertsHtml}
           </ul>

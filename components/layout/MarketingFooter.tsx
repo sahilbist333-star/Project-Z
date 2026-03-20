@@ -25,7 +25,7 @@ export default function MarketingFooter() {
                             <a href="https://instagram.com/zointly" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-indigo-400 transition-colors">
                                 <Instagram className="w-4 h-4" />
                             </a>
-                            <a href="https://youtube.com/@zointly" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-indigo-400 transition-colors">
+                            <a href="https://www.youtube.com/@Zointly" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-indigo-400 transition-colors">
                                 <Youtube className="w-4 h-4" />
                             </a>
                         </div>

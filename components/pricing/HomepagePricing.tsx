@@ -41,7 +41,7 @@ export default function HomepagePricing() {
                         >
                             Yearly
                             <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.1)', color: '#4ade80' }}>
-                                Save ₹6,000
+                                Save $98
                             </span>
                         </button>
                     </div>
@@ -78,14 +78,14 @@ export default function HomepagePricing() {
                         <div className="flex flex-col items-start mb-1 min-h-[4rem]">
                             <div className="flex items-baseline gap-1">
                                 <span className="font-display text-3xl font-bold text-white">
-                                    {interval === 'monthly' ? '₹2,999' : '₹29,999'}
+                                    {interval === 'monthly' ? '$49' : '$490'}
                                 </span>
                                 <span className="text-slate-500 text-xs">
                                     {interval === 'monthly' ? '/month' : '/year'}
                                 </span>
                             </div>
                             {interval === 'annual' && (
-                                <p className="text-indigo-400 text-xs mt-1 font-medium">₹2,499/month billed annually. Save ₹6,000.</p>
+                                <p className="text-indigo-400 text-xs mt-1 font-medium">$40/month billed annually. Save $98.</p>
                             )}
                         </div>
 

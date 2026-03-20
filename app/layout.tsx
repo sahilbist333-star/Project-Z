@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import CustomCursor from '@/components/ui/CustomCursor'
+import FeedbackButton from '@/components/ui/FeedbackButton'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="overflow-x-hidden">
         {children}
+        <FeedbackButton />
         <CustomCursor />
       </body>
     </html>

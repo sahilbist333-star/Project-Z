@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@/lib/types'
-import { LayoutDashboard, Plus, Settings, LogOut, Zap, AlertTriangle, BarChart3 } from 'lucide-react'
+import { LayoutDashboard, Plus, Settings, LogOut, Zap, AlertTriangle, BarChart3, CheckCircle2 } from 'lucide-react'
 import { PLAN_LIMITS } from '@/lib/types'
 import UpgradeModal from '@/components/ui/UpgradeModal'
 import Logo from '@/components/ui/Logo'
@@ -113,14 +113,35 @@ export default function SidebarLayout({ profile, unreadAlertCount = 0, avatarUrl
                         {isDanger && (
                             <p className="text-[9px] text-red-400 font-bold">Limit reached</p>
                         )}
-                        {!isGrowth && (
-                            <button
-                                onClick={() => setShowUpgrade(true)}
-                                className="flex items-center gap-1.5 w-full px-2.5 py-1.5 rounded text-[9px] font-bold uppercase tracking-wider transition-all hover:scale-[1.02]"
-                                style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.15)', color: '#818cf8' }}>
-                                <Zap className="w-3 h-3" />
-                                Upgrade to Growth
-                            </button>
+                        {!isGrowth ? (
+                            <div className="pt-2 space-y-2">
+                                <button
+                                    onClick={() => setShowUpgrade(true)}
+                                    className="flex items-center gap-1.5 w-full px-2.5 py-1.5 rounded text-[9px] font-bold uppercase tracking-wider transition-all hover:scale-[1.02]"
+                                    style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.15)', color: '#818cf8' }}>
+                                    <Zap className="w-3 h-3" />
+                                    Upgrade to Growth
+                                </button>
+                                <div className="px-1.5 space-y-1.5">
+                                    <p className="text-[8px] font-bold text-slate-600 uppercase tracking-widest">Growth Perks</p>
+                                    {[
+                                        '50 analyses / mo',
+                                        '5,000 entries / run',
+                                        'Sub-cohort insights',
+                                        'Public CSV exports'
+                                    ].map(perk => (
+                                        <div key={perk} className="flex items-center gap-2 text-[8px] text-slate-500 font-medium">
+                                            <div className="w-0.5 h-0.5 rounded-full bg-slate-700" />
+                                            {perk}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-2 px-2 py-1 rounded-md bg-green-500/5 border border-green-500/10">
+                                <CheckCircle2 className="w-3 h-3 text-green-400" />
+                                <span className="text-[8px] font-bold text-green-400 uppercase tracking-widest">Active Growth Plan</span>
+                            </div>
                         )}
                     </div>
                 </div>
