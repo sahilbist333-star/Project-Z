@@ -183,7 +183,7 @@ export default function AdminClient() {
         return (
             <div className="h-[80vh] flex flex-col items-center justify-center gap-4">
                 <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">Gathering intelligence...</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">Loading real-time data...</p>
             </div>
         )
     }
@@ -195,7 +195,7 @@ export default function AdminClient() {
                     <Shield className="w-8 h-8 text-red-500" />
                 </div>
                 <h1 className="text-xl font-black text-white uppercase tracking-tight">{error}</h1>
-                <p className="text-slate-500 text-sm max-w-xs">This area is highly restricted. Return to your dashboard.</p>
+                <p className="text-slate-500 text-sm max-w-xs">Restricted Access. Unauthorized entry detected.</p>
             </div>
         )
     }
@@ -226,7 +226,7 @@ export default function AdminClient() {
                             <Shield className="w-5 h-5 text-indigo-400" />
                         </div>
                         <h1 className="font-display text-4xl font-black text-white tracking-tight uppercase">
-                            Admin Center
+                            Admin Dashboard
                         </h1>
                     </div>
                 </div>
@@ -236,11 +236,11 @@ export default function AdminClient() {
                         className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black text-slate-400 hover:text-white transition-all uppercase tracking-widest"
                     >
                         <RotateCcw className="w-3.5 h-3.5" />
-                        Reset All Filters
+                        Reset Filters
                     </button>
                     <div className="px-5 py-2 rounded-full bg-green-500/5 border border-green-500/10 flex items-center gap-2">
                         <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                        <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest">Global Status: Active</span>
+                        <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest">System Operational</span>
                     </div>
                 </div>
             </div>
@@ -272,7 +272,7 @@ export default function AdminClient() {
                         <Search className="w-4 h-4 text-slate-500" />
                         <input 
                             type="text"
-                            placeholder={`Search records by email or content...`}
+                            placeholder={`Search records...`}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="bg-transparent border-none focus:ring-0 text-[11px] font-bold text-white placeholder-slate-600 w-full uppercase tracking-wider"
@@ -286,7 +286,7 @@ export default function AdminClient() {
                                 onChange={(e) => setUserPlanFilter(e.target.value)}
                                 className="bg-black/20 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer w-full md:w-auto"
                             >
-                                <option value="all">Plan: All</option>
+                                <option value="all">Plan: All Tiers</option>
                                 <option value="free">Free</option>
                                 <option value="growth">Growth</option>
                             </select>
@@ -319,7 +319,7 @@ export default function AdminClient() {
                                 onChange={(e) => setAnalysisDateFilter(e.target.value)}
                                 className="bg-black/20 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer w-full md:w-auto"
                             >
-                                <option value="all">Time: All Time</option>
+                                <option value="all">Date: All Time</option>
                                 <option value="today">Today</option>
                                 <option value="7d">Last 7 Days</option>
                                 <option value="30d">Last 30 Days</option>
@@ -335,8 +335,8 @@ export default function AdminClient() {
                                 className="bg-black/20 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer w-full md:w-auto"
                             >
                                 <option value="all">Plan: All Tiers</option>
-                                <option value="free">Free Pipeline</option>
-                                <option value="growth">Growth Paid</option>
+                                <option value="free">Free</option>
+                                <option value="growth">Growth</option>
                             </select>
                             <select 
                                 value={subscriptionStatusFilter}
@@ -344,8 +344,8 @@ export default function AdminClient() {
                                 className="bg-black/20 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer w-full md:w-auto"
                             >
                                 <option value="all">Status: All</option>
-                                <option value="active">Active Subs</option>
-                                <option value="inactive">Churned/Free</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
                             </select>
                         </>
                     )}
@@ -356,10 +356,10 @@ export default function AdminClient() {
                             onChange={(e) => setFeedbackTypeFilter(e.target.value)}
                             className="bg-black/20 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer w-full md:w-auto"
                         >
-                            <option value="all">Type: All Messages</option>
-                            <option value="bug">Bug Reports</option>
-                            <option value="feature">Feature Requests</option>
-                            <option value="general">General Signals</option>
+                            <option value="all">Type: All Feedback</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="general">General</option>
                         </select>
                     )}
 
@@ -369,7 +369,7 @@ export default function AdminClient() {
                             onChange={(e) => setNewsletterDateFilter(e.target.value)}
                             className="bg-black/20 border border-white/5 rounded-xl px-4 py-2.5 text-[10px] font-black text-slate-400 uppercase tracking-widest focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer w-full md:w-auto"
                         >
-                            <option value="all">Time: All Time</option>
+                            <option value="all">Date: All Time</option>
                             <option value="today">Today</option>
                             <option value="7d">Last 7 Days</option>
                             <option value="30d">Last 30 Days</option>
@@ -385,10 +385,10 @@ export default function AdminClient() {
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                             {[
                                 { label: 'Total Users', value: stats.totalUsers, icon: Users, color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
-                                { label: 'Growth Subs', value: stats.activeSubscriptions, icon: Zap, color: 'text-purple-400', bg: 'bg-purple-500/10' },
-                                { label: 'Analyses', value: stats.totalAnalyses, icon: BarChart3, color: 'text-blue-400', bg: 'bg-blue-500/10' },
-                                { label: 'Feedback', value: stats.totalFeedback, icon: MessageSquare, color: 'text-green-400', bg: 'bg-green-500/10' },
-                                { label: 'Email List', value: stats.totalSubscribers, icon: Mail, color: 'text-orange-400', bg: 'bg-orange-500/10' }
+                                { label: 'Active Subs', value: stats.activeSubscriptions, icon: Zap, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+                                { label: 'Total Analyses', value: stats.totalAnalyses, icon: BarChart3, color: 'text-blue-400', bg: 'bg-blue-500/10' },
+                                { label: 'User Feedback', value: stats.totalFeedback, icon: MessageSquare, color: 'text-green-400', bg: 'bg-green-500/10' },
+                                { label: 'Newsletter', value: stats.totalSubscribers, icon: Mail, color: 'text-orange-400', bg: 'bg-orange-500/10' }
                             ].map((stat) => (
                                 <div key={stat.label} className="p-6 rounded-[2rem] bg-white/2 border border-white/5 group hover:border-white/10 transition-all cursor-default">
                                     <div className={`w-10 h-10 rounded-2xl ${stat.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
@@ -404,7 +404,7 @@ export default function AdminClient() {
                             <div className="space-y-6">
                                 <h2 className="text-lg font-bold text-white uppercase tracking-tight flex items-center gap-2">
                                     <Clock className="w-5 h-5 text-indigo-400" />
-                                    Latest Signal Activity
+                                    Recent Activity
                                 </h2>
                                 <div className="space-y-3">
                                     {data.analyses.slice(0, 5).map((a: any) => (
@@ -416,7 +416,7 @@ export default function AdminClient() {
                                                     <BarChart3 className="w-4 h-4 text-slate-500" />
                                                 </div>
                                                 <div className="min-w-0">
-                                                    <p className="text-[11px] font-bold text-white truncate">{a.title || 'Untitled'}</p>
+                                                    <p className="text-[11px] font-bold text-white truncate">{a.title || 'Untitled Analysis'}</p>
                                                     <p className="text-[9px] text-slate-600 font-bold uppercase">{a.users?.email}</p>
                                                 </div>
                                             </div>
@@ -430,7 +430,7 @@ export default function AdminClient() {
                             <div className="space-y-6">
                                 <h2 className="text-lg font-bold text-white uppercase tracking-tight flex items-center gap-2">
                                     <UserCheck className="w-5 h-5 text-green-400" />
-                                    Recent Deployments
+                                    Recent Registrations
                                 </h2>
                                 <div className="space-y-3">
                                     {data.users.slice(0, 5).map((u: any) => (
@@ -464,39 +464,39 @@ export default function AdminClient() {
                                         {activeTab === 'users' ? (
                                             <>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Status</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Email Coordinates</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Account Email</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Plan Tier</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Joined Date</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Registration Date</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Action</th>
                                             </>
                                         ) : activeTab === 'analyses' ? (
                                             <>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Status</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Signal Title</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Source User</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Vector Size</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Captured</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Analysis Title</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">User</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Data Points</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Created</th>
                                             </>
                                         ) : activeTab === 'subscriptions' ? (
                                             <>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Tier</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Account</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Protocol ID</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Plan</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Email</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Subscription ID</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Interval</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Health</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Status</th>
                                             </>
                                         ) : activeTab === 'feedback' ? (
                                             <>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Category</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Reporter</th>
                                                 <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Message Content</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Intercepted</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Received</th>
                                             </>
                                         ) : (
                                             <>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Registry Date</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Email Intercept</th>
-                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Ingress</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Signup Date</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Email</th>
+                                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Source</th>
                                             </>
                                         )}
                                     </tr>
@@ -513,7 +513,7 @@ export default function AdminClient() {
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         <p className="text-[11px] font-bold text-white uppercase tracking-tight">{item.email}</p>
-                                                        <p className="text-[9px] text-slate-600 font-black uppercase tracking-widest mt-0.5">{item.full_name || 'Anonymous'}</p>
+                                                        <p className="text-[9px] text-slate-600 font-black uppercase tracking-widest mt-0.5">{item.full_name || 'No Name Provided'}</p>
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md ${item.plan === 'growth' ? 'bg-indigo-500/10 text-indigo-400' : 'bg-white/5 text-slate-500'}`}>
@@ -540,13 +540,13 @@ export default function AdminClient() {
                                                         </span>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <p className="text-[11px] font-bold text-white truncate max-w-[200px] uppercase tracking-tight">{item.title || 'Untitled Signal'}</p>
+                                                        <p className="text-[11px] font-bold text-white truncate max-w-[200px] uppercase tracking-tight">{item.title || 'Untitled Analysis'}</p>
                                                     </td>
                                                     <td className="px-6 py-4">
                                                         <p className="text-[10px] font-bold text-slate-500 truncate max-w-[150px] uppercase tracking-wider">{item.users?.email}</p>
                                                     </td>
                                                     <td className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                                        {item.total_entries || 0} Entries
+                                                        {item.total_entries || 0} Points
                                                     </td>
                                                     <td className="px-6 py-4 text-right text-[10px] font-black text-slate-600 uppercase tracking-widest">
                                                         {format(parseISO(item.created_at), 'MM/dd HH:mm')}
@@ -563,10 +563,10 @@ export default function AdminClient() {
                                                         <p className="text-[11px] font-bold text-white uppercase tracking-tight">{item.email}</p>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <p className="text-[9px] text-slate-600 font-mono uppercase tracking-widest">{item.subscription_id || 'LOCAL-ALPHA-01'}</p>
+                                                        <p className="text-[9px] text-slate-600 font-mono uppercase tracking-widest">{item.subscription_id || 'N/A'}</p>
                                                     </td>
                                                     <td className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                                                        {item.billing_interval || 'ON-DEMAND'}
+                                                        {item.billing_interval || 'Standard'}
                                                     </td>
                                                     <td className="px-6 py-4 text-right">
                                                         <div className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full inline-block ${
@@ -602,7 +602,7 @@ export default function AdminClient() {
                                                         <p className="text-sm font-bold text-white uppercase tracking-tight">{item.email}</p>
                                                     </td>
                                                     <td className="px-6 py-4 text-right">
-                                                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-700">Intercept_Alpha</span>
+                                                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-700">Platform Form</span>
                                                     </td>
                                                 </>
                                             )}
@@ -613,8 +613,8 @@ export default function AdminClient() {
                             {paginatedData.items.length === 0 && (
                                 <div className="py-24 text-center">
                                     <AlertCircle className="w-12 h-12 text-slate-800 mx-auto mb-4" />
-                                    <h3 className="text-xl font-black text-white uppercase tracking-tight mb-2">Zero Result Captured</h3>
-                                    <p className="text-xs text-slate-600 font-bold uppercase tracking-[0.2em]">Adjust coordinates or reset search</p>
+                                    <h3 className="text-xl font-black text-white uppercase tracking-tight mb-2">No Records Found</h3>
+                                    <p className="text-xs text-slate-600 font-bold uppercase tracking-[0.2em]">Adjust filters or clear search query</p>
                                 </div>
                             )}
                         </div>
@@ -622,7 +622,7 @@ export default function AdminClient() {
                         {/* Pagination Footer */}
                         <div className="flex items-center justify-between px-2 mt-8">
                             <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em]">
-                                DISPLAYING {paginatedData.items.length} / {paginatedData.total} SIGNALS
+                                Showing {paginatedData.items.length} / {paginatedData.total} Records
                             </p>
                             {paginatedData.totalPages > 1 && (
                                 <div className="flex items-center gap-2">
@@ -684,8 +684,8 @@ export default function AdminClient() {
                                          <MessageSquare className="w-6 h-6 text-green-400" />}
                                     </div>
                                     <div>
-                                        <h2 className="text-xl font-black text-white uppercase tracking-tight">Intercept Intelligence</h2>
-                                        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Protocol Type: {modalType?.toUpperCase()}</p>
+                                        <h2 className="text-xl font-black text-white uppercase tracking-tight">Record Details</h2>
+                                        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Category: {modalType?.toUpperCase()}</p>
                                     </div>
                                 </div>
                                 <button 
@@ -700,11 +700,11 @@ export default function AdminClient() {
                                     <div className="space-y-8">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div className="p-6 rounded-3xl bg-white/2 border border-white/5 backdrop-blur-sm group hover:border-indigo-500/30 transition-all">
-                                                <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-2">Alpha coordinates</p>
+                                                <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-2">User Email</p>
                                                 <p className="text-white font-black text-sm uppercase tracking-tight">{selectedItem.email}</p>
                                             </div>
                                             <div className="p-6 rounded-3xl bg-white/2 border border-white/5 backdrop-blur-sm group hover:border-purple-500/30 transition-all">
-                                                <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-2">Service Status</p>
+                                                <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-2">Subscription Info</p>
                                                 <p className="font-black uppercase tracking-widest text-sm flex items-center gap-2">
                                                     <span className={selectedItem.plan === 'growth' ? 'text-purple-400' : 'text-slate-500 opacity-60'}>{selectedItem.plan}</span>
                                                     <span className="w-1 h-1 rounded-full bg-slate-700" />
@@ -713,13 +713,13 @@ export default function AdminClient() {
                                             </div>
                                         </div>
                                         <div className="space-y-4">
-                                            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-2">Core Registry Metadata</h3>
+                                            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest px-2">Account Metadata</h3>
                                             <div className="divide-y divide-white/2 border border-white/5 rounded-[2.5rem] bg-black/40 overflow-hidden">
                                                 {[
-                                                    { label: 'Network ID', value: selectedItem.id, mono: true },
-                                                    { label: 'Genesis Timestamp', value: format(parseISO(selectedItem.created_at), 'MMMM d, yyyy HH:mm') },
-                                                    { label: 'Signal Vector Count', value: selectedItem.total_analyses || 0 },
-                                                    { label: 'Last Intercept', value: format(parseISO(selectedItem.last_sign_in_at || selectedItem.created_at), 'MMM d, HH:mm') }
+                                                    { label: 'Internal ID', value: selectedItem.id, mono: true },
+                                                    { label: 'Created At', value: format(parseISO(selectedItem.created_at), 'MMMM d, yyyy HH:mm') },
+                                                    { label: 'Total Analyses', value: selectedItem.total_analyses || 0 },
+                                                    { label: 'Last Active', value: format(parseISO(selectedItem.last_sign_in_at || selectedItem.created_at), 'MMM d, HH:mm') }
                                                 ].map((row) => (
                                                     <div key={row.label} className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-2 hover:bg-white/[0.02] transition-colors">
                                                         <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest">{row.label}</span>
@@ -735,31 +735,31 @@ export default function AdminClient() {
                                     <div className="space-y-8">
                                         <div className="p-10 rounded-[3rem] bg-indigo-500/5 border border-indigo-500/10 text-center relative overflow-hidden group">
                                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                            <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] mb-4 relative z-10">Signal Identifier</h3>
+                                            <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] mb-4 relative z-10">Analysis Title</h3>
                                             <p className="text-3xl font-black text-white tracking-tighter mb-3 relative z-10 uppercase">
-                                                {selectedItem.title || 'NULL_SIGNAL'}
+                                                {selectedItem.title || 'No Title'}
                                             </p>
                                             <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] relative z-10 opacity-60">{selectedItem.users?.email}</p>
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="p-6 rounded-3xl bg-white/2 border border-white/5 flex items-center justify-between group hover:border-green-500/30 transition-all">
                                                 <div>
-                                                    <p className="text-[9px] font-black text-slate-600 uppercase mb-2 tracking-widest">Operation Status</p>
+                                                    <p className="text-[9px] font-black text-slate-600 uppercase mb-2 tracking-widest">Processing Status</p>
                                                     <p className="text-xs font-black text-white uppercase tracking-[0.2em]">{selectedItem.status}</p>
                                                 </div>
                                                 <TrendingUp className={`w-5 h-5 ${selectedItem.status === 'completed' ? 'text-green-500 shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'text-yellow-500'}`} />
                                             </div>
                                             <div className="p-6 rounded-3xl bg-white/2 border border-white/5 flex items-center justify-between group hover:border-indigo-500/30 transition-all">
                                                 <div>
-                                                    <p className="text-[9px] font-black text-slate-600 uppercase mb-2 tracking-widest">Complexity Index</p>
-                                                    <p className="text-xs font-black text-white uppercase tracking-[0.2em]">{selectedItem.total_entries} Data-Points</p>
+                                                    <p className="text-[9px] font-black text-slate-600 uppercase mb-2 tracking-widest">Data Volume</p>
+                                                    <p className="text-xs font-black text-white uppercase tracking-[0.2em]">{selectedItem.total_entries} Entries</p>
                                                 </div>
                                                 <BarChart3 className="w-5 h-5 text-indigo-400" />
                                             </div>
                                         </div>
                                         <div className="flex justify-center pt-4">
                                             <a href={`/analysis/${selectedItem.id}`} target="_blank" className="flex items-center gap-3 px-10 py-4 rounded-full bg-indigo-500 text-white text-[11px] font-black uppercase tracking-[0.3em] shadow-2xl shadow-indigo-500/40 hover:scale-105 active:scale-95 transition-all w-full md:w-auto justify-center">
-                                                Decipher Result <ArrowRight className="w-4 h-4" />
+                                                View Analysis <ArrowRight className="w-4 h-4" />
                                             </a>
                                         </div>
                                     </div>
@@ -769,10 +769,10 @@ export default function AdminClient() {
                                     <div className="space-y-8">
                                         <div className="flex items-center justify-between px-2">
                                             <span className="px-5 py-2 rounded-xl bg-green-500/10 text-green-400 text-[10px] font-black uppercase tracking-widest border border-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.1)]">
-                                                {selectedItem.feedback_type} INTERCEPT
+                                                {selectedItem.feedback_type} Feedback
                                             </span>
                                             <span className="text-[10px] text-slate-600 font-black uppercase tracking-widest opacity-60">
-                                                RECORDED {format(parseISO(selectedItem.created_at), 'MMM d, HH:mm')}
+                                                Recorded {format(parseISO(selectedItem.created_at), 'MMM d, HH:mm')}
                                             </span>
                                         </div>
                                         <div className="p-10 rounded-[3.5rem] bg-white/2 border border-white/5 relative group overflow-hidden">
@@ -784,11 +784,11 @@ export default function AdminClient() {
                                         </div>
                                         <div className="p-6 rounded-[2rem] bg-black/40 border border-white/5 flex items-center gap-5 hover:border-indigo-500/20 transition-all">
                                             <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center font-black text-indigo-400 border border-indigo-500/20 text-lg">
-                                                {selectedItem.user_email?.[0].toUpperCase() || 'A'}
+                                                {selectedItem.user_email?.[0].toUpperCase() || 'U'}
                                             </div>
                                             <div>
-                                                <p className="text-[13px] font-black text-white leading-none uppercase tracking-tight">{selectedItem.user_email || 'SECURE_ANONYMOUS'}</p>
-                                                <p className="text-[9px] text-slate-500 font-black uppercase tracking-[0.2em] mt-2 opacity-60 italic">Signal Transmission Source</p>
+                                                <p className="text-[13px] font-black text-white leading-none uppercase tracking-tight">{selectedItem.user_email || 'Anonymous'}</p>
+                                                <p className="text-[9px] text-slate-500 font-black uppercase tracking-[0.2em] mt-2 opacity-60 italic">Report Origin</p>
                                             </div>
                                         </div>
                                     </div>
@@ -799,7 +799,7 @@ export default function AdminClient() {
                                 <button 
                                     onClick={() => setSelectedItem(null)}
                                     className="px-10 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10 text-[10px] font-black text-slate-400 hover:text-white uppercase tracking-[0.3em] transition-all border border-white/5">
-                                    Release Intercept
+                                    Close Details
                                 </button>
                             </div>
                         </motion.div>
