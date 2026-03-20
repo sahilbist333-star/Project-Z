@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+import Logo from '@/components/ui/Logo'
 import { ArrowRight, Mail } from 'lucide-react'
 import { FadeIn, HeroBackground3D } from '@/components/ui/motion'
 
@@ -28,12 +29,7 @@ export default function ForgotPasswordPage() {
         <div className="min-h-screen flex" style={{ background: '#080808' }}>
             <div className="flex-1 flex flex-col min-h-screen">
                 <header className="flex items-center justify-between px-10 py-7">
-                    <Link href="/" className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded flex items-center justify-center" style={{ background: '#6366f1' }}>
-                            <span className="text-white text-xs font-bold">Z</span>
-                        </div>
-                        <span className="font-display text-[10px] font-bold tracking-[0.25em] text-white uppercase">Zointly</span>
-                    </Link>
+                    <Logo size="sm" />
                     <p className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.2em] hidden md:block">Feedback Decision System</p>
                 </header>
 
