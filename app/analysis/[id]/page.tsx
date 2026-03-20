@@ -82,14 +82,17 @@ export default function AnalysisDetail({ params }: { params: Promise<{ id: strin
 
     if (loading) {
         return (
-            <div className="h-[80vh] flex flex-col items-center justify-center gap-8">
-                <div className="relative">
-                    <Loader2 className="w-16 h-16 text-indigo-500 animate-spin" />
-                    <div className="absolute inset-0 bg-indigo-500/20 blur-3xl rounded-full" />
-                </div>
-                <div className="text-center">
-                    <p className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.4em] mb-2">Synchronizing Intelligence</p>
-                    <p className="text-slate-500 text-xs font-medium animate-pulse">Large datasets may take up to 30 seconds...</p>
+            <div className="h-[80vh] flex flex-col items-center justify-center gap-10">
+                <Logo link={false} size="lg" />
+                <div className="flex flex-col items-center gap-4">
+                    <div className="relative">
+                        <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
+                        <div className="absolute inset-0 bg-indigo-500/20 blur-2xl rounded-full" />
+                    </div>
+                    <div className="text-center">
+                        <p className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.4em] mb-2">Syncing your Copilot...</p>
+                        <p className="text-slate-500 text-[10px] font-medium animate-pulse uppercase tracking-widest">Identifying high-demand features</p>
+                    </div>
                 </div>
             </div>
         )
@@ -129,7 +132,7 @@ export default function AnalysisDetail({ params }: { params: Promise<{ id: strin
                 <div className="w-full max-w-sm space-y-12">
                     <div className="text-center">
                         <Loader2 className="w-10 h-10 text-indigo-500 animate-spin mx-auto mb-6" />
-                        <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2 font-display not-italic">Generating Insight</h2>
+                        <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-2 font-display not-italic">Copilot is Analyzing</h2>
                         <p className="text-slate-500 text-xs font-medium uppercase tracking-widest">Building your opportunity roadmap</p>
                     </div>
                     <div className="space-y-4">
@@ -236,8 +239,8 @@ export default function AnalysisDetail({ params }: { params: Promise<{ id: strin
                                 <Sparkles className="w-5 h-5 text-indigo-400" />
                             </div>
                             <div>
-                                <h2 className="text-xl font-black text-white uppercase tracking-tight">Intelligence Overview</h2>
-                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Key strategic updates since last analysis</p>
+                                <h2 className="text-xl font-black text-white uppercase tracking-tight">Copilot Insights</h2>
+                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Key strategic signals from your data</p>
                             </div>
                         </div>
 

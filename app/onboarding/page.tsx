@@ -8,6 +8,7 @@ import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion'
 import { Check, Globe, Users, Brain, Building2, Newspaper, Mail, Mic, Instagram, Facebook, Youtube, Linkedin, Twitter, MessageSquare, HelpCircle, Monitor, Star, Crown, ArrowLeft, ChevronDown, Database, Upload, Zap, ChevronRight, CheckCircle2 } from 'lucide-react'
 import { SAMPLE_FEEDBACK } from '@/lib/sample-data'
 import Script from 'next/script'
+import Logo from '@/components/ui/Logo'
 
 type Step = 'personalize' | 'persona' | 'discovery' | 'pricing' | 'welcome'
 
@@ -154,6 +155,12 @@ export default function OnboardingPage() {
         <div className="min-h-screen flex items-center justify-center relative overflow-hidden p-6 text-white"
             style={{ background: '#0a0a0b' }}>
             <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+            
+            {/* Logo Header */}
+            <div className="fixed top-0 left-0 w-full p-8 z-50 pointer-events-none">
+                <Logo size="sm" link={false} className="pointer-events-auto" />
+            </div>
+
             {/* Glow background */}
             <div className="fixed inset-0 pointer-events-none">
                 <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[140px] opacity-20"

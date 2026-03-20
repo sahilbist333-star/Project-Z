@@ -62,7 +62,7 @@ export default function SignUpPage() {
                 {/* Header */}
                 <header className="flex items-center justify-between px-6 sm:px-10 py-6 sm:py-7">
                     <Logo size="sm" />
-                    <p className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.2em] hidden md:block">Feedback Decision System</p>
+                    <p className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.2em] hidden md:block">The AI Copilot for Product Managers</p>
                 </header>
 
                 {/* Form */}
@@ -71,7 +71,7 @@ export default function SignUpPage() {
                         <div className="mb-10">
                             <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-3">Get Started Free</p>
                             <h1 className="font-display text-2xl font-bold text-white tracking-tight mb-2">Create Your Account</h1>
-                            <p className="text-slate-500 text-sm">Start analyzing customer feedback in minutes.</p>
+                            <p className="text-slate-500 text-sm">The AI Copilot that tells you exactly what to build next.</p>
                         </div>
 
                         {/* Google */}

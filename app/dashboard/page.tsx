@@ -9,6 +9,7 @@ import MonthlyInsightCard from '@/components/dashboard/MonthlyInsightCard'
 import GrowthInsights from '@/components/dashboard/GrowthInsights'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/motion'
 import { createClient } from '@/lib/supabase/client'
+import Logo from '@/components/ui/Logo'
 
 export default function DashboardPage() {
     const searchParams = useSearchParams()
@@ -69,9 +70,12 @@ export default function DashboardPage() {
 
     if (loading) {
         return (
-            <div className="h-[80vh] flex flex-col items-center justify-center gap-4">
-                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">Igniting workspace...</p>
+            <div className="h-[80vh] flex flex-col items-center justify-center gap-6">
+                <Logo link={false} size="lg" />
+                <div className="flex flex-col items-center gap-2">
+                    <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">Igniting workspace...</p>
+                </div>
             </div>
         )
     }
