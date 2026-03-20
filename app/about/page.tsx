@@ -98,8 +98,8 @@ export default function AboutPage() {
                     <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.3em] mb-4 text-center">The Team</p>
                     <h2 className="font-display text-3xl font-bold text-white text-center mb-14">The Builders</h2>
                     <StaggerContainer className="grid md:grid-cols-3 gap-6">
-                        {team.map(({ name, role, bio }) => (
-                            <StaggerItem key={name} className="p-7 rounded-[1.5rem] text-center bg-black/40 border border-white/5 hover:-translate-y-2 transition-transform">
+                        {team.map(({ name, role, bio }, i) => (
+                            <StaggerItem key={`${name}-${i}`} className="p-7 rounded-[1.5rem] text-center bg-black/40 border border-white/5 hover:-translate-y-2 transition-transform">
                                 <div className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4"
                                     style={{ background: '#6366f1' }}>{name[0]}</div>
                                 <p className="font-display text-base font-bold text-white">{name}</p>
